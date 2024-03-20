@@ -6,8 +6,8 @@ public class Pedone extends Pezzo{
     private boolean primaMossa = true;
 
     //metodo costruttore classe Pedone: crea una nuova istanza di Pedone
-    public Pedone(String nome, String codice, int valore, boolean colore, int x, int y){
-        super(nome, codice, valore, colore, x, y);
+    public Pedone(String nome, String codice, int valore, boolean colore, int riga, int colonna){
+        super(nome, codice, valore, colore, riga, colonna);
     }
 
     @Override
