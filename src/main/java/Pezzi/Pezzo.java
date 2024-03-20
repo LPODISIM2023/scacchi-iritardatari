@@ -7,15 +7,15 @@ public abstract class Pezzo {
     private String nome, codice;
     private final int valore;
     private boolean colore;
-    private int x, y;
+    private int riga, colonna;
     //metodo costruttore: crea una nuova istanza Pezzo quando viene invocato
-    public Pezzo(String nome, String codice, int valore, boolean colore, int x, int y){
+    public Pezzo(String nome, String codice, int valore, boolean colore, int riga, int colonna){
         this.nome = nome;
         this.codice = codice;
         this.valore= valore;
         this.colore = colore;
-        this.x = x;
-        this.y = y;
+        this.riga = riga;
+        this.colonna = colonna;
     }
 
     //metodo set e get dell'attributo nome
@@ -30,19 +30,19 @@ public abstract class Pezzo {
     /*motodo setPosizione(): utile per settere la posizione dei pezzi.
      Importante per modificare la posizione del pezzo dopo una mossa.
      */
-    public void setPosizione(int newX, int newY){
-        this.x = newX;
-        this.y = newY;
+    public void setPosizione(int newRiga, int newColonna){
+        this.riga = newRiga;
+        this.colonna = newColonna;
     }
-    public int getX(){return x;}
-    public int getY(){return y;}
+    public int getRiga(){return riga;}
+    public int getColonna(){return colonna;}
     //metodo getColore():
 
     //metodo printColore()
     public String printColore(){return (colore?codice+'b' : codice+'n');}
 
-    //metodo toString(): stampa le informazioni principali del pezzo (nome, colore, posizione). Ad esempio: Pedone bianco posX: A posY: 4
-    public String toString(){return nome + " " + (colore?"bianco":"nero") + " " + "posX: " + x + " posY: " + y;}
+    //metodo toString(): stampa le informazioni principali del pezzo (nome, colore, posizione). Ad esempio: Pedone bianco posRiga: A posColonna: 4
+    public String toString(){return nome + " " + (colore?"bianco":"nero") + " " + "posRiga: " + riga + " posColonna: " + colonna;}
 
     public abstract List<Mossa> getMosse();
 
