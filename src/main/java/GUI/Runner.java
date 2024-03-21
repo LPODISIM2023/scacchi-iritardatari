@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.util.Objects;
@@ -21,20 +22,18 @@ public class Runner extends Application {
     public Button play = new Button();
 
     @Override
-    public void start(Stage primaryStage) {
-        try{
-          //  System.out.println(getClass().getResource("start.fxml"));
-          //  System.out.println(getClass().getResource("logoApp.png"));
-            Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("start.fxml"))));
+    public void start(Stage stage) {
+        try {
+            //System.out.println(Objects.requireNonNull(getClass().getResource("/start.fxml")));
+            //  System.out.println(getClass().getResource("logoApp.png"));
+            Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/start.fxml"))));
             Scene scene = new Scene(root);
-            Image icon = new Image(Objects.requireNonNull(getClass().getResource("logoApp.png")).toExternalForm());
-            primaryStage.getIcons().add(icon);
-            primaryStage.setScene(scene);
-            primaryStage.show();
-        }catch(Exception e){
-
+            Image icon = new Image(Objects.requireNonNull(getClass().getResource("/logoApp.png")).toExternalForm());
+            stage.getIcons().add(icon);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
             e.printStackTrace();
-
         }
     }
 
