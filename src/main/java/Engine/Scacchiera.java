@@ -58,4 +58,9 @@ public class Scacchiera {
         return pezzo;
     }
 
+    //DEBUG
+    public void printScacchiera(){
+        System.out.println("");
+    }
+
 }//class Scacchiera
