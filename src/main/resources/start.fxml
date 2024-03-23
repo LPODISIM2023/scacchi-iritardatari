@@ -3,11 +3,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Runner">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.StartController">
 
     <Label fx:id="ciao" layoutX="286.0" layoutY="183.0" text="Ciao" />
-    <Button fx:id="play" layoutX="281.0" layoutY="230.0" mnemonicParsing="false" text="Play" />
+    <Button fx:id="play" layoutX="281.0" layoutY="230.0" mnemonicParsing="false" onAction="#vediScacchiera" text="Play" />
    <TextField fx:id="plaOne" layoutX="99.0" layoutY="80.0" />
-   <TextField fx:id= "plaTwo" layoutX="366.0" layoutY="80.0" />
+   <TextField fx:id="plaTwo" layoutX="366.0" layoutY="80.0" />
 
 </AnchorPane>
