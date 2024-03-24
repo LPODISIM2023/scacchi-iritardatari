@@ -1,5 +1,6 @@
 package GUI;
 
+import Engine.Scacchiera;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -75,18 +76,16 @@ public class StartController {
 
     public void vediScacchiera(ActionEvent event) throws IOException{
 
-        FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/scacchiera.fxml")));
-        root = loader.load();
-
-        ScacchieraController scacchieraController = loader.getController();
-        scacchieraController.initGame(plaOne, plaTwo, disabilita);
-
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/chessboard.fxml")));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-
-    }
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/cheesboard.fxml")));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+            if(plaOne.getText().equals(null) && plaTwo.getText().equals(null)){
+                    return;
+            }else{
+                ScacchieraController.initGame(plaOne,plaTwo,disabilita);
+            }
+        }
 
 }

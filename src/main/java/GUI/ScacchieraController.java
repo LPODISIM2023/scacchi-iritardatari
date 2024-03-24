@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class ScacchieraController {
 
-    public void initGame(TextField playerOne, TextField playerTwo, CheckBox checkBox) throws IOException {
+    public static void initGame(TextField playerOne, TextField playerTwo, CheckBox checkBox) throws IOException {
 
         String player1 = playerOne.getText();
         String player2 = playerTwo.getText();
