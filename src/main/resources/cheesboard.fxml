@@ -1,21 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ScacchieraController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ScacchieraController">
 
 
         <Pane layoutY="-6.0" pickOnBounds="false" prefHeight="736.0" prefWidth="974.0">
@@ -59,7 +49,7 @@
                     </rowConstraints>
                     <Pane prefHeight="59.0" prefWidth="47.0">
                         <ImageView>
-                            <Image url="/Chess_rdt60.png" />
+                            <Image url="@Chess_rdt60.png" />
                         </ImageView>
                     </Pane>
                     <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: GREY;" GridPane.columnIndex="1">
@@ -295,17 +285,17 @@
                         <Font size="40.0" />
                     </font>
                 </Label>
-                <Label layoutX="22.0" layoutY="94.0" prefHeight="32.0" prefWidth="230.0" text="pl1" textAlignment="CENTER">
+                <Label fx:id="labelNomePlayer1" layoutX="22.0" layoutY="94.0" prefHeight="32.0" prefWidth="230.0" text="pl1" textAlignment="CENTER">
                     <font>
                         <Font size="15.0" />
                     </font>
                 </Label>
-                <Label layoutX="22.0" layoutY="126.0" prefHeight="32.0" prefWidth="230.0" text="pl2">
+                <Label fx:id="labelNomePlayer2" layoutX="22.0" layoutY="126.0" prefHeight="32.0" prefWidth="230.0" text="pl2">
                     <font>
                         <Font size="15.0" />
                     </font>
                 </Label>
-                <Button layoutX="780.0" layoutY="626.0" mnemonicParsing="false" text="Login Page" />
+                <Button fx:id="comeBack" layoutX="780.0" layoutY="626.0" mnemonicParsing="false" onAction="#getStart" text="Login Page" />
                 <Button layoutX="780.0" layoutY="658.0" mnemonicParsing="false" text="Undo" />
                 <Label layoutX="22.0" layoutY="158.0" prefHeight="32.0" prefWidth="230.0" textAlignment="CENTER">
                     <font>

@@ -1,5 +1,6 @@
 package GUI;
 
+import Eccezioni.EmptyTextField;
 import Engine.Scacchiera;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,81 +12,109 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import javax.swing.plaf.ColorUIResource;
 import java.io.IOException;
 import java.util.Objects;
 
 public class StartController {
 
-    @FXML
-    private Label ciao = new Label();
 
     @FXML
     private Button play = new Button();
 
     @FXML
-    private TextField plaOne;
-    @FXML
-    private TextField plaTwo;
-
-    @FXML
-    private CheckBox disabilita;
-
-    @FXML
-    Parent root;
-
-    @FXML
-    Stage stage;
-
-    @FXML
-    Scene scene;
-
-    public Label getCiao() {
-        return ciao;
-    }
-
-    public void setCiao(Label ciao) {
-        this.ciao = ciao;
-    }
+    public TextField nomePlayer1;
 
     public Button getPlay() {
         return play;
     }
 
-    public void setPlay(Button play) {
-        this.play = play;
+    public TextField getNomePlayer1() {
+        return nomePlayer1;
     }
 
-    public TextField getPlaOne() {
-        return plaOne;
+    public TextField getNomePlayer2() {
+        return nomePlayer2;
     }
 
-    public void setPlaOne(TextField plaOne) {
-        this.plaOne = plaOne;
+    public CheckBox getDisabilita() {
+        return disabilita;
     }
 
-    public TextField getPlaTwo() {
-        return plaTwo;
+    public Parent getRoot() {
+        return root;
     }
 
-    public void setPlaTwo(TextField plaTwo) {
-        this.plaTwo = plaTwo;
+    public Stage getStage() {
+        return stage;
     }
 
+    public Scene getScene() {
+        return scene;
+    }
 
-    public void vediScacchiera(ActionEvent event) throws IOException{
+    public Label getEccezione() {
+        return eccezione;
+    }
 
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/cheesboard.fxml")));
+    @FXML
+    public TextField nomePlayer2;
+
+    @FXML
+    private CheckBox disabilita;
+
+    @FXML
+    private Parent root;
+
+    @FXML
+    private Stage stage;
+
+    @FXML
+    private Scene scene;
+    
+    @FXML
+    public Label eccezione;
+
+
+
+    @FXML
+    public void switchChessboard(ActionEvent event) throws IOException, EmptyTextField {
+
+        if (nomePlayer1.getText().trim().isEmpty() && nomePlayer2.getText().trim().isEmpty()) {
+            eccezione.setFont(new Font("Arial", 24));
+            eccezione.setTextFill(Color.RED);
+            eccezione.setText("Non hai inserito i nomi, inseriscili.");
+            throw new EmptyTextField("Non hai inserito i nomi");
+
+
+        } else {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/cheesboard.fxml"));
+            root = loader.load();
+            ScacchieraController sc = loader.getController();
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-            if(plaOne.getText().equals(null) && plaTwo.getText().equals(null)){
-                    return;
-            }else{
-                ScacchieraController.initGame(plaOne,plaTwo,disabilita);
-            }
+
+            String nome1 = nomePlayer1.getText();
+            String nome2 = nomePlayer2.getText();
+
+            sc.initGame(nome1, nome2, disabilita);
         }
+    }
+
+
+    public void disablePlayer2(ActionEvent event){
+
+       nomePlayer2.setDisable(((CheckBox) (event.getSource())).isSelected());
+
+
+
+    }
 
 }
