@@ -8,10 +8,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -79,15 +77,24 @@ public class StartController {
     @FXML
     public Label eccezione;
 
+    @FXML
+    AnchorPane anchorPane;
 
 
+    /**
+     * Setta tutti i parametri per giocare e switcha alla scacchiera
+     * @param event listener per il bottone
+     * @throws IOException
+     * @throws EmptyTextField handler che gestisce i TextField lasciati in bianco
+     */
     @FXML
     public void switchChessboard(ActionEvent event) throws IOException, EmptyTextField {
 
-        if (nomePlayer1.getText().trim().isEmpty() && nomePlayer2.getText().trim().isEmpty()) {
+
+        if ((nomePlayer1.getText().trim().isEmpty() || nomePlayer2.getText().trim().isEmpty()) && !disabilita.isSelected()) {
             eccezione.setFont(new Font("Arial", 24));
             eccezione.setTextFill(Color.RED);
-            eccezione.setText("Non hai inserito i nomi, inseriscili.");
+            eccezione.setText("Non hai inserito i nomi.");
             throw new EmptyTextField("Non hai inserito i nomi");
 
 
@@ -104,11 +111,24 @@ public class StartController {
             String nome1 = nomePlayer1.getText();
             String nome2 = nomePlayer2.getText();
 
+//            if(nome2.equalsIgnoreCase("Juri")){
+//                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//                alert.setTitle("HAI VINTO");
+//                alert.setContentText("Juri hai vinto, GRAZIE PER AVER GIOCATO");
+//                alert.showAndWait();
+//                System.exit(0);
+
+//            }
+
             sc.initGame(nome1, nome2, disabilita);
         }
     }
 
 
+    /**
+     * Disabilita il TextFile per il giocatore2
+     * @param event listner per il CheckBox
+     */
     public void disablePlayer2(ActionEvent event){
 
        nomePlayer2.setDisable(((CheckBox) (event.getSource())).isSelected());
