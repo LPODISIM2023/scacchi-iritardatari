@@ -41,7 +41,6 @@ public class ScacchieraController {
     @FXML
     public void initGame(String playerOne, String playerTwo, CheckBox checkBox) throws IOException {
 
-
         labelNomePlayer1.setText("Player 1: " + playerOne);
         if (checkBox.isSelected()) {
             labelNomePlayer2.setText("Player 2: BOT");

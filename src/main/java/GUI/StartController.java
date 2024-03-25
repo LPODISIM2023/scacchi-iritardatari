@@ -90,12 +90,12 @@ public class StartController {
     @FXML
     public void switchChessboard(ActionEvent event) throws IOException, EmptyTextField {
 
-
+    try {
         if ((nomePlayer1.getText().trim().isEmpty() || nomePlayer2.getText().trim().isEmpty()) && !disabilita.isSelected()) {
             eccezione.setFont(new Font("Arial", 24));
             eccezione.setTextFill(Color.RED);
             eccezione.setText("Non hai inserito i nomi.");
-            throw new EmptyTextField("Non hai inserito i nomi");
+            throw new EmptyTextField();
 
 
         } else {
@@ -121,6 +121,9 @@ public class StartController {
 //            }
 
             sc.initGame(nome1, nome2, disabilita);
+        }
+    }catch(EmptyTextField e){
+        System.out.println("Non hai inserito i nomi");
         }
     }
 
