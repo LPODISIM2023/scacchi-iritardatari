@@ -1,8 +1,11 @@
 package Pezzi;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import java.awt.*;
 import java.util.List;
 import java.util.Map;
-public abstract class Pezzo {
+public abstract class Pezzo extends ImageView {
 
     private String nome, codice;
     private final int valore;
@@ -45,5 +48,9 @@ public abstract class Pezzo {
     public String toString(){return nome + " " + (colore?"bianco":"nero") + " " + "posRiga: " + riga + " posColonna: " + colonna;}
 
     public abstract List<Mossa> getMosse();
+
+    public void setImage(){
+        this.setImage(new Image("/Pezzi/" + (this.colore ? "Bianco" : "Nero") + "/" + this.nome + ".png"));
+    }
 
 }

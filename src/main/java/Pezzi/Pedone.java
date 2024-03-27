@@ -8,6 +8,7 @@ public class Pedone extends Pezzo{
     //metodo costruttore classe Pedone: crea una nuova istanza di Pedone
     public Pedone(String nome, String codice, int valore, boolean colore, int riga, int colonna){
         super(nome, codice, valore, colore, riga, colonna);
+        setImage();
     }
 
     @Override
