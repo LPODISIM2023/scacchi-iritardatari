@@ -18,7 +18,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="artefatto" />
-        <module name="chess" />
       </profile>
     </annotationProcessing>
   </component>
