@@ -65,11 +65,16 @@ public class ScacchieraService {
         if (pezzoDaMuovere instanceof Pedone) ((Pedone) pezzoDaMuovere).setPrimaMossa(false);
         scacchieraTable.remove(pezzoDaMuovere.getRiga(), pezzoDaMuovere.getColonna());
         pezzoDaMuovere.setPosizione(riga, colonna);
-        scacchieraTable.put(colonna, riga, pezzoDaMuovere);
+        scacchieraTable.put(riga, colonna, pezzoDaMuovere);
     }
 
 
     //DEBUG
+
+    /**
+     * Metodo Usato per il Debug della scacchiera Service per capire le effettive posizioni dei pezzi
+     * stampa la scacchiera su terminale
+     */
     public void printScacchiera(){
         int v = 0;
         char[] let = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};

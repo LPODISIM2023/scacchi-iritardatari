@@ -101,7 +101,11 @@ public class ScacchieraController {
 
     private static void renderScacchiera(GridPane chessBoard, ScacchieraService scacchiera) {
         scacchieraLog = scacchiera;
-        // scacchieraLog.printScacchiera();
+
+        //Pulisco la scacchiera precedente in caso di aggiornamento
+        chessBoard.getChildren().clear();
+        caselle.clear();
+
         for (int riga = 8; riga >= 1; riga--) {
             for (int colonna = 1; colonna <= 8; colonna++) {
                 CasellaScacchiera casella = new CasellaScacchiera(riga, colonna);
@@ -112,8 +116,6 @@ public class ScacchieraController {
 
                 //Aggiunta alla griglia principale
                 chessBoard.add(casella, colonna, 8 - riga, 1, 1);
-
-                System.out.println("Riga:" + riga + " Colonna:" + colonna);
 
                 //Cambio Colore Casella
                 if ((riga + colonna) % 2 == 0) {
@@ -141,7 +143,6 @@ public class ScacchieraController {
         }
     }
 
-
     /**
      * Metodo che killa l'applicazione e termina l'esecuzione (nei pulsanti del menù)
      *
@@ -163,10 +164,11 @@ public class ScacchieraController {
     }
 
     //TEST
+    int posizioneRiga = 2;
     public void testMossa(ActionEvent actionEvent) {
-        scacchieraLog.aggiornaPosizionePezzo(scacchieraLog.getPezzo(2,4),2,4 );
-        System.out.println("Riga:asd");
+        scacchieraLog.aggiornaPosizionePezzo(scacchieraLog.getPezzo(posizioneRiga, 5), posizioneRiga+1, 5);
+        posizioneRiga = posizioneRiga + 1;
+        renderScacchiera(gridPaneX, scacchieraLog);
         scacchieraLog.printScacchiera();
-        aggiungiPezzi();
     }
 }

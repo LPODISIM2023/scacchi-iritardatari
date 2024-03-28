@@ -26,7 +26,7 @@ public class Runner extends Application {
             //  System.out.println(getClass().getResource("logoApp.png"));
             Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/start.fxml"))));
             Scene scene = new Scene(root);
-            Image icon = new Image(Objects.requireNonNull(getClass().getResource("/start.fxml")).toExternalForm());
+            Image icon = new Image(Objects.requireNonNull(getClass().getResource("/logoApp.png")).toExternalForm());
             stage.getIcons().add(icon);
             stage.setScene(scene);
             stage.show();

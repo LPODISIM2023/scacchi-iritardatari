@@ -85,7 +85,7 @@
                     </font>
                 </Label>
                 <Button fx:id="comeBack" layoutX="780.0" layoutY="626.0" mnemonicParsing="false" onAction="#getStart" text="Login Page" />
-            <Button fx:id="testMossaBtn" layoutX="780.0" layoutY="690.0" mnemonicParsing="false" onAction="#testMossa" text="TestaMossa" />
+            <Button fx:id="testMossaBtn" layoutX="780.0" layoutY="690.0" mnemonicParsing="false" onAction="#testMossa" text="Test Mossa" />
                 <Button layoutX="780.0" layoutY="658.0" mnemonicParsing="false" text="Undo" />
                 <Label layoutX="22.0" layoutY="158.0" prefHeight="32.0" prefWidth="230.0" textAlignment="CENTER">
                     <font>
