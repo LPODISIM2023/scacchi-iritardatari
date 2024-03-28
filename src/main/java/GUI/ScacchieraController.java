@@ -21,6 +21,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -142,6 +143,17 @@ public class ScacchieraController {
             }
         }
     }
+
+    /**
+     * Metodo mappato con il pulsante "UNDO" sulla scacchiera.
+     * Il metodo ritorna allo stato mossa precendente a quello appena giocato.
+     * @param event listener del pulsante.
+     */
+    @FXML
+    public void undo(ActionEvent event){
+        //@TODO: implements
+    }
+
 
     /**
      * Metodo che killa l'applicazione e termina l'esecuzione (nei pulsanti del menù)
