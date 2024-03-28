@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.ScacchieraController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ScacchieraController">
 
 
         <Pane layoutY="-6.0" pickOnBounds="false" prefHeight="736.0" prefWidth="974.0">
@@ -26,7 +25,7 @@
                         <SeparatorMenuItem mnemonicParsing="false" />
                     </Menu>
                 </MenuBar>
-                <GridPane gridLinesVisible="true" layoutX="440.0" layoutY="34.0" fx:id="gridPaneX">
+                <GridPane fx:id="gridPaneX" gridLinesVisible="true" layoutX="440.0" layoutY="34.0">
 
                 </GridPane>
                 <Label blendMode="MULTIPLY" layoutX="440.0" layoutY="514.0" prefHeight="60.0" prefWidth="480.0" text=" A   B   C   D   E   F   G   H" textAlignment="CENTER" wrapText="true">
@@ -85,8 +84,12 @@
                     </font>
                 </Label>
                 <Button fx:id="comeBack" layoutX="780.0" layoutY="626.0" mnemonicParsing="false" onAction="#getStart" text="Login Page" />
+<<<<<<< Updated upstream
             <Button fx:id="testMossaBtn" layoutX="780.0" layoutY="690.0" mnemonicParsing="false" onAction="#testMossa" text="Test Mossa" />
                 <Button layoutX="780.0" layoutY="658.0" mnemonicParsing="false" text="Undo" />
+=======
+                <Button fx:id="undoBtn" layoutX="780.0" layoutY="658.0" mnemonicParsing="false" onAction="#undo" text="Undo" />
+>>>>>>> Stashed changes
                 <Label layoutX="22.0" layoutY="158.0" prefHeight="32.0" prefWidth="230.0" textAlignment="CENTER">
                     <font>
                         <Font size="15.0" />

@@ -128,7 +128,7 @@ public class StartController {
 
 
     /**
-     * Disabilita il TextFile per il giocatore2
+     * Disabilita il TextFild per il giocatore2
      * @param event listner per il CheckBox
      */
     public void disablePlayer2(ActionEvent event){
