@@ -1,12 +1,14 @@
-package Engine;
+package Engine.Servizi;
 
+import Pezzi.Pedone;
 import Pezzi.Pezzo;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
 import java.util.List;
+import java.util.Map;
 
-public class Scacchiera {
+public class ScacchieraService {
 
     private final int numRighe=8;
     private final int numColonne=8;
@@ -19,7 +21,7 @@ public class Scacchiera {
      * @param pezziG1
      * @param pezziG2
      */
-    public Scacchiera(List<Pezzo> pezziG1, List<Pezzo> pezziG2){
+    public ScacchieraService(List<Pezzo> pezziG1, List<Pezzo> pezziG2){
 
         //Creazione della tabella
         scacchieraTable = HashBasedTable.create(numRighe, numColonne);
@@ -58,9 +60,36 @@ public class Scacchiera {
         return pezzo;
     }
 
+
+    public void aggiornaPosizionePezzo(Pezzo pezzoDaMuovere, int riga, int colonna) {
+        if (pezzoDaMuovere instanceof Pedone) ((Pedone) pezzoDaMuovere).setPrimaMossa(false);
+        scacchieraTable.remove(pezzoDaMuovere.getRiga(), pezzoDaMuovere.getColonna());
+        pezzoDaMuovere.setPosizione(riga, colonna);
+        scacchieraTable.put(colonna, riga, pezzoDaMuovere);
+    }
+
+
     //DEBUG
     public void printScacchiera(){
-        System.out.println("");
+        int v = 0;
+        char[] let = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
+        System.out.print("   ");
+        for (int i = 0; i < let.length; i++) {
+            System.out.print(" " + let[i] + " ");
+        }
+        System.out.println();
+        for (int i = 8; i >= 1; i--) {
+            Map<Integer, Pezzo> riga = scacchieraTable.row(i); //recupero un rigo della tabella
+            System.out.printf(" %-1s ", i);
+            for (int j = 1; j <= 8; j++) { //scorro il rigo e recupero gli elementi
+                Pezzo x = riga.get(j);
+                if (x == null)
+                    System.out.printf("|--"); //stampa pezzo
+                else
+                    System.out.printf("|%-2s", x.getCodice()); //stampa pezzo
+            }
+            System.out.println();
+        }
     }
 
 }//class Scacchiera

@@ -1,7 +1,6 @@
 package GUI;
 
 import Eccezioni.EmptyTextField;
-import Engine.Scacchiera;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,9 +13,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import javax.swing.plaf.ColorUIResource;
 import java.io.IOException;
-import java.util.Objects;
+
 
 public class StartController {
 
@@ -73,7 +71,7 @@ public class StartController {
 
     @FXML
     private Scene scene;
-    
+
     @FXML
     public Label eccezione;
 
@@ -97,7 +95,6 @@ public class StartController {
             eccezione.setText("Non hai inserito i nomi.");
             throw new EmptyTextField();
 
-
         } else {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/cheesboard.fxml"));
@@ -111,6 +108,8 @@ public class StartController {
             String nome1 = nomePlayer1.getText();
             String nome2 = nomePlayer2.getText();
 
+         //   startPartita(nome1,nome2,disabilita.isSelected());
+
 //            if(nome2.equalsIgnoreCase("Juri")){
 //                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 //                alert.setTitle("HAI VINTO");
@@ -120,7 +119,7 @@ public class StartController {
 
 //            }
 
-            sc.initGame(nome1, nome2, disabilita);
+            sc.initGame(nome1, nome2, disabilita.isSelected());
         }
     }catch(EmptyTextField e){
         System.out.println("Non hai inserito i nomi");

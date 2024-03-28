@@ -50,27 +50,27 @@ public abstract class Giocatore {
 
         else {
             // Pezzo Pedone Nero
-            pezziGiocatore.add(new Pedone("Pedone", "n_p1", 1, true, 7, 1 ));
-            pezziGiocatore.add(new Pedone("Pedone", "n_p2", 1, true, 7, 2 ));
-            pezziGiocatore.add(new Pedone("Pedone", "n_p3", 1, true, 7, 3 ));
-            pezziGiocatore.add(new Pedone("Pedone", "n_p4", 1, true, 7, 4 ));
-            pezziGiocatore.add(new Pedone("Pedone", "n_p5", 1, true, 7, 5 ));
-            pezziGiocatore.add(new Pedone("Pedone", "n_p6", 1, true, 7, 6 ));
-            pezziGiocatore.add(new Pedone("Pedone", "n_p7", 1, true, 7, 7 ));
-            pezziGiocatore.add(new Pedone("Pedone", "n_p8", 1, true, 7, 8 ));
+            pezziGiocatore.add(new Pedone("Pedone", "n_p1", 1, false, 7, 1 ));
+            pezziGiocatore.add(new Pedone("Pedone", "n_p2", 1, false, 7, 2 ));
+            pezziGiocatore.add(new Pedone("Pedone", "n_p3", 1, false, 7, 3 ));
+            pezziGiocatore.add(new Pedone("Pedone", "n_p4", 1, false, 7, 4 ));
+            pezziGiocatore.add(new Pedone("Pedone", "n_p5", 1, false, 7, 5 ));
+            pezziGiocatore.add(new Pedone("Pedone", "n_p6", 1, false, 7, 6 ));
+            pezziGiocatore.add(new Pedone("Pedone", "n_p7", 1, false, 7, 7 ));
+            pezziGiocatore.add(new Pedone("Pedone", "n_p8", 1, false, 7, 8 ));
             //Pezzo Torre Nero
-            pezziGiocatore.add(new Torre("Torre", "n_t1", 5, true, 8, 1 ));
-            pezziGiocatore.add(new Torre("Torre", "n_t2", 5, true, 8, 8 ));
+            pezziGiocatore.add(new Torre("Torre", "n_t1", 5, false, 8, 1 ));
+            pezziGiocatore.add(new Torre("Torre", "n_t2", 5, false, 8, 8 ));
             //Pezzo Cavallo Nero
-            pezziGiocatore.add(new Cavallo("Cavallo", "n_c1", 3, true, 8, 2 ));
-            pezziGiocatore.add(new Cavallo("Cavallo", "n_c2", 3, true, 8, 7 ));
+            pezziGiocatore.add(new Cavallo("Cavallo", "n_c1", 3, false, 8, 2 ));
+            pezziGiocatore.add(new Cavallo("Cavallo", "n_c2", 3, false, 8, 7 ));
             //Pezzo Alfiere Nero
-            pezziGiocatore.add(new Alfiere("Alfiere", "n_a1", 3, true, 8, 3 ));
-            pezziGiocatore.add(new Alfiere("Alfiere", "n_a2", 3, true, 8, 6 ));
+            pezziGiocatore.add(new Alfiere("Alfiere", "n_a1", 3, false, 8, 3 ));
+            pezziGiocatore.add(new Alfiere("Alfiere", "n_a2", 3, false, 8, 6 ));
             //Pezzo Regina Nero
-            pezziGiocatore.add(new Regina("Regina", "n_q1", 3, true, 8, 4 ));
+            pezziGiocatore.add(new Regina("Regina", "n_q1", 3, false, 8, 4 ));
             //Pezzo Re Nero
-            pezziGiocatore.add(new Re("Re", "n_k1", 3, true, 8, 5 ));
+            pezziGiocatore.add(new Re("Re", "n_k1", 3, false, 8, 5 ));
         }
 
     }
