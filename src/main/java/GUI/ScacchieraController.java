@@ -16,6 +16,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -147,10 +149,11 @@ public class ScacchieraController {
     /**
      * Metodo mappato con il pulsante "UNDO" sulla scacchiera.
      * Il metodo ritorna allo stato mossa precendente a quello appena giocato.
+     *
      * @param event listener del pulsante.
      */
     @FXML
-    public void undo(ActionEvent event){
+    public void undo(ActionEvent event) {
         //@TODO: implements
     }
 
@@ -177,10 +180,38 @@ public class ScacchieraController {
 
     //TEST
     int posizioneRiga = 2;
+
     public void testMossa(ActionEvent actionEvent) {
-        scacchieraLog.aggiornaPosizionePezzo(scacchieraLog.getPezzo(posizioneRiga, 5), posizioneRiga+1, 5);
+        scacchieraLog.aggiornaPosizionePezzo(scacchieraLog.getPezzo(posizioneRiga, 5), posizioneRiga + 1, 5);
         posizioneRiga = posizioneRiga + 1;
         renderScacchiera(gridPaneX, scacchieraLog);
         scacchieraLog.printScacchiera();
     }
+
+
+    public static void selezionaPosizioniDisponibili(ArrayList<CasellaScacchiera> caselleDisponibili) {
+        for (CasellaScacchiera casella : caselle) {
+            for (CasellaScacchiera casellaDisponibile : caselleDisponibili) {
+                if (casella.getRiga() == casellaDisponibile.getRiga() && casella.getColonna() == casellaDisponibile.getColonna() && casella.getChildren().isEmpty()) {
+                    ImageView selectImage = new ImageView("/evidenzaCasella.png");
+                    selectImage.setId("selettoreCasella");
+                    selectImage.setFitWidth(60);
+                    selectImage.setFitHeight(60);
+                    casella.getChildren().add(selectImage);
+                }
+            }
+        }
+    }
+
+    public static void toglieSelezione() {
+        for (CasellaScacchiera casella : caselle) {
+            casella.getChildren().clear();
+            if ((casella.getRiga() + casella.getColonna()) % 2 == 0) {
+                casella.setBackground(new Background(new BackgroundFill(Color.web("#b1e4b9"), CornerRadii.EMPTY, Insets.EMPTY)));
+            } else {
+                casella.setBackground(new Background(new BackgroundFill(Color.web("#70a2a3"), CornerRadii.EMPTY, Insets.EMPTY)));
+            }
+        }
+    }
+
 }
