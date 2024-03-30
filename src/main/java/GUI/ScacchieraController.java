@@ -44,15 +44,19 @@ public class ScacchieraController {
     private Parent root;
 
     @FXML
-    private GridPane gridPaneX;
+    private GridPane gridPaneX = new GridPane();
 
 
     @FXML
     private Button testMossaBtn;
 
-    private static ScacchieraService scacchieraLog;
+    private static boolean isSelectCasella = false;
+    private static boolean colorePezzoSelezionato = true; //false=nero true=bianco
+
+    private static ScacchieraService scacchieraService;
 
     public static ArrayList<CasellaScacchiera> caselle = new ArrayList<>();
+
 
     /**
      * Setta le label in chessboard con i nomi dei giocatori, in più verifica lo stato del checkBox (true o false)
@@ -75,10 +79,10 @@ public class ScacchieraController {
         }
 
         //Creazione Scacchiera Service
-        ScacchieraService scacchiera = new ScacchieraService(g1.getPezziGiocatore(), g2.getPezziGiocatore());
+        scacchieraService = new ScacchieraService(g1.getPezziGiocatore(), g2.getPezziGiocatore());
 
         //Render Scacchiera
-        renderScacchiera(gridPaneX, scacchiera);
+        renderScacchiera();
 
         //Render Nomi
         labelNomePlayer1.setText("Player 1: " + g1.getNome());
@@ -102,23 +106,23 @@ public class ScacchieraController {
     }
 
 
-    private static void renderScacchiera(GridPane chessBoard, ScacchieraService scacchiera) {
-        scacchieraLog = scacchiera;
+    public void renderScacchiera() {
 
         //Pulisco la scacchiera precedente in caso di aggiornamento
-        chessBoard.getChildren().clear();
+        gridPaneX.getChildren().clear();
         caselle.clear();
+
 
         for (int riga = 8; riga >= 1; riga--) {
             for (int colonna = 1; colonna <= 8; colonna++) {
-                CasellaScacchiera casella = new CasellaScacchiera(riga, colonna);
+                CasellaScacchiera casella = new CasellaScacchiera(riga, colonna, this, "nome" + riga + colonna);
 
                 //Dimensioni casella
                 casella.setPrefHeight(60);
                 casella.setPrefWidth(60);
 
                 //Aggiunta alla griglia principale
-                chessBoard.add(casella, colonna, 8 - riga, 1, 1);
+                gridPaneX.add(casella, colonna, 8 - riga, 1, 1);
 
                 //Cambio Colore Casella
                 if ((riga + colonna) % 2 == 0) {
@@ -138,7 +142,7 @@ public class ScacchieraController {
     private static void aggiungiPezzi() {
         for (CasellaScacchiera casella : caselle) {
             //Recupero il pezzo dalla scacchiare logica
-            Pezzo pezzo = scacchieraLog.getPezzo(casella.getRiga(), casella.getColonna());
+            Pezzo pezzo = scacchieraService.getPezzo(casella.getRiga(), casella.getColonna());
             //Se la casella é piena renderizzo il pezzo nella rispettiva casella di render
             if (pezzo != null) {
                 casella.getChildren().add(pezzo);
@@ -182,15 +186,19 @@ public class ScacchieraController {
     int posizioneRiga = 2;
 
     public void testMossa(ActionEvent actionEvent) {
-        scacchieraLog.aggiornaPosizionePezzo(scacchieraLog.getPezzo(posizioneRiga, 5), posizioneRiga + 1, 5);
+        scacchieraService.aggiornaPosizionePezzo(scacchieraService.getPezzo(posizioneRiga, 5), posizioneRiga + 1, 5);
         posizioneRiga = posizioneRiga + 1;
-        renderScacchiera(gridPaneX, scacchieraLog);
-        scacchieraLog.printScacchiera();
+        renderScacchiera();
+        scacchieraService.printScacchiera();
     }
 
-
-    public static void selezionaPosizioniDisponibili(ArrayList<CasellaScacchiera> caselleDisponibili) {
+    public static void selezionaPosizioniDisponibili(ArrayList<CasellaScacchiera> caselleDisponibili, Pezzo pezzoCliccato) {
         for (CasellaScacchiera casella : caselle) {
+            //Coloro la casella selezionata
+            if (casella.getColonna() == pezzoCliccato.getColonna() && casella.getRiga() == pezzoCliccato.getRiga()) {
+                ((CasellaScacchiera) pezzoCliccato.getParent()).selezionaCasellaColore();
+            }
+            //Aggiungo img di selezione alle caselle delle posizioni disponibili
             for (CasellaScacchiera casellaDisponibile : caselleDisponibili) {
                 if (casella.getRiga() == casellaDisponibile.getRiga() && casella.getColonna() == casellaDisponibile.getColonna() && casella.getChildren().isEmpty()) {
                     ImageView selectImage = new ImageView("/evidenzaCasella.png");
@@ -203,15 +211,25 @@ public class ScacchieraController {
         }
     }
 
-    public static void toglieSelezione() {
-        for (CasellaScacchiera casella : caselle) {
-            casella.getChildren().clear();
-            if ((casella.getRiga() + casella.getColonna()) % 2 == 0) {
-                casella.setBackground(new Background(new BackgroundFill(Color.web("#b1e4b9"), CornerRadii.EMPTY, Insets.EMPTY)));
-            } else {
-                casella.setBackground(new Background(new BackgroundFill(Color.web("#70a2a3"), CornerRadii.EMPTY, Insets.EMPTY)));
-            }
-        }
+    public void toglieSelezione() {
+        renderScacchiera();
+        setIsSelectCasella(false);
+    }
+
+    public static boolean getIsSelectCasella() {
+        return isSelectCasella;
+    }
+
+    public static void setIsSelectCasella(boolean x) {
+        isSelectCasella = x;
+    }
+
+    public static boolean getColorePezzoSelezionato() {
+        return colorePezzoSelezionato;
+    }
+
+    public static void setColorePezzoSelezionato(boolean colorePezzoSelezionato) {
+        ScacchieraController.colorePezzoSelezionato = colorePezzoSelezionato;
     }
 
 }
