@@ -64,6 +64,7 @@ public abstract class Giocatore {
             //Pezzo Cavallo Nero
             pezziGiocatore.add(new Cavallo("Cavallo", "n_c1", 3, false, 8, 2 ));
             pezziGiocatore.add(new Cavallo("Cavallo", "n_c2", 3, false, 8, 7 ));
+            pezziGiocatore.add(new Cavallo("Cavallo", "n_c2", 3, false, 4, 4 )); //cavallo da rimuove
             //Pezzo Alfiere Nero
             pezziGiocatore.add(new Alfiere("Alfiere", "n_a1", 3, false, 8, 3 ));
             pezziGiocatore.add(new Alfiere("Alfiere", "n_a2", 3, false, 8, 6 ));

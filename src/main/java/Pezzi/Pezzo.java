@@ -110,7 +110,7 @@ public abstract class Pezzo extends ImageView {
      */
     public void handleEventi() {
         setOnMouseClicked(mouseEvent -> {
-            ((CasellaScacchiera) this.getParent()).clickSuPezzoNellaCasella(this);
+         //   ((CasellaScacchiera) this.getParent()).clickSuPezzoNellaCasella(this);
         });
     }
 

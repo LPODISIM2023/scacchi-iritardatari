@@ -19,18 +19,27 @@ public class CasellaScacchiera extends StackPane {
     private final String colore_rosso = "#ff8080";
     private int riga, colonna;
     private static ScacchieraController sc;
-    String nome;
-    private boolean isSelectCasella = false;
+    private boolean siPuoMangiare = false;
 
-    public CasellaScacchiera(int riga, int colonna, ScacchieraController sc, String nome) {
+    /**
+     * Costruttore utilizzato per renderizzare le caselle con i relativi pezzi
+     * @param riga
+     * @param colonna
+     * @param sc
+     */
+    public CasellaScacchiera(int riga, int colonna, ScacchieraController sc) {
         this.riga = riga;
         this.colonna = colonna;
         this.sc = sc;
-        this.nome = nome;
         handleEventi();
 
     }
 
+    /**
+     * Costruttore usato nella classe Pezzo per poter creare l'array di mosse disponibili
+     * @param riga
+     * @param colonna
+     */
     public CasellaScacchiera(int riga, int colonna) {
         this.riga = riga;
         this.colonna = colonna;
@@ -53,7 +62,7 @@ public class CasellaScacchiera extends StackPane {
     }
 
     /**
-     * Metodo usato per dichiarare i vari listener per l oggetto casella
+     * Metodo usato per dichiarare i vari listener per l'oggetto casella
      */
     private void handleEventi() {
         setOnMouseClicked(mouseEvent -> {
@@ -69,7 +78,7 @@ public class CasellaScacchiera extends StackPane {
      * @param pezzo
      */
     public void clickSuPezzoNellaCasella(Pezzo pezzo) {
-
+        //Controllo se é gia presente un pezzo selezionato
         if (!ScacchieraController.getIsSelectCasella()) { //vero se non é selezionato neanche un pezzo
             //Pezzo dello stesso colore del giocatore che deve giocare
             if (pezzo.getColore() == ScacchieraController.getColorePezzoSelezionato()) {
@@ -78,7 +87,6 @@ public class CasellaScacchiera extends StackPane {
                 //Pezzo del colore opposto
                 sc.toglieSelezione();
             }
-
         } else { // é gia selezionato un pezzo
             //Si clicca su un pezzo dello stesso colore
             if (pezzo.getColore() == ScacchieraController.getColorePezzoSelezionato()) {
@@ -131,6 +139,7 @@ public class CasellaScacchiera extends StackPane {
     public void clickSuCasellaDisponibile() {
         //Si clicca sulla casella dove si vuole spostare il pezzo
         System.out.println("Premuto posizione disponibile");
+        sc.testMossa2(ScacchieraController.getPezzoSelezionato(),this);
     }
 
     /**
@@ -141,6 +150,7 @@ public class CasellaScacchiera extends StackPane {
     public void selezionaCasella(Pezzo pezzo) {
         pezzo.selezionaCaselleDisponibili();
         ScacchieraController.setIsSelectCasella(true);
+        ScacchieraController.setPezzoSelezionato(pezzo);
     }
 
     /**
