@@ -1,20 +1,13 @@
 package Pezzi;
 
-import Engine.Servizi.ScacchieraService;
 import GUI.CasellaScacchiera;
 import GUI.ScacchieraController;
-import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.Color;
+import javafx.scene.input.MouseEvent;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public abstract class Pezzo extends ImageView {
 
@@ -22,6 +15,8 @@ public abstract class Pezzo extends ImageView {
     private final int valore;
     private boolean colore;
     private int riga, colonna;
+    private double startDragX;
+    private double startDragY;
 
     //metodo costruttore: crea una nuova istanza Pezzo quando viene invocato
     public Pezzo(String nome, String codice, int valore, boolean colore, int riga, int colonna) {
@@ -31,7 +26,7 @@ public abstract class Pezzo extends ImageView {
         this.colore = colore;
         this.riga = riga;
         this.colonna = colonna;
-     //   handleEventi();
+       handleEventi();
     }
 
     //metodo set e get dell'attributo nome
@@ -104,13 +99,32 @@ public abstract class Pezzo extends ImageView {
         return mosseDisponibili;
     }
 
+
     /**
      * Metodo che invoca i vari listener sul oggetto pezzo
      * Per ora Inutilizzato
      */
     public void handleEventi() {
         setOnMouseClicked(mouseEvent -> {
-         //   ((CasellaScacchiera) this.getParent()).clickSuPezzoNellaCasella(this);
+            //   ((CasellaScacchiera) this.getParent()).clickSuPezzoNellaCasella(this);
+        });
+
+        setOnMousePressed(e -> {
+            startDragX = e.getSceneX();
+            startDragY = e.getSceneY();
+            ((CasellaScacchiera) this.getParent()).clickSuPezzoNellaCasella(this);
+            this.getParent().toFront();
+        });
+
+        setOnMouseReleased(e -> {
+            this.setTranslateX(0);
+            this.setTranslateY(0);
+            ((CasellaScacchiera) this.getParent()).controlloRilascioPezzo(this,e);
+        });
+
+        setOnMouseDragged(e -> {
+            this.setTranslateX(e.getSceneX() - startDragX);
+            this.setTranslateY(e.getSceneY() - startDragY);
         });
     }
 
@@ -119,7 +133,21 @@ public abstract class Pezzo extends ImageView {
      * delle caselle disponibili per il movimento del pezzo
      */
     public void selezionaCaselleDisponibili() {
-        ScacchieraController.selezionaPosizioniDisponibili(getArrayMosse(),this);
+        ScacchieraController.selezionaPosizioniDisponibili(getArrayMosse(), this);
+    }
+
+
+    public void selectPezzo(MouseEvent e) {
+        startDragX = e.getSceneX();
+        startDragY = e.getSceneY();
+    }
+    public void dragPezzo(MouseEvent e) {
+        this.setTranslateX(e.getSceneX() - startDragX);
+        this.setTranslateY(e.getSceneY() - startDragY);
+    }
+    public void releasePezzo(MouseEvent e) {
+        this.setTranslateX(0);
+        this.setTranslateY(0);
     }
 
 }

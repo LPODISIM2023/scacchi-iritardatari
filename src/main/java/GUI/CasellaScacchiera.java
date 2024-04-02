@@ -4,9 +4,8 @@ import Pezzi.Pezzo;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -20,9 +19,11 @@ public class CasellaScacchiera extends StackPane {
     private int riga, colonna;
     private static ScacchieraController sc;
     private boolean siPuoMangiare = false;
+    private Pezzo pezzoDellaCasella;
 
     /**
      * Costruttore utilizzato per renderizzare le caselle con i relativi pezzi
+     *
      * @param riga
      * @param colonna
      * @param sc
@@ -37,6 +38,7 @@ public class CasellaScacchiera extends StackPane {
 
     /**
      * Costruttore usato nella classe Pezzo per poter creare l'array di mosse disponibili
+     *
      * @param riga
      * @param colonna
      */
@@ -61,6 +63,9 @@ public class CasellaScacchiera extends StackPane {
         this.riga = riga;
     }
 
+    private double startDragX;
+    private double startDragY;
+
     /**
      * Metodo usato per dichiarare i vari listener per l'oggetto casella
      */
@@ -68,6 +73,42 @@ public class CasellaScacchiera extends StackPane {
         setOnMouseClicked(mouseEvent -> {
             clickNellaCasella();
         });
+//        setOnMousePressed(e -> {
+//            System.out.println("Pressed");
+//            ObservableList<Node> listaNodi = this.getChildren();
+//            if (!listaNodi.isEmpty()) {
+//                if (listaNodi.get(0) instanceof Pezzo) {
+//                    Pezzo pezzo = (Pezzo) listaNodi.get(0);
+//                    pezzo.selectPezzo(e);
+//                    clickNellaCasella();
+//                    this.toFront();
+//                    // sc.toglieSelezione();
+//                }
+//            }
+//        });
+//
+//        setOnMouseReleased(e -> {
+//            System.out.println("Released");
+//            ObservableList<Node> listaNodi = this.getChildren();
+//            if (!listaNodi.isEmpty()) {
+//                if (listaNodi.get(0) instanceof Pezzo) {
+//                    Pezzo pezzo = (Pezzo) listaNodi.get(0);
+//                    pezzo.releasePezzo(e);
+//                    this.toBack();
+//                }
+//            }
+//        });
+//
+//        setOnMouseDragged(e -> {
+//            //     System.out.println("Dragged");
+//            ObservableList<Node> listaNodi = this.getChildren();
+//            if (!listaNodi.isEmpty()) {
+//                if (listaNodi.get(0) instanceof Pezzo) {
+//                    Pezzo pezzo = (Pezzo) listaNodi.get(0);
+//                    pezzo.dragPezzo(e);
+//                }
+//            }
+//        });
     }
 
 
@@ -75,6 +116,7 @@ public class CasellaScacchiera extends StackPane {
      * Meotodo di supporto al click sulla casella,
      * usato per capire lo stato delle selezioni dei pezzi e
      * gestire la relativa selezione o deselesezione
+     *
      * @param pezzo
      */
     public void clickSuPezzoNellaCasella(Pezzo pezzo) {
@@ -96,7 +138,6 @@ public class CasellaScacchiera extends StackPane {
                 //Si clicca un pezzo del colore opposto
                 sc.toglieSelezione();
             }
-
         }
     }
 
@@ -105,7 +146,7 @@ public class CasellaScacchiera extends StackPane {
      * Si occupa di controllare lo stato della casella dove si é fatto click
      * ed esegue le varie operazioni necessarie
      */
-    public void clickNellaCasella(){
+    public void clickNellaCasella() {
         //Recupero Nodo(Pezzo) nella casella
         ObservableList<Node> listaNodi = this.getChildren();
 
@@ -116,20 +157,20 @@ public class CasellaScacchiera extends StackPane {
         }
 
         //La casella contiene un pezzo
-        if(listaNodi.get(0) instanceof Pezzo){
+        if (listaNodi.get(0) instanceof Pezzo) {
             Pezzo pezzo = (Pezzo) listaNodi.get(0);
+            pezzoDellaCasella = pezzo;
             clickSuPezzoNellaCasella(pezzo);
             return;
         }
 
         //La casella contiene una posizione disponibile
-        if(listaNodi.get(0) instanceof ImageView){
+        if (listaNodi.get(0) instanceof ImageView) {
             ImageView selettoreCasella = (ImageView) listaNodi.get(0);
-            if(Objects.equals(selettoreCasella.getId(), "selettoreCasella")){
-            clickSuCasellaDisponibile();
+            if (Objects.equals(selettoreCasella.getId(), "selettoreCasella")) {
+                clickSuCasellaDisponibile();
             }
         }
-
     }
 
     /**
@@ -138,13 +179,13 @@ public class CasellaScacchiera extends StackPane {
      */
     public void clickSuCasellaDisponibile() {
         //Si clicca sulla casella dove si vuole spostare il pezzo
-        System.out.println("Premuto posizione disponibile");
-        sc.testMossa2(ScacchieraController.getPezzoSelezionato(),this);
+        sc.testMossa2(ScacchieraController.getPezzoSelezionato(), this);
     }
 
     /**
      * Metodo di supporto per selezionare le caselle disponibili,
      * notificarlo al controller
+     *
      * @param pezzo
      */
     public void selezionaCasella(Pezzo pezzo) {
@@ -161,4 +202,25 @@ public class CasellaScacchiera extends StackPane {
         this.setBackground(new Background(new BackgroundFill(Color.web(colore_rosso), CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
+    public void controlloRilascioPezzo(Pezzo pezzo, MouseEvent e) {
+        //Calcolo posizione
+        System.out.println("e.getSceneX() " + e.getSceneX() + " e.getSceneY() " + e.getSceneY());
+
+        //Posizione scacchiera in alto x= 440 alto y=29
+        double mouseX = e.getSceneX() - 440;
+        double mouseY = e.getSceneY() - 29;
+        int rigaNum = 1;
+        int colonnaNum = 1;
+
+        for (int riga = 0; (mouseX) > (riga * 60); riga++) {
+            rigaNum = riga + 1;
+        }
+        for (int colonna = 0; (mouseY) > (colonna * 60); colonna++) {
+            colonnaNum = colonna + 1;
+        }
+        System.out.println("rigaNum " + rigaNum);
+        System.out.println("colonnaNum " + colonnaNum);
+
+
+    }
 }
