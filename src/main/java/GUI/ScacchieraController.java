@@ -95,6 +95,14 @@ public class ScacchieraController {
         ScacchieraController.colorePezzoSelezionato = colorePezzoSelezionato;
     }
 
+    public static ArrayList<CasellaScacchiera> getCaselleScacchiera() {
+        return caselle;
+    }
+
+    public static void setCaselleScacchiera(ArrayList<CasellaScacchiera> caselle) {
+        ScacchieraController.caselle = caselle;
+    }
+
     /**
      * Metodo mappato con il pulsante "UNDO" sulla scacchiera.
      * Il metodo ritorna allo stato mossa precendente a quello appena giocato.

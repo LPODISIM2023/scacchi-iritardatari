@@ -119,7 +119,7 @@ public abstract class Pezzo extends ImageView {
         setOnMouseReleased(e -> {
             this.setTranslateX(0);
             this.setTranslateY(0);
-            ((CasellaScacchiera) this.getParent()).controlloRilascioPezzo(this,e);
+            ((CasellaScacchiera) this.getParent()).controlloRilascioPezzo(e);
         });
 
         setOnMouseDragged(e -> {
