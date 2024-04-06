@@ -107,18 +107,6 @@ public class StartController {
 
             String nome1 = nomePlayer1.getText();
             String nome2 = nomePlayer2.getText();
-
-         //   startPartita(nome1,nome2,disabilita.isSelected());
-
-//            if(nome2.equalsIgnoreCase("Juri")){
-//                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-//                alert.setTitle("HAI VINTO");
-//                alert.setContentText("Juri hai vinto, GRAZIE PER AVER GIOCATO");
-//                alert.showAndWait();
-//                System.exit(0);
-
-//            }
-
             sc.initGame(nome1, nome2, disabilita.isSelected());
         }
     }catch(EmptyTextField e){

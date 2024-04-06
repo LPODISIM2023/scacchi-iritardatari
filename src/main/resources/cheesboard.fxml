@@ -1,103 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ScacchieraController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ScacchieraController">
 
 
     <Pane layoutY="-6.0" pickOnBounds="false" prefHeight="736.0" prefWidth="974.0">
-        <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="974.0" useSystemMenuBar="true">
-            <Menu mnemonicParsing="false" text="File">
-                <MenuItem mnemonicParsing="false" onAction="#fileChooser" text="New game"/>
-                <SeparatorMenuItem mnemonicParsing="false"/>
-                <MenuItem mnemonicParsing="false" text="Load game"/>
-                <SeparatorMenuItem mnemonicParsing="false"/>
-                <MenuItem mnemonicParsing="false" onAction="#exit" text="Exit without save"/>
-                <SeparatorMenuItem mnemonicParsing="false"/>
-                <MenuItem mnemonicParsing="false" text="Exit and save"/>
-                <SeparatorMenuItem mnemonicParsing="false"/>
-            </Menu>
-            <Menu mnemonicParsing="false" text="About">
-                <SeparatorMenuItem mnemonicParsing="false"/>
-                <MenuItem mnemonicParsing="false" text="How To Play"/>
-                <SeparatorMenuItem mnemonicParsing="false"/>
-            </Menu>
-        </MenuBar>
+      <MenuBar layoutY="2.0" prefHeight="32.0" prefWidth="974.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Nuova partita" />
+                  <MenuItem fx:id="caricaPartita" mnemonicParsing="false" onAction="#carica" text="Carica partita" />
+                  <MenuItem mnemonicParsing="false" onAction="#saveButton" text="Salva" />
+                  <MenuItem mnemonicParsing="false" onAction="#saveAndExit" text="Salva e esci" />
+                  <MenuItem mnemonicParsing="false" onAction="#exit" text="Esci" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
         <GridPane fx:id="gridPaneX" gridLinesVisible="true" layoutX="440.0" layoutY="34.0">
 
         </GridPane>
-        <Label blendMode="MULTIPLY" layoutX="440.0" layoutY="514.0" prefHeight="60.0" prefWidth="480.0"
-               text=" A   B   C   D   E   F   G   H" textAlignment="CENTER" wrapText="true">
+        <Label blendMode="MULTIPLY" layoutX="440.0" layoutY="514.0" prefHeight="60.0" prefWidth="480.0" text=" A   B   C   D   E   F   G   H" textAlignment="CENTER" wrapText="true">
             <font>
-                <Font name="Arial" size="40.0"/>
+                <Font name="Arial" size="40.0" />
             </font>
         </Label>
         <Label layoutX="365.0" layoutY="34.0" prefHeight="60.0" prefWidth="75.0" text="  8" textAlignment="CENTER">
             <font>
-                <Font size="40.0"/>
+                <Font size="40.0" />
             </font>
         </Label>
         <Label layoutX="365.0" layoutY="94.0" prefHeight="60.0" prefWidth="75.0" text="  7" textAlignment="CENTER">
             <font>
-                <Font size="40.0"/>
+                <Font size="40.0" />
             </font>
         </Label>
         <Label layoutX="365.0" layoutY="154.0" prefHeight="60.0" prefWidth="75.0" text="  6" textAlignment="CENTER">
             <font>
-                <Font size="40.0"/>
+                <Font size="40.0" />
             </font>
         </Label>
         <Label layoutX="365.0" layoutY="214.0" prefHeight="60.0" prefWidth="75.0" text="  5" textAlignment="CENTER">
             <font>
-                <Font size="40.0"/>
+                <Font size="40.0" />
             </font>
         </Label>
         <Label layoutX="365.0" layoutY="274.0" prefHeight="60.0" prefWidth="75.0" text="  4 " textAlignment="CENTER">
             <font>
-                <Font size="40.0"/>
+                <Font size="40.0" />
             </font>
         </Label>
         <Label layoutX="365.0" layoutY="334.0" prefHeight="60.0" prefWidth="75.0" text="  3" textAlignment="CENTER">
             <font>
-                <Font size="40.0"/>
+                <Font size="40.0" />
             </font>
         </Label>
         <Label layoutX="365.0" layoutY="394.0" prefHeight="60.0" prefWidth="75.0" text="  2" textAlignment="CENTER">
             <font>
-                <Font size="40.0"/>
+                <Font size="40.0" />
             </font>
         </Label>
         <Label layoutX="365.0" layoutY="454.0" prefHeight="60.0" prefWidth="75.0" text="  1" textAlignment="CENTER">
             <font>
-                <Font size="40.0"/>
+                <Font size="40.0" />
             </font>
         </Label>
-        <Label fx:id="labelNomePlayer1" layoutX="22.0" layoutY="94.0" prefHeight="32.0" prefWidth="230.0" text="pl1"
-               textAlignment="CENTER">
+        <Label fx:id="labelNomePlayer1" layoutX="22.0" layoutY="94.0" prefHeight="32.0" prefWidth="230.0" text="pl1" textAlignment="CENTER">
             <font>
-                <Font size="15.0"/>
+                <Font size="15.0" />
             </font>
         </Label>
         <Label fx:id="labelNomePlayer2" layoutX="22.0" layoutY="126.0" prefHeight="32.0" prefWidth="230.0" text="pl2">
             <font>
-                <Font size="15.0"/>
+                <Font size="15.0" />
             </font>
         </Label>
-        <Button fx:id="comeBack" layoutX="780.0" layoutY="626.0" mnemonicParsing="false" onAction="#getStart"
-                text="Login Page"/>
+        <Button fx:id="comeBack" layoutX="780.0" layoutY="626.0" mnemonicParsing="false" onAction="#getStart" text="Login Page" />
 
-        <Button fx:id="testMossaBtn" layoutX="780.0" layoutY="690.0" mnemonicParsing="false" onAction="#testMossa"
-                text="Test Mossa"/>
-        <Button layoutX="780.0" layoutY="658.0" mnemonicParsing="false" text="Undo"/>
+        <Button fx:id="testMossaBtn" layoutX="780.0" layoutY="690.0" mnemonicParsing="false" onAction="#testMossa" text="Test Mossa" />
+        <Button layoutX="780.0" layoutY="658.0" mnemonicParsing="false" onAction="#undo" text="Undo" />
 
         <Label layoutX="22.0" layoutY="158.0" prefHeight="32.0" prefWidth="230.0" textAlignment="CENTER">
             <font>
-                <Font size="15.0"/>
+                <Font size="15.0" />
             </font>
         </Label>
+      <effect>
+         <Blend />
+      </effect>
     </Pane>
 
 

@@ -1,5 +1,6 @@
 package GUI;
 
+import Engine.Data.Partita;
 import Engine.Giocatore.Bot;
 import Engine.Giocatore.Giocatore;
 import Engine.Giocatore.Umano;
@@ -7,49 +8,60 @@ import Engine.Servizi.ScacchieraService;
 import Pezzi.Cavallo;
 import Pezzi.Pezzo;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileSystemView;
+import java.io.File;
 import java.io.IOException;
-import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Scanner;
+
+import static Engine.Data.Partita.save;
 
 public class ScacchieraController {
 
     static Giocatore g1;
     static Giocatore g2;
+
+    ScacchieraService sc;
+
+    public File percorsoSalvatggi = new File("src/main/java/salvataggi") ;
+
+    @FXML
+    FileChooser filePartita = new FileChooser();
     @FXML
     public Label labelNomePlayer1;
 
     @FXML
+    public MenuItem caricaPartita;
+    @FXML
     public Label labelNomePlayer2;
 
-    @FXML
-    public Button comeBack;
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
 
     @FXML
     private GridPane gridPaneX = new GridPane();
 
-
-    @FXML
-    private Button testMossaBtn;
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
 
     private static boolean isSelectCasella = false;
     private static boolean colorePezzoSelezionato = true; //false=nero true=bianco
@@ -92,27 +104,6 @@ public class ScacchieraController {
     @FXML
     public void undo(ActionEvent event) {
         //@TODO: implements
-    }
-
-
-    /**
-     * Metodo che killa l'applicazione e termina l'esecuzione (nei pulsanti del menù)
-     *
-     * @param actionEvent listener del pulsante "exit without save" del menù bar
-     */
-    public void exit(ActionEvent actionEvent) {
-        System.exit(0);
-    }
-
-    /**
-     * Metodo che permettere di scegliere la partita da giocare dall'explorer di sistema.
-     *
-     * @param actionEvent listener per il click del pulsante nel menù a tendina "scegli partita"
-     */
-    public void fileChooser(ActionEvent actionEvent) {
-
-        //@TODO: implements
-
     }
 
     /**
@@ -163,6 +154,114 @@ public class ScacchieraController {
         stage.setScene(scene);
         stage.show();
     }
+
+    //metodi per i pulsanti nel menù
+
+
+    /**
+     * Metodo che salva una partita dopo aver cliccato sul bottone del menu "Salva"
+     * @param event listener per l'evento del bottone Salva
+     */
+    @FXML
+    public void saveButton(ActionEvent event){
+
+        System.out.println("Save!");
+        save(sc,g2,g1);
+    }
+
+    /**
+     * Metodo che permette all'utente di scegliere se uscire e salvare, uscire o annullare l'operazione,
+     * gestione queste scelte tramite  un "incapsulamente" di Alert e Dialog pane, ovvero classi anonime che vengono
+     * create all'interno del metodo visto che l'azione performata verrà eseguita poche volte.
+     * Si preferiscono le classi anonime per scopi di questo tipo, dove l'azione viene eseguita un numero minore di volte.
+     * @param event listener del pulsante Salva e esci
+     * @throws InterruptedException
+     */
+    @FXML
+    public void saveAndExit(ActionEvent event) throws InterruptedException {  //@TODO implementare eccezione per i file da sovrascrivere.
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Non hai salvato, vuoi salvare?");
+        alert.setTitle("Dialog event!");
+
+        ButtonType ok = new ButtonType("Salva");
+        ButtonType esciSenzaSalvare = new ButtonType("Esci senza salvare");
+        ButtonType annulla = new ButtonType("Annulla");
+
+        alert.getButtonTypes().setAll(ok,esciSenzaSalvare,annulla);
+
+        alert.showAndWait().ifPresent(scelta -> {
+            if (scelta == ok) {
+                save(sc, g1, g2);
+                System.exit(0);
+            } else if (scelta == esciSenzaSalvare) {
+                Dialog<ButtonType> uscita = new Dialog<>();
+                ButtonType chiudi = new ButtonType("Chiudi", ButtonBar.ButtonData.OK_DONE);
+                uscita.getDialogPane().getButtonTypes().addAll(chiudi);
+                uscita.setContentText("Sei uscito senza salvare");
+                uscita.setOnCloseRequest(new EventHandler<DialogEvent>() {
+                    @Override
+                    public void handle(DialogEvent dialogEvent) {
+                        System.exit(0);
+                    }
+                });
+                uscita.showAndWait().ifPresent(risposta -> {
+                    if(risposta == chiudi){
+                        System.exit(0);
+                    }
+                });
+            }else if(scelta == annulla){
+                return;
+            }
+        });
+
+}
+
+
+    /**
+     * Metodo che killa l'applicazione e termina l'esecuzione (nei pulsanti del menù)
+     *
+     * @param actionEvent listener del pulsante "exit without save" del menù bar
+     */
+    @FXML
+    public void exit(ActionEvent actionEvent) {
+        System.exit(0);
+    }
+
+    /**
+     * Metodo che permettere di scegliere la partita da giocare dall'explorer di sistema.
+     *
+     * @param event listener per il click del pulsante nel menù a tendina "scegli partita"
+     */
+    @FXML
+    public void carica(ActionEvent event) throws IOException {
+
+        filePartita.setTitle("Salvataggi");
+        filePartita.setInitialDirectory(new File(System.getProperty("user.dir")));
+        filePartita.getExtensionFilters().clear();
+//        filePartita.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Json files", "*.json"));
+        File file = filePartita.showOpenDialog(new Stage());
+
+        System.out.println(file);
+
+//        if(percorsoSalvatggi.exists()){
+//
+//
+//        }else{
+//            Path path = Paths.get(percorsoSalvatggi.toURI());
+//            Files.createDirectories(path);
+//        }
+
+
+//        String userSavePath = System.getProperty("user.dir/salvataggi");
+//        if (userSavePath != null) {
+//            System.out.println("Percorso dei salvataggi: " + userSavePath);
+//        } else {
+//            System.out.println("La chiave 'user.home' non è stata impostata.");
+//        }
+
+
+
+    }
+
 
     /**
      * Metodo che renderizza la scacchiera a schermo, prende scacchiera service e sulla base
