@@ -317,7 +317,7 @@ public class ScacchieraController {
             Pezzo pezzo = scacchieraService.getPezzo(casella.getRiga(), casella.getColonna());
             //Se la casella é piena renderizzo il pezzo nella rispettiva casella di render
             if (pezzo != null) {
-                casella.getChildren().add(pezzo);
+                casella.setPezzo(pezzo);
             }
         }
     }

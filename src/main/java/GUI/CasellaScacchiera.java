@@ -39,9 +39,10 @@ public class CasellaScacchiera extends StackPane {
      * @param riga
      * @param colonna
      */
-    public CasellaScacchiera(int riga, int colonna) {
+    public CasellaScacchiera(int riga, int colonna,boolean siPuoMangiare) {
         this.riga = riga;
         this.colonna = colonna;
+        this.siPuoMangiare=siPuoMangiare;
     }
 
     public int getColonna() {
@@ -60,12 +61,30 @@ public class CasellaScacchiera extends StackPane {
         this.riga = riga;
     }
 
+    private double startDragX;
+    private double startDragY;
+
     /**
      * Metodo usato per dichiarare i vari listener per l'oggetto casella
      */
     private void handleEventi() {
         setOnMouseClicked(mouseEvent -> {
             clickNellaCasella();
+        });
+
+        setOnMousePressed(e -> {
+            if (pezzoDellaCasella != null)
+                pezzoDellaCasella.pressPezzo(e);
+        });
+
+        setOnMouseReleased(e -> {
+            if (pezzoDellaCasella != null)
+                pezzoDellaCasella.releasePezzo(e);
+        });
+
+        setOnMouseDragged(e -> {
+            if (pezzoDellaCasella != null)
+                pezzoDellaCasella.dragPezzo(e);
         });
     }
 
@@ -78,24 +97,13 @@ public class CasellaScacchiera extends StackPane {
      * @param pezzo
      */
     public void clickSuPezzoNellaCasella(Pezzo pezzo) {
-        //Controllo se é gia presente un pezzo selezionato
-        if (!ScacchieraController.getIsSelectCasella()) { //vero se non é selezionato neanche un pezzo
-            //Pezzo dello stesso colore del giocatore che deve giocare
-            if (pezzo.getColore() == ScacchieraController.getColorePezzoSelezionato()) {
-                selezionaCasella(pezzo);
-            } else {
-                //Pezzo del colore opposto
-                sc.toglieSelezione();
-            }
-        } else { // é gia selezionato un pezzo
-            //Si clicca su un pezzo dello stesso colore
-            if (pezzo.getColore() == ScacchieraController.getColorePezzoSelezionato()) {
-                sc.toglieSelezione(); //tolgo la vecchia selezione
-                selezionaCasella(pezzo);
-            } else {
-                //Si clicca un pezzo del colore opposto
-                sc.toglieSelezione();
-            }
+        //Controllo che il colore del pezzo sia quello che deve giocare
+        if (pezzo.getColore() == ScacchieraController.getColorePezzoSelezionato()) {
+            sc.toglieSelezione(); //tolgo la vecchia selezione in caso sia stato selezionato un pezzo dello stesso colore
+            selezionaCasella(pezzo); //selezione il pezzo
+        } else {
+            //Si clicca un pezzo del colore opposto a quello che deve giocare
+            sc.toglieSelezione();
         }
     }
 
@@ -105,6 +113,7 @@ public class CasellaScacchiera extends StackPane {
      * ed esegue le varie operazioni necessarie
      */
     public void clickNellaCasella() {
+
         //Recupero Nodo(Pezzo) nella casella
         ObservableList<Node> listaNodi = this.getChildren();
 
@@ -117,7 +126,6 @@ public class CasellaScacchiera extends StackPane {
         //La casella contiene un pezzo
         if (listaNodi.get(0) instanceof Pezzo) {
             Pezzo pezzo = (Pezzo) listaNodi.get(0);
-            pezzoDellaCasella = pezzo;
             clickSuPezzoNellaCasella(pezzo);
             return;
         }
@@ -203,5 +211,12 @@ public class CasellaScacchiera extends StackPane {
         }
     }
 
-
+    /**
+     * Metodo che setta il Pezzo della casella
+     * @param pezzo
+     */
+    public void setPezzo(Pezzo pezzo) {
+        this.getChildren().add(pezzo);
+        pezzoDellaCasella = pezzo;
+    }
 }
