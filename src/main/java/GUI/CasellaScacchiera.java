@@ -4,7 +4,6 @@ import Pezzi.Pezzo;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -14,10 +13,14 @@ import java.util.Objects;
 
 public class CasellaScacchiera extends StackPane {
     private final String colore_rosso = "#ff8080";
+    private final String colore_1 = "#b1e4b9";
+    private final String colore_2 = "#70a2a3";
+    private final String colore_evidenzia = "#F6BD60";
+    private boolean coloreCasella;
     private int riga, colonna;
     private static ScacchieraController sc;
     private boolean siPuoMangiare = false;
-    private Pezzo pezzoDellaCasella;
+    private Pezzo pezzoDellaCasella = null;
 
     /**
      * Costruttore utilizzato per renderizzare le caselle con i relativi pezzi
@@ -39,10 +42,10 @@ public class CasellaScacchiera extends StackPane {
      * @param riga
      * @param colonna
      */
-    public CasellaScacchiera(int riga, int colonna,boolean siPuoMangiare) {
+    public CasellaScacchiera(int riga, int colonna, boolean siPuoMangiare) {
         this.riga = riga;
         this.colonna = colonna;
-        this.siPuoMangiare=siPuoMangiare;
+        this.siPuoMangiare = siPuoMangiare;
     }
 
     public int getColonna() {
@@ -61,21 +64,13 @@ public class CasellaScacchiera extends StackPane {
         this.riga = riga;
     }
 
-    private double startDragX;
-    private double startDragY;
 
     /**
      * Metodo usato per dichiarare i vari listener per l'oggetto casella
      */
     private void handleEventi() {
-        setOnMouseClicked(mouseEvent -> {
-            clickNellaCasella();
-        });
 
-        setOnMousePressed(e -> {
-            if (pezzoDellaCasella != null)
-                pezzoDellaCasella.pressPezzo(e);
-        });
+        setOnMousePressed(this::clickNellaCasella);
 
         setOnMouseReleased(e -> {
             if (pezzoDellaCasella != null)
@@ -86,6 +81,7 @@ public class CasellaScacchiera extends StackPane {
             if (pezzoDellaCasella != null)
                 pezzoDellaCasella.dragPezzo(e);
         });
+
     }
 
 
@@ -112,8 +108,7 @@ public class CasellaScacchiera extends StackPane {
      * Si occupa di controllare lo stato della casella dove si é fatto click
      * ed esegue le varie operazioni necessarie
      */
-    public void clickNellaCasella() {
-
+    public void clickNellaCasella(MouseEvent e) {
         //Recupero Nodo(Pezzo) nella casella
         ObservableList<Node> listaNodi = this.getChildren();
 
@@ -126,7 +121,8 @@ public class CasellaScacchiera extends StackPane {
         //La casella contiene un pezzo
         if (listaNodi.get(0) instanceof Pezzo) {
             Pezzo pezzo = (Pezzo) listaNodi.get(0);
-            clickSuPezzoNellaCasella(pezzo);
+            //clickSuPezzoNellaCasella(pezzo);
+            pezzo.pressPezzo(e);
             return;
         }
 
@@ -173,6 +169,18 @@ public class CasellaScacchiera extends StackPane {
         this.setBackground(new Background(new BackgroundFill(Color.web(colore_rosso), CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
+    public void coloraCasella() {
+        if (coloreCasella) {
+            this.setBackground(new Background(new BackgroundFill(Color.web(colore_1), CornerRadii.EMPTY, Insets.EMPTY)));
+        } else {
+            this.setBackground(new Background(new BackgroundFill(Color.web(colore_2), CornerRadii.EMPTY, Insets.EMPTY)));
+        }
+    }
+
+    public void evidenziaCasella() {
+        this.setBackground(new Background(new BackgroundFill(Color.web(colore_evidenzia), CornerRadii.EMPTY, Insets.EMPTY)));
+    }
+
 
     /**
      * Metodo che viene invocato quando viene rilasciato il click del mouse quando sposta il pezzo
@@ -209,14 +217,61 @@ public class CasellaScacchiera extends StackPane {
                 }
             }
         }
+
+        //Tolgo la selezione di quando si passa col mouse sulle caselle
+        for (CasellaScacchiera casella : ScacchieraController.getCaselleScacchiera()) {
+            if (casella == this) continue;
+            if (casella.getRiga() == rigaNum && casella.getColonna() == colonnaNum) {
+                casella.coloraCasella();
+            }
+        }
+
+    }
+
+    public void coloraCasellaAlPassaggioDelMouse(MouseEvent e) {
+        //Calcolo posizione della scacchiera
+        double mouseX = e.getSceneX() - 440; // valore della scacchiera nella finestra, usato per creare le cordinare 0,0 nella scacchiera
+        double mouseY = e.getSceneY() - 29; //
+        int rigaNum = 1;
+        int colonnaNum = 1;
+
+        //Calcolo la casella in base alla posizione del puntatore
+        for (int colonna = 0; (mouseX) > (colonna * 60); colonna++) {
+            colonnaNum = colonna + 1;
+        }
+        for (int riga = 0; (mouseY) > (riga * 60); riga++) {
+            rigaNum = riga + 1;
+        }
+        rigaNum = 9 - rigaNum;
+
+        //Vedo se la casella è selezionabile
+        for (CasellaScacchiera casella : ScacchieraController.getCaselleScacchiera()) {
+            if (casella == this) continue;
+            if (casella.getRiga() == rigaNum && casella.getColonna() == colonnaNum) {
+                casella.evidenziaCasella();
+            } else {
+                casella.coloraCasella();
+            }
+        }
     }
 
     /**
      * Metodo che setta il Pezzo della casella
+     *
      * @param pezzo
      */
     public void setPezzo(Pezzo pezzo) {
         this.getChildren().add(pezzo);
         pezzoDellaCasella = pezzo;
     }
+
+    public boolean isColoreCasella() {
+        return coloreCasella;
+    }
+
+    public void setColoreCasella(boolean coloreCasella) {
+        this.coloreCasella = coloreCasella;
+        coloraCasella();
+    }
+
 }

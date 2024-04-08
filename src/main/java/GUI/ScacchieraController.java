@@ -294,11 +294,7 @@ public class ScacchieraController {
                 gridPaneX.add(casella, colonna, 8 - riga, 1, 1);
 
                 //Cambio Colore Casella
-                if ((riga + colonna) % 2 == 0) {
-                    casella.setBackground(new Background(new BackgroundFill(Color.web("#b1e4b9"), CornerRadii.EMPTY, Insets.EMPTY)));
-                } else {
-                    casella.setBackground(new Background(new BackgroundFill(Color.web("#70a2a3"), CornerRadii.EMPTY, Insets.EMPTY)));
-                }
+                casella.setColoreCasella((riga + colonna) % 2 == 0); //(riga + colonna) % 2 == 0 ritorna (vero o falso)
 
                 //Aggiunto al array di tutte le caselle
                 caselle.add(casella);

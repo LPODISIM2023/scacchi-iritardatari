@@ -2,6 +2,10 @@ package Pezzi;
 
 import GUI.CasellaScacchiera;
 import GUI.ScacchieraController;
+import javafx.fxml.FXML;
+import javafx.geometry.Point2D;
+import javafx.scene.Cursor;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -12,7 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Pezzo extends ImageView {
-
+    @FXML
+    Scene scene;
     private String nome, codice;
     private final int valore;
     private boolean colore;
@@ -104,11 +109,12 @@ public abstract class Pezzo extends ImageView {
      * Per ora Inutilizzato
      */
     public void handleEventi() {
-        setOnMousePressed(this::pressPezzo);
+        //  setOnMousePressed(this::pressPezzo);
 
-        setOnMouseReleased(this::releasePezzo);
+        // setOnMouseReleased(this::releasePezzo);
 
-        setOnMouseDragged(this::dragPezzo);
+        // setOnMouseDragged(this::dragPezzo);
+
     }
 
     /**
@@ -130,10 +136,15 @@ public abstract class Pezzo extends ImageView {
      * @param e
      */
     public void dragPezzo(MouseEvent e) {
+        //Recupero la posizione della casella e del relativo pezzo in modo assoluto rispetto alla finestra
         double posCasellaX = this.getParent().getParent().getLayoutX() + this.getParent().getLayoutX();
         double posCasellaY = this.getParent().getParent().getLayoutY() + this.getParent().getLayoutY();
+        //Sposto il pezzo centrandolo al mouse (-30 perche la casella è 60)
         this.setTranslateX(e.getSceneX() - posCasellaX - 30);
         this.setTranslateY(e.getSceneY() - posCasellaY - 30);
+
+        //evidenzia la casella sotto il cursore
+        ((CasellaScacchiera) this.getParent()).coloraCasellaAlPassaggioDelMouse(e);
     }
 
     /**
