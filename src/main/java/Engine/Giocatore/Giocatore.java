@@ -35,12 +35,16 @@ public abstract class Giocatore {
             //Pezzo Torre Bianco
             pezziGiocatore.add(new Torre("Torre", "b_t1", 5, true, 1, 1 ));
             pezziGiocatore.add(new Torre("Torre", "b_t2", 5, true, 1, 8 ));
+
+            pezziGiocatore.add(new Torre("Torre", "b_t1", 5, true, 3,1 ));
             //Pezzo Cavallo Bianco
             pezziGiocatore.add(new Cavallo("Cavallo", "b_c1", 3, true, 1, 2 ));
             pezziGiocatore.add(new Cavallo("Cavallo", "b_c2", 3, true, 1, 7 ));
             //Pezzo Alfiere Bianco
             pezziGiocatore.add(new Alfiere("Alfiere", "b_a1", 3, true, 1, 3 ));
             pezziGiocatore.add(new Alfiere("Alfiere", "b_a2", 3, true, 1, 6 ));
+
+            pezziGiocatore.add(new Alfiere("Alfiere", "b_a2", 3, true, 4, 7 ));
             //Pezzo Regina Bianco
             pezziGiocatore.add(new Regina("Regina", "b_q1", 3, true, 1, 4 ));
             //Pezzo Re Bianco

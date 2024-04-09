@@ -13,7 +13,7 @@ public class ScacchieraService {
     private final int numRighe=8;
     private final int numColonne=8;
 
-    private Table<Integer, Integer, Pezzo> scacchieraTable;
+    private static Table<Integer, Integer, Pezzo> scacchieraTable;
 
 
     /**
@@ -41,7 +41,7 @@ public class ScacchieraService {
      * @param colonna
      * @return un Pezzo nella scacchiera
      */
-    public Pezzo getPezzo(int riga, int colonna) {
+    public static Pezzo getPezzo(int riga, int colonna) {
         return scacchieraTable.get(riga, colonna);
     }
 
