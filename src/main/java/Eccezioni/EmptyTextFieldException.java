@@ -1,6 +1,7 @@
 package Eccezioni;
 
-public class EmptyTextField extends Exception{
+public class EmptyTextFieldException extends Exception{
+
 
 //    public EmptyTextField(String errMess){
 //        System.out.println(errMess);

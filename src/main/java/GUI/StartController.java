@@ -1,6 +1,6 @@
 package GUI;
 
-import Eccezioni.EmptyTextField;
+import Eccezioni.EmptyTextFieldException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -83,17 +83,17 @@ public class StartController {
      * Setta tutti i parametri per giocare e switcha alla scacchiera
      * @param event listener per il bottone
      * @throws IOException
-     * @throws EmptyTextField handler che gestisce i TextField lasciati in bianco
+     * @throws EmptyTextFieldException handler che gestisce i TextField lasciati in bianco
      */
     @FXML
-    public void switchChessboard(ActionEvent event) throws IOException, EmptyTextField {
+    public void switchChessboard(ActionEvent event) throws IOException, EmptyTextFieldException {
 
     try {
         if ((nomePlayer1.getText().trim().isEmpty() || nomePlayer2.getText().trim().isEmpty()) && !disabilita.isSelected()) {
             eccezione.setFont(new Font("Arial", 24));
             eccezione.setTextFill(Color.RED);
             eccezione.setText("Non hai inserito i nomi.");
-            throw new EmptyTextField();
+            throw new EmptyTextFieldException();
 
         } else {
 
@@ -109,7 +109,7 @@ public class StartController {
             String nome2 = nomePlayer2.getText();
             sc.initGame(nome1, nome2, disabilita.isSelected());
         }
-    }catch(EmptyTextField e){
+    }catch(EmptyTextFieldException e){
         System.out.println("Non hai inserito i nomi");
         }
     }
