@@ -4,6 +4,7 @@ import Engine.Data.Partita;
 import Engine.Giocatore.Bot;
 import Engine.Giocatore.Giocatore;
 import Engine.Giocatore.Umano;
+import Engine.Servizi.PartitaService;
 import Engine.Servizi.ScacchieraService;
 import Pezzi.Cavallo;
 import Pezzi.Pezzo;
@@ -128,16 +129,13 @@ public class ScacchieraController {
     @FXML
     public void initGame(String nome1, String nome2, boolean isBot) throws IOException {
 
-        //Inizializzazione Giocatori
-        g1 = new Umano(nome1, true);
-        if (isBot) {
-            g2 = new Bot();
-        } else {
-            g2 = new Umano(nome2, false);
-        }
+        PartitaService.iniziaPartita(nome1, nome2, isBot);
+
+        g1 = PartitaService.getGiocatore1();
+        g2 = PartitaService.getGiocatore2();
 
         //Creazione Scacchiera Service
-        scacchieraService = new ScacchieraService(g1.getPezziGiocatore(), g2.getPezziGiocatore());
+        scacchieraService = PartitaService.getScacchieraService();
 
         //Render Scacchiera
         renderScacchiera();
@@ -369,15 +367,10 @@ public class ScacchieraController {
 
     //TEST
     int posizioneRiga = 2;
-    public void testMossa(ActionEvent actionEvent) {
-        scacchieraService.aggiornaPosizionePezzo(scacchieraService.getPezzo(posizioneRiga, 5), posizioneRiga + 1, 5);
-        posizioneRiga = posizioneRiga + 1;
-        renderScacchiera();
-        scacchieraService.printScacchiera();
-    }
 
     public void testMossa2(Pezzo pezzo, CasellaScacchiera casella) {
         scacchieraService.aggiornaPosizionePezzo(pezzo, casella.getRiga(), casella.getColonna());
+        PartitaService.cambioTurno();
         renderScacchiera();
         scacchieraService.printScacchiera();
     }

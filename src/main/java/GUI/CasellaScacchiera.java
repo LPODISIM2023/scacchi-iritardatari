@@ -1,5 +1,6 @@
 package GUI;
 
+import Engine.Servizi.PartitaService;
 import Pezzi.Pezzo;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -94,7 +95,7 @@ public class CasellaScacchiera extends StackPane {
      */
     public void clickSuPezzoNellaCasella(Pezzo pezzo) {
         //Controllo che il colore del pezzo sia quello che deve giocare
-        if (pezzo.getColore() == ScacchieraController.getColorePezzoSelezionato()) {
+        if (pezzo.getColore() == PartitaService.getColoreTurnoGiocatore()) {
             sc.toglieSelezione(); //tolgo la vecchia selezione in caso sia stato selezionato un pezzo dello stesso colore
             selezionaCasella(pezzo); //selezione il pezzo
         } else {

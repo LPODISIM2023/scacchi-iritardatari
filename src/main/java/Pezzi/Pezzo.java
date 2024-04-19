@@ -23,7 +23,9 @@ public abstract class Pezzo extends ImageView {
     private boolean colore;
     private int riga, colonna;
 
-    //metodo costruttore: crea una nuova istanza Pezzo quando viene invocato
+    /** metodo costruttore: crea una nuova istanza Pezzo quando viene invocato
+     */
+
     public Pezzo(String nome, String codice, int valore, boolean colore, int riga, int colonna) {
         this.nome = nome;
         this.codice = codice;
@@ -34,7 +36,6 @@ public abstract class Pezzo extends ImageView {
         handleEventi();
     }
 
-    //metodo set e get dell'attributo nome
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -63,8 +64,9 @@ public abstract class Pezzo extends ImageView {
         return colore;
     }
 
-    /*motodo setPosizione(): utile per settere la posizione dei pezzi.
-     Importante per modificare la posizione del pezzo dopo una mossa.
+    /**
+     * motodo setPosizione(): utile per settere la posizione dei pezzi.
+     * Importante per modificare la posizione del pezzo dopo una mossa.
      */
     public void setPosizione(int newRiga, int newColonna) {
         this.riga = newRiga;
@@ -78,14 +80,18 @@ public abstract class Pezzo extends ImageView {
     public int getColonna() {
         return colonna;
     }
-    //metodo getColore():
+
 
     //metodo printColore()
     public String printColore() {
         return (colore ? codice + 'b' : codice + 'n');
     }
 
-    //metodo toString(): stampa le informazioni principali del pezzo (nome, colore, posizione). Ad esempio: Pedone bianco posRiga: A posColonna: 4
+    /**
+     * metodo toString(): stampa le informazioni principali del pezzo (nome, colore, posizione).
+     * Ad esempio: Pedone bianco posRiga: A posColonna: 4
+     * @return
+     */
     public String toString() {
         return nome + " " + (colore ? "bianco" : "nero") + " " + "posRiga: " + riga + " posColonna: " + colonna;
     }
