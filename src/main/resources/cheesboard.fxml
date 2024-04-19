@@ -5,8 +5,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ScacchieraController">
+<?import java.net.URL?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="anchor" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ScacchieraController">
 
+    <stylesheets>
+        <URL value="@grafica.css" />
+    </stylesheets>
 
     <Pane layoutY="-6.0" pickOnBounds="false" prefHeight="736.0" prefWidth="974.0">
       <MenuBar layoutY="2.0" prefHeight="32.0" prefWidth="974.0">
@@ -27,74 +31,76 @@
           </Menu>
         </menus>
       </MenuBar>
-        <GridPane fx:id="gridPaneX" gridLinesVisible="true" layoutX="440.0" layoutY="34.0">
+        <GridPane fx:id="gridPaneX" gridLinesVisible="true" layoutX="290.0" layoutY="115.0" prefWidth="0.0">
 
         </GridPane>
-        <Label blendMode="MULTIPLY" layoutX="440.0" layoutY="514.0" prefHeight="60.0" prefWidth="480.0" text=" A   B   C   D   E   F   G   H" textAlignment="CENTER" wrapText="true">
+        <Label blendMode="MULTIPLY" layoutX="285.0" layoutY="598.0" prefHeight="60.0" prefWidth="480.0" text=" A   B   C   D   E   F   G   H" textAlignment="CENTER" wrapText="true">
             <font>
                 <Font name="Arial" size="40.0" />
             </font>
         </Label>
-        <Label layoutX="365.0" layoutY="34.0" prefHeight="60.0" prefWidth="75.0" text="  8" textAlignment="CENTER">
+        <Label layoutX="210.0" layoutY="118.0" prefHeight="60.0" prefWidth="75.0" text="  8" textAlignment="CENTER">
             <font>
                 <Font size="40.0" />
             </font>
         </Label>
-        <Label layoutX="365.0" layoutY="94.0" prefHeight="60.0" prefWidth="75.0" text="  7" textAlignment="CENTER">
+        <Label layoutX="210.0" layoutY="178.0" prefHeight="60.0" prefWidth="75.0" text="  7" textAlignment="CENTER">
             <font>
                 <Font size="40.0" />
             </font>
         </Label>
-        <Label layoutX="365.0" layoutY="154.0" prefHeight="60.0" prefWidth="75.0" text="  6" textAlignment="CENTER">
+        <Label layoutX="210.0" layoutY="238.0" prefHeight="60.0" prefWidth="75.0" text="  6" textAlignment="CENTER">
             <font>
                 <Font size="40.0" />
             </font>
         </Label>
-        <Label layoutX="365.0" layoutY="214.0" prefHeight="60.0" prefWidth="75.0" text="  5" textAlignment="CENTER">
+        <Label layoutX="210.0" layoutY="298.0" prefHeight="60.0" prefWidth="75.0" text="  5" textAlignment="CENTER">
             <font>
                 <Font size="40.0" />
             </font>
         </Label>
-        <Label layoutX="365.0" layoutY="274.0" prefHeight="60.0" prefWidth="75.0" text="  4 " textAlignment="CENTER">
+        <Label layoutX="210.0" layoutY="358.0" prefHeight="60.0" prefWidth="75.0" text="  4 " textAlignment="CENTER">
             <font>
                 <Font size="40.0" />
             </font>
         </Label>
-        <Label layoutX="365.0" layoutY="334.0" prefHeight="60.0" prefWidth="75.0" text="  3" textAlignment="CENTER">
+        <Label layoutX="210.0" layoutY="418.0" prefHeight="60.0" prefWidth="75.0" text="  3" textAlignment="CENTER">
             <font>
                 <Font size="40.0" />
             </font>
         </Label>
-        <Label layoutX="365.0" layoutY="394.0" prefHeight="60.0" prefWidth="75.0" text="  2" textAlignment="CENTER">
+        <Label layoutX="210.0" layoutY="478.0" prefHeight="60.0" prefWidth="75.0" text="  2" textAlignment="CENTER">
             <font>
                 <Font size="40.0" />
             </font>
         </Label>
-        <Label layoutX="365.0" layoutY="454.0" prefHeight="60.0" prefWidth="75.0" text="  1" textAlignment="CENTER">
+        <Label layoutX="210.0" layoutY="538.0" prefHeight="60.0" prefWidth="75.0" text="  1" textAlignment="CENTER">
             <font>
                 <Font size="40.0" />
             </font>
         </Label>
-        <Label fx:id="labelNomePlayer1" layoutX="22.0" layoutY="94.0" prefHeight="32.0" prefWidth="230.0" text="pl1" textAlignment="CENTER">
+        <Label fx:id="labelNomePlayer1" layoutX="280.0" layoutY="71.0" prefHeight="32.0" prefWidth="200.0" text="player1" textAlignment="RIGHT">
             <font>
                 <Font size="15.0" />
             </font>
         </Label>
-        <Label fx:id="labelNomePlayer2" layoutX="22.0" layoutY="126.0" prefHeight="32.0" prefWidth="230.0" text="pl2">
+        <Label fx:id="labelNomePlayer2" layoutX="554.0" layoutY="70.0" prefHeight="32.0" prefWidth="200.0" text="player2">
             <font>
                 <Font size="15.0" />
             </font>
         </Label>
-        <Button fx:id="comeBack" layoutX="780.0" layoutY="626.0" mnemonicParsing="false" onAction="#getStart" text="Login Page" />
-
-        <Button fx:id="testMossaBtn" layoutX="780.0" layoutY="690.0" mnemonicParsing="false" onAction="#testMossa" text="Test Mossa" />
-        <Button layoutX="780.0" layoutY="658.0" mnemonicParsing="false" onAction="#undo" text="Undo" />
+        <Button fx:id="comeBack" layoutX="22.0" layoutY="61.0" mnemonicParsing="false" onAction="#getStart" text="Login Page" />
+        <Button layoutX="22.0" layoutY="626.0" mnemonicParsing="false" onAction="#undo" text="Undo" />
 
         <Label layoutX="22.0" layoutY="158.0" prefHeight="32.0" prefWidth="230.0" textAlignment="CENTER">
             <font>
                 <Font size="15.0" />
             </font>
         </Label>
+      <Label layoutX="504.0" layoutY="71.0" text="VS" textAlignment="CENTER">
+         <font>
+            <Font size="22.0" />
+         </font></Label>
       <effect>
          <Blend />
       </effect>

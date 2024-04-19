@@ -136,9 +136,13 @@ public abstract class Pezzo extends ImageView {
      * @param e
      */
     public void dragPezzo(MouseEvent e) {
+        double posCasellaX=0;
+        double posCasellaY=0;
         //Recupero la posizione della casella e del relativo pezzo in modo assoluto rispetto alla finestra
-        double posCasellaX = this.getParent().getParent().getLayoutX() + this.getParent().getLayoutX();
-        double posCasellaY = this.getParent().getParent().getLayoutY() + this.getParent().getLayoutY();
+        if (this.getParent().getParent() != null) {
+            posCasellaX = this.getParent().getParent().getLayoutX() + this.getParent().getLayoutX();
+            posCasellaY = this.getParent().getParent().getLayoutY() + this.getParent().getLayoutY();
+        }
         //Sposto il pezzo centrandolo al mouse (-30 perche la casella è 60)
         this.setTranslateX(e.getSceneX() - posCasellaX - 30);
         this.setTranslateY(e.getSceneY() - posCasellaY - 30);
