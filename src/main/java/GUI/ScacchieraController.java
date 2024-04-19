@@ -1,50 +1,47 @@
 package GUI;
 
-import Engine.Data.Partita;
+import Engine.Data.Logger;
 import Engine.Giocatore.Bot;
 import Engine.Giocatore.Giocatore;
 import Engine.Giocatore.Umano;
 import Engine.Servizi.PartitaService;
 import Engine.Servizi.ScacchieraService;
-import Pezzi.Cavallo;
 import Pezzi.Pezzo;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
+import org.json.JSONObject;
 
-import javax.swing.*;
-import javax.swing.filechooser.FileSystemView;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Scanner;
+
+import java.util.*;
 
 import static Engine.Data.Partita.save;
 
 public class ScacchieraController {
 
+
+
+    JSONObject jsonMosse = new JSONObject();
+    @FXML
+    TextArea textAreaMosse = new TextArea();
     static Giocatore g1;
     static Giocatore g2;
 
     ScacchieraService sc;
 
-    public File percorsoSalvatggi = new File("src/main/java/salvataggi") ;
+    public File percorsoSalvataggi = new File("src/main/java/salvataggi") ;
 
     @FXML
     FileChooser filePartita = new FileChooser();
@@ -162,6 +159,14 @@ public class ScacchieraController {
     }
 
     //metodi per i pulsanti nel menù
+
+    @FXML
+    public void newGame(ActionEvent event) throws IOException {
+
+        initGame(g1.getNome(), g2.getNome(),true);  //migliorare terzo parametro.
+        //renderScacchiera();
+
+    }
 
 
     /**
@@ -365,14 +370,34 @@ public class ScacchieraController {
         setIsSelectCasella(false);
     }
 
-    //TEST
-    int posizioneRiga = 2;
 
+    /**
+     *
+     * @param pezzo
+     * @param casella
+     */
     public void testMossa2(Pezzo pezzo, CasellaScacchiera casella) {
+        //ogni volta che faccio una mossa viene sovrascritto
+        // e quindi devo trovare un modo per non farlo sovrascrivere
+
+        recuperaDatiLogMosse(pezzo, casella);
+
         scacchieraService.aggiornaPosizionePezzo(pezzo, casella.getRiga(), casella.getColonna());
         PartitaService.cambioTurno();
         renderScacchiera();
+
+
         scacchieraService.printScacchiera();
+
+    }
+
+    public void recuperaDatiLogMosse(Pezzo pezzo, CasellaScacchiera cs){
+        if(cs.getPezzoDellaCasella() == null) {
+            Logger.addMossaLog(pezzo.getRiga(), pezzo.getColonna(), cs.getRiga(), cs.getColonna(), pezzo.getCodice(), "-");
+        }else{
+            Pezzo temp = cs.getPezzoDellaCasella();
+            Logger.addMossaLog(pezzo.getRiga(), pezzo.getColonna(), cs.getRiga(), cs.getColonna(), pezzo.getCodice(), temp.getCodice());
+        }
     }
 
 }

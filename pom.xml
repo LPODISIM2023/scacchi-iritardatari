@@ -20,7 +20,16 @@
       <version>33.0.0-jre</version>
     </dependency>
 
-<!--    <dependency>-->
+
+    <!-- https://mvnrepository.com/artifact/org.json/json -->
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>20240303</version>
+    </dependency>
+
+
+    <!--    <dependency>-->
 <!--      <groupId>org.openjfx</groupId>-->
 <!--      <artifactId>javafx-controls</artifactId>-->
 <!--      <version>20</version>-->

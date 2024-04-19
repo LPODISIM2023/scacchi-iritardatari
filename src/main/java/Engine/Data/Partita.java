@@ -9,9 +9,8 @@ public class Partita {
 
 
     public static Partita save(ScacchieraService sc, Giocatore g1, Giocatore g2){
-        Partita p = new Partita();
-
-        return p;
+        System.out.print("saved");
+        return null;
     }
 
 }

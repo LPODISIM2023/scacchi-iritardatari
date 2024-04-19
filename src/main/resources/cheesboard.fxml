@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<?import java.net.URL?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="anchor" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ScacchieraController">
 
     <stylesheets>
@@ -17,7 +17,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" text="Nuova partita" />
+              <MenuItem mnemonicParsing="false" onAction="#newGame" text="Nuova partita" />
                   <MenuItem fx:id="caricaPartita" mnemonicParsing="false" onAction="#carica" text="Carica partita" />
                   <MenuItem mnemonicParsing="false" onAction="#saveButton" text="Salva" />
                   <MenuItem mnemonicParsing="false" onAction="#saveAndExit" text="Salva e esci" />
@@ -101,6 +101,7 @@
          <font>
             <Font size="22.0" />
          </font></Label>
+      <TextArea fx:id="textAreaMosse" layoutX="14.0" layoutY="228.0" prefHeight="200.0" prefWidth="200.0" />
       <effect>
          <Blend />
       </effect>

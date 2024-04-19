@@ -21,6 +21,15 @@ public class CasellaScacchiera extends StackPane {
     private int riga, colonna;
     private static ScacchieraController sc;
     private boolean siPuoMangiare = false;
+
+    public Pezzo getPezzoDellaCasella() {
+        return pezzoDellaCasella;
+    }
+
+    public void setPezzoDellaCasella(Pezzo pezzoDellaCasella) {
+        this.pezzoDellaCasella = pezzoDellaCasella;
+    }
+
     private Pezzo pezzoDellaCasella = null;
 
     /**
@@ -47,6 +56,13 @@ public class CasellaScacchiera extends StackPane {
         this.riga = riga;
         this.colonna = colonna;
         this.siPuoMangiare = siPuoMangiare;
+    }
+
+    public CasellaScacchiera(Pezzo pezzo, int oldX, int oldY){
+        oldX = pezzo.getRiga();
+        oldY = pezzo.getColonna();
+
+        
     }
 
     public int getColonna() {
@@ -191,8 +207,8 @@ public class CasellaScacchiera extends StackPane {
      */
     public void controlloRilascioPezzo(MouseEvent e) {
         //Calcolo posizione della scacchiera
-        double mouseX = e.getSceneX() - 440; // valore della scacchiera nella finestra, usato per creare le cordinare 0,0 nella scacchiera
-        double mouseY = e.getSceneY() - 29; //
+        double mouseX = e.getSceneX() - 290; // valore della scacchiera nella finestra, usato per creare le cordinare 0,0 nella scacchiera
+        double mouseY = e.getSceneY() - 115; //
         int rigaNum = 1;
         int colonnaNum = 1;
 
@@ -231,8 +247,8 @@ public class CasellaScacchiera extends StackPane {
 
     public void coloraCasellaAlPassaggioDelMouse(MouseEvent e) {
         //Calcolo posizione della scacchiera
-        double mouseX = e.getSceneX() - 440; // valore della scacchiera nella finestra, usato per creare le cordinare 0,0 nella scacchiera
-        double mouseY = e.getSceneY() - 29; //
+        double mouseX = e.getSceneX() - 290; // valore della scacchiera nella finestra, usato per creare le cordinare 0,0 nella scacchiera
+        double mouseY = e.getSceneY() - 115; //
         int rigaNum = 1;
         int colonnaNum = 1;
 

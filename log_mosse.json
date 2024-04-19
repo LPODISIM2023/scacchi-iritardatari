@@ -1,0 +1,20 @@
+[
+  {
+    "numeroMossa": 1,
+    "codPezzoMosso": "b_t1",
+    "oldColonna": 1,
+    "newColonna": 1,
+    "codPezzoMangiato": "n_p1",
+    "newRiga": 7,
+    "oldRiga": 3
+  },
+  {
+    "numeroMossa": 2,
+    "codPezzoMosso": "n_c2",
+    "oldColonna": 4,
+    "newColonna": 3,
+    "codPezzoMangiato": "-",
+    "newRiga": 6,
+    "oldRiga": 4
+  }
+]
