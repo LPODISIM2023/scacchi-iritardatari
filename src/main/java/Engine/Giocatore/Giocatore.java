@@ -19,7 +19,11 @@ public abstract class Giocatore {
 
     private int valoreTotaleGiocatore = 0;
 
-    public Giocatore (String nome, boolean colore){this.nome = nome;
+
+    public Giocatore (String nome, boolean colore){
+
+        this.nome = nome;
+
         this.colore = colore;
 
         if ( colore == true ) {
@@ -93,6 +97,8 @@ public abstract class Giocatore {
     public void setPezziGiocatore(List<Pezzo> listanuova){ this.pezziGiocatore=listanuova; }
 
     public List<Pezzo> getPezziMangiati(){ return this.pezziMangiati; }
+
+
 
     public void setPezziMangiati(List<Pezzo> pezzimangiati){ this.pezziMangiati= pezzimangiati; }
 

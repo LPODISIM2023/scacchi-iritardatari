@@ -3,25 +3,30 @@ package Engine.Servizi;
 import Engine.Giocatore.Bot;
 import Engine.Giocatore.Giocatore;
 import Engine.Giocatore.Umano;
+import GUI.ScacchieraController;
+
 
 public class PartitaService {
 
     private static Giocatore g1;
     private static Giocatore g2;
     private static boolean isBot;
+
+    private static ScacchieraController scacchieraController;
     private static ScacchieraService scacchieraService;
     private static boolean partitaInCorso = false;
     private static boolean turnoGiocatore = true;
     private static boolean giocatoreSottoScacco = false;
 
     /**
-     * Metodo che viene utilizzato per iniziare una partita dati i due nomi dei giocatori. Inoltre si necessita il controllo
-     * sul tipo di giocatore ovvero che sia il bot o no.
+     * Metodo costruttore che viene utilizzato per creare un'istanza della partita, quindi per iniziare una partita dati i due nomi dei giocatori.
+     * Inoltre si necessita il controllo sul tipo di giocatore ovvero che sia il bot o no.
      * @param nome1
      * @param nome2
      * @param isBot
+     * @param scacchieraController
      */
-    public static void iniziaPartita(String nome1, String nome2, boolean isBot){
+    public PartitaService(String nome1, String nome2, boolean isBot, ScacchieraController scacchieraController){
         //inizializzazione Giocatori
         g1 = new Umano(nome1, true);
         if(isBot){
@@ -31,7 +36,7 @@ public class PartitaService {
         }
         //creazione Scacchiera Service
         scacchieraService = new ScacchieraService(g1.getPezziGiocatore(), g2.getPezziGiocatore());
-
+        this.scacchieraController = scacchieraController;
         partitaInCorso = true;
     }
 
@@ -42,6 +47,10 @@ public class PartitaService {
     public static void cambioTurno(){
         //Cambio turno del giocatore
         turnoGiocatore = !turnoGiocatore;
+        System.out.println(turnoGiocatore);
+        if((g2 instanceof Bot) && g2.getColore() == getColoreTurnoGiocatore()){
+            ((Bot)g2).mossaRandom();
+        }
 
         //controllo se il giocatore è sotto scacco
             //Se si controllo se è scacco
@@ -49,6 +58,15 @@ public class PartitaService {
                 //altrimenti finisce la partita
         //se non puòfare tutte le mosse
     }
+
+    /**
+     * Metodo utile per salvare la partita, quindi la scacchiera e i due giocatori che identificano quella partita
+     * @param sc
+     * @param g1
+     * @param g2
+     * @return
+     */
+    public static PartitaService save(ScacchieraService sc, Giocatore g1, Giocatore g2){return null;}
 
     public static Giocatore getGiocatore1(){return g1;}
     public static Giocatore getGiocatore2(){return g2;}
@@ -58,5 +76,20 @@ public class PartitaService {
 
     public static boolean isGiocatoreSottoScacco(){return giocatoreSottoScacco;}
     public static boolean getIsBot(){return isBot;}
+    public static ScacchieraController getScacchieraController() {
+        return scacchieraController;
+    }
+
+    public static void setScacchieraController(ScacchieraController scacchieraController) {
+        PartitaService.scacchieraController = scacchieraController;
+    }
+
+    public static boolean isIsBot() {
+        return isBot;
+    }
+
+    public static void setIsBot(boolean isBot) {
+        PartitaService.isBot = isBot;
+    }
 
 }

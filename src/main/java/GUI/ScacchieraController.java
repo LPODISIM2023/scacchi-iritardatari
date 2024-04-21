@@ -29,7 +29,6 @@ import static Engine.Data.Partita.save;
 public class ScacchieraController {
 
 
-
     JSONObject jsonMosse = new JSONObject();
     @FXML
     TextArea textAreaMosse = new TextArea();
@@ -37,14 +36,14 @@ public class ScacchieraController {
     @FXML
     ScrollPane scrollPaneMosse = new ScrollPane();
 
-    public String[] array = {"x","A","B","C","D","E","F","G","H"};
+    public String[] array = {"x", "A", "B", "C", "D", "E", "F", "G", "H"};
 
     static Giocatore g1;
     static Giocatore g2;
 
     ScacchieraService sc;
 
-    public File percorsoSalvataggi = new File("src/main/java/salvataggi") ;
+    public File percorsoSalvataggi = new File("src/main/java/salvataggi");
 
     @FXML
     FileChooser filePartita = new FileChooser();
@@ -131,7 +130,7 @@ public class ScacchieraController {
         textAreaMosse.setEditable(false);
         scrollPaneMosse.setContent(textAreaMosse);
 
-        PartitaService.iniziaPartita(nome1, nome2, isBot);
+        new PartitaService(nome1, nome2, isBot, this);
 
         g1 = PartitaService.getGiocatore1();
         g2 = PartitaService.getGiocatore2();
@@ -167,6 +166,7 @@ public class ScacchieraController {
 
     /**
      * Metodo collegato al menu button "Nuova Partita", inizializza una nuova partita chiedendo prima se si voglia salvare o meno
+     *
      * @param event listener degli eventi
      * @throws IOException
      */
@@ -181,21 +181,21 @@ public class ScacchieraController {
         nuovaPartita.getButtonTypes().add(si);
         nuovaPartita.getButtonTypes().add(no);
 
-        nuovaPartita.showAndWait().ifPresent( scelta ->{
-            if(scelta == si){
+        nuovaPartita.showAndWait().ifPresent(scelta -> {
+            if (scelta == si) {
                 try {
-                    save(sc,g1,g2);
+                    save(sc, g1, g2);
                     textAreaMosse.clear();
                     log = "";
-                    if(!(PartitaService.getColoreTurnoGiocatore())){
+                    if (!(PartitaService.getColoreTurnoGiocatore())) {
                         PartitaService.cambioTurno();
                     }
                     initGame(g1.getNome(), g2.getNome(), true);  //migliorare terzo parametro.
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-            }else //renderScacchiera();
-                if(scelta == no) {
+            } else //renderScacchiera();
+                if (scelta == no) {
                     try {
                         initGame(g1.getNome(), g2.getNome(), false);  //migliorare terzo parametro.
                     } catch (IOException e) {
@@ -208,13 +208,14 @@ public class ScacchieraController {
 
     /**
      * Metodo che salva una partita dopo aver cliccato sul bottone del menu "Salva"
+     *
      * @param event listener per l'evento del bottone Salva
      */
     @FXML
-    public void saveButton(ActionEvent event){
+    public void saveButton(ActionEvent event) {
 
         System.out.println("Save!");
-        save(sc,g2,g1);
+        save(sc, g2, g1);
     }
 
     /**
@@ -222,6 +223,7 @@ public class ScacchieraController {
      * gestione queste scelte tramite un "incapsulamento" di Alert e Dialog pane, ovvero classi anonime che vengono
      * create all'interno del metodo.
      * Si preferiscono le classi anonime per scopi di questo tipo, dove l'azione viene eseguita un numero minore di volte.
+     *
      * @param event listener del pulsante Salva e esci
      * @throws InterruptedException
      */
@@ -234,7 +236,7 @@ public class ScacchieraController {
         ButtonType esciSenzaSalvare = new ButtonType("Esci senza salvare");
         ButtonType annulla = new ButtonType("Annulla");
 
-        salvaEEsci.getButtonTypes().setAll(ok,esciSenzaSalvare,annulla);
+        salvaEEsci.getButtonTypes().setAll(ok, esciSenzaSalvare, annulla);
 
         salvaEEsci.showAndWait().ifPresent(scelta -> {
             if (scelta == ok) {
@@ -248,16 +250,16 @@ public class ScacchieraController {
                 uscita.setContentText("Grazie per aver giocato");
                 uscita.setOnCloseRequest(dialogEvent -> System.exit(0));
                 uscita.showAndWait().ifPresent(risposta -> {
-                    if(risposta == chiudi){
+                    if (risposta == chiudi) {
                         System.exit(0);
                     }
                 });
-            }else if(scelta == annulla){
+            } else if (scelta == annulla) {
                 return;
             }
         });
 
-}
+    }
 
     /**
      * Metodo che killa l'applicazione e termina l'esecuzione (nei pulsanti del menù)
@@ -301,7 +303,6 @@ public class ScacchieraController {
 //        } else {
 //            System.out.println("La chiave 'user.home' non è stata impostata.");
 //        }
-
 
 
     }
@@ -356,6 +357,7 @@ public class ScacchieraController {
 
     /**
      * Metodo usato per renderizzare nella scacchiera le possibili posizioni disponibili per muovere il pezzo selezionato
+     *
      * @param caselleDisponibili
      * @param pezzoCliccato
      */
@@ -404,13 +406,15 @@ public class ScacchieraController {
     }
 
     String mossa;
-    String log="";
+    String log = "";
+
     /**
-     *  Metodo principale per spostare i pezzi sulla scacchiera
-     * @param pezzo , il pezzo che viene spostato
+     * Metodo principale per spostare i pezzi sulla scacchiera
+     *
+     * @param pezzo   , il pezzo che viene spostato
      * @param casella , la casella su cui finirà
      */
-    public void testMossa2(Pezzo pezzo, CasellaScacchiera casella){
+    public void testMossa2(Pezzo pezzo, CasellaScacchiera casella) {
 
         recuperaDatiLogMosse(pezzo, casella);
         scacchieraService.aggiornaPosizionePezzo(pezzo, casella.getRiga(), casella.getColonna());
@@ -419,20 +423,21 @@ public class ScacchieraController {
 
         PartitaService.cambioTurno();
         renderScacchiera();
-       // scacchieraService.printScacchiera();
+
 
     }
 
 
     /**
      * Metodo che recupera la mossa effettuata sulla scacchiera e l'aggiunge all'array LogMosse per portarla scrive sui file.
+     *
      * @param pezzo pezzo mosso
-     * @param cs casella della scacchiera
+     * @param cs    casella della scacchiera
      */
-    public void recuperaDatiLogMosse(Pezzo pezzo, CasellaScacchiera cs){
-        if(cs.getPezzoDellaCasella() == null) {
+    public void recuperaDatiLogMosse(Pezzo pezzo, CasellaScacchiera cs) {
+        if (cs.getPezzoDellaCasella() == null) {
             Logger.addMossaLog(pezzo.getRiga(), pezzo.getColonna(), cs.getRiga(), cs.getColonna(), pezzo.getCodice(), "-");
-        }else{
+        } else {
             Pezzo temp = cs.getPezzoDellaCasella();
             Logger.addMossaLog(pezzo.getRiga(), pezzo.getColonna(), cs.getRiga(), cs.getColonna(), pezzo.getCodice(), temp.getCodice());
         }
@@ -441,15 +446,16 @@ public class ScacchieraController {
 
     /**
      * Questo metodo ritorna l'ultima mossa effettua per porterla poi riportare nel textArea che abbiamo messo a video.
+     *
      * @param pezzo pezzo mosso
      * @return Stringa che contiene la mossa precendente e quella effettuata in questa formattazione:
      * 1° mossa (3,A) -> (4,A)
      */
-    public String getLogMosse(Pezzo pezzo){
+    public String getLogMosse(Pezzo pezzo) {
         ArrayList<LogMossa> arrayDiMosse = Logger.getListaMosse();
         LogMossa ultimaMossa = arrayDiMosse.get(arrayDiMosse.size() - 1);
 
-
-        return ultimaMossa.getNumeroMossa() + "° (" + ultimaMossa.getOldRiga()+","+array[ultimaMossa.getOldColonna()]+")" + "->"+ "("+pezzo.getRiga()+","+array[pezzo.getColonna()]+")"+ new String(Character.toChars(pezzo.getCodicePezzoUTF8())) + "\n";
+        System.out.println("ASDDSADASDA");
+        return ultimaMossa.getNumeroMossa() + "° (" + ultimaMossa.getOldRiga() + "," + array[ultimaMossa.getOldColonna()] + ")" + "->" + "(" + pezzo.getRiga() + "," + array[pezzo.getColonna()] + ")" + new String(Character.toChars(pezzo.getCodicePezzoUTF8())) + "\n";
     }
 }
