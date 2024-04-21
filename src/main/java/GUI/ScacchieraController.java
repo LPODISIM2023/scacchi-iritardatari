@@ -118,7 +118,6 @@ public class ScacchieraController {
     }
 
 
-
     /**
      * Setta le label in chessboard con i nomi dei giocatori, in più verifica lo stato del checkBox (true o false)
      * a seconda della scelta di giocare contro il bot o no.
@@ -135,7 +134,7 @@ public class ScacchieraController {
         textAreaMosse.setEditable(false);
         scrollPaneMosse.setContent(textAreaMosse);
 
-        partita=new PartitaService(nome1, nome2, isBot, this);
+        partita = new PartitaService(nome1, nome2, isBot, this);
 
         g1 = PartitaService.getGiocatore1();
         g2 = PartitaService.getGiocatore2();
@@ -224,10 +223,10 @@ public class ScacchieraController {
         filePartita.getExtensionFilters().addAll(jsonFilter);
         File file = filePartita.showSaveDialog(new Stage());
 
-        if(file != null){
+        if (file != null) {
             Salvataggio.salvaPartita(partita);
             System.out.println("Salvato");
-        }else{
+        } else {
             //eccezione
         }
 
@@ -433,16 +432,25 @@ public class ScacchieraController {
      */
     public void testMossa2(Pezzo pezzo, CasellaScacchiera casella) {
 
-        recuperaDatiLogMosse(pezzo, casella);
-        scacchieraService.aggiornaPosizionePezzo(pezzo, casella.getRiga(), casella.getColonna());
-        log = getLogMosse(pezzo);
-        textAreaMosse.appendText(log);
+        //Vedo a quale giocatore è stato mangiato il pezzo
+        if (!PartitaService.getColoreTurnoGiocatore()) {
+            g1.addPezzoMangiato(pezzo);
+        } else {
+            g2.addPezzoMangiato(pezzo);
+        }
 
+        //Aggiorno il file del log e lo mostro a schermo
+        datiLogMosse(pezzo, casella);
+
+        //Aggiorno la posizione nella scacchiera logica
+        scacchieraService.aggiornaPosizionePezzo(pezzo, casella.getRiga(), casella.getColonna());
+
+        //Reimposto l undo delle mosse al ultima mossa eseguita
         numUndoEseguitiDiSeguito = 1;
 
+        //Cambio turno e rerenderdella Scacchiera
         PartitaService.cambioTurno();
         renderScacchiera();
-
 
     }
 
@@ -453,13 +461,15 @@ public class ScacchieraController {
      * @param pezzo pezzo mosso
      * @param cs    casella della scacchiera
      */
-    public void recuperaDatiLogMosse(Pezzo pezzo, CasellaScacchiera cs) {
+    public void datiLogMosse(Pezzo pezzo, CasellaScacchiera cs) {
         if (cs.getPezzoDellaCasella() == null) {
             Logger.addMossaLog(pezzo.getRiga(), pezzo.getColonna(), cs.getRiga(), cs.getColonna(), pezzo.getCodice(), "-");
         } else {
             Pezzo temp = cs.getPezzoDellaCasella();
             Logger.addMossaLog(pezzo.getRiga(), pezzo.getColonna(), cs.getRiga(), cs.getColonna(), pezzo.getCodice(), temp.getCodice());
         }
+        log = getLogMosse(pezzo);
+        textAreaMosse.appendText(log);
     }
 
 
@@ -479,7 +489,6 @@ public class ScacchieraController {
     }
 
 
-
     /**
      * Metodo mappato con il pulsante "UNDO" sulla scacchiera.
      * Il metodo ritorna allo stato mossa precendente a quello appena giocato.
@@ -488,6 +497,7 @@ public class ScacchieraController {
      */
     public static int numeroMosseUndo = 0;
     public static int numUndoEseguitiDiSeguito = 1;
+
     @FXML
     public void undo(ActionEvent event) {
 
