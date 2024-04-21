@@ -6,7 +6,9 @@ import Engine.Giocatore.Umano;
 import GUI.ScacchieraController;
 
 
-public class PartitaService {
+import java.io.Serializable;
+
+public class PartitaService implements Serializable {
 
     private static Giocatore g1;
     private static Giocatore g2;

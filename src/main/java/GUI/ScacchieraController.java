@@ -2,6 +2,7 @@ package GUI;
 
 import Engine.Data.LogMossa;
 import Engine.Data.Logger;
+import Engine.Data.Salvataggio;
 import Engine.Giocatore.Giocatore;
 import Engine.Servizi.PartitaService;
 import Engine.Servizi.ScacchieraService;
@@ -47,6 +48,7 @@ public class ScacchieraController {
 
     @FXML
     FileChooser filePartita = new FileChooser();
+
     @FXML
     public Label labelNomePlayer1;
 
@@ -66,10 +68,20 @@ public class ScacchieraController {
     private static boolean isSelectCasella = false;
     private static boolean colorePezzoSelezionato = true; //false=nero true=bianco
     private static Pezzo pezzoSelezionato;
+    private static PartitaService partita;
 
     private static ScacchieraService scacchieraService;
 
     public static ArrayList<CasellaScacchiera> caselle = new ArrayList<>();
+
+    public static PartitaService getPartita() {
+        return partita;
+    }
+
+    public static void setPartita(PartitaService partita) {
+        ScacchieraController.partita = partita;
+    }
+
 
     public static boolean getIsSelectCasella() {
         return isSelectCasella;
@@ -130,7 +142,7 @@ public class ScacchieraController {
         textAreaMosse.setEditable(false);
         scrollPaneMosse.setContent(textAreaMosse);
 
-        new PartitaService(nome1, nome2, isBot, this);
+        partita=new PartitaService(nome1, nome2, isBot, this);
 
         g1 = PartitaService.getGiocatore1();
         g2 = PartitaService.getGiocatore2();
@@ -212,10 +224,20 @@ public class ScacchieraController {
      * @param event listener per l'evento del bottone Salva
      */
     @FXML
-    public void saveButton(ActionEvent event) {
+    public void saveButton(ActionEvent event) throws IOException {
+        filePartita.setTitle("Salvataggi");
+        filePartita.setInitialDirectory(new File(System.getProperty("user.dir")));
+        FileChooser.ExtensionFilter jsonFilter = new FileChooser.ExtensionFilter("File chess", "*.chess");
+        filePartita.getExtensionFilters().addAll(jsonFilter);
+        File file = filePartita.showSaveDialog(new Stage());
 
-        System.out.println("Save!");
-        save(sc, g2, g1);
+        if(file != null){
+            Salvataggio.salvaPartita(partita);
+            System.out.println("Salvato");
+        }else{
+            //eccezione
+        }
+
     }
 
     /**
@@ -240,7 +262,11 @@ public class ScacchieraController {
 
         salvaEEsci.showAndWait().ifPresent(scelta -> {
             if (scelta == ok) {
-                save(sc, g1, g2);
+                try {
+                    Salvataggio.salvaPartita(partita);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 System.exit(0);
             } else if (scelta == esciSenzaSalvare) {
                 Dialog<ButtonType> uscita = new Dialog<>();
@@ -283,10 +309,8 @@ public class ScacchieraController {
         filePartita.setTitle("Salvataggi");
         filePartita.setInitialDirectory(new File(System.getProperty("user.dir")));
         filePartita.getExtensionFilters().clear();
-//        filePartita.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Json files", "*.json"));
         File file = filePartita.showOpenDialog(new Stage());
 
-        System.out.println(file);
 
 //        if(percorsoSalvatggi.exists()){
 //
