@@ -53,7 +53,7 @@ public class ScacchieraService {
     public Pezzo getPezzoByCodice(String codice) {
         Pezzo pezzo = null;
         for (Table.Cell<Integer, Integer, Pezzo> cell : scacchieraTable.cellSet()) {
-            if (cell.getValue().toString().equals(codice)) {
+            if (cell.getValue().getCodice().equals(codice)) {
                 pezzo = cell.getValue();
             }
         }

@@ -50,6 +50,8 @@ public class ScacchieraController {
     FileChooser filePartita = new FileChooser();
 
     @FXML
+    public Button buttonUndo;
+    @FXML
     public Label labelNomePlayer1;
 
     @FXML
@@ -115,16 +117,7 @@ public class ScacchieraController {
         ScacchieraController.caselle = caselle;
     }
 
-    /**
-     * Metodo mappato con il pulsante "UNDO" sulla scacchiera.
-     * Il metodo ritorna allo stato mossa precendente a quello appena giocato.
-     *
-     * @param event listener del pulsante.
-     */
-    @FXML
-    public void undo(ActionEvent event) {
-        //@TODO: implements
-    }
+
 
     /**
      * Setta le label in chessboard con i nomi dei giocatori, in più verifica lo stato del checkBox (true o false)
@@ -445,6 +438,8 @@ public class ScacchieraController {
         log = getLogMosse(pezzo);
         textAreaMosse.appendText(log);
 
+        numUndoEseguitiDiSeguito = 1;
+
         PartitaService.cambioTurno();
         renderScacchiera();
 
@@ -481,5 +476,59 @@ public class ScacchieraController {
 
         System.out.println("ASDDSADASDA");
         return ultimaMossa.getNumeroMossa() + "° (" + ultimaMossa.getOldRiga() + "," + array[ultimaMossa.getOldColonna()] + ")" + "->" + "(" + pezzo.getRiga() + "," + array[pezzo.getColonna()] + ")" + new String(Character.toChars(pezzo.getCodicePezzoUTF8())) + "\n";
+    }
+
+
+
+    /**
+     * Metodo mappato con il pulsante "UNDO" sulla scacchiera.
+     * Il metodo ritorna allo stato mossa precendente a quello appena giocato.
+     *
+     * @param event listener del pulsante.
+     */
+    public static int numeroMosseUndo = 0;
+    public static int numUndoEseguitiDiSeguito = 1;
+    @FXML
+    public void undo(ActionEvent event) {
+
+        if (numeroMosseUndo >= 5) return;
+
+        ArrayList<LogMossa> arrayTutteLeMosse = Logger.getListaMosse();
+
+        if (arrayTutteLeMosse.isEmpty()) return;
+        if (arrayTutteLeMosse.size() - numUndoEseguitiDiSeguito < 0) return;
+        numeroMosseUndo += 1;
+
+
+        LogMossa ultimaMossa = arrayTutteLeMosse.get(arrayTutteLeMosse.size() - (numUndoEseguitiDiSeguito++));
+        if (ultimaMossa.getCodPezzoMangiato().equals("-")) {
+            Pezzo pezzoDaSpostare = scacchieraService.getPezzoByCodice(ultimaMossa.getCodPezzoMosso());
+            scacchieraService.aggiornaPosizionePezzo(pezzoDaSpostare, ultimaMossa.getOldRiga(), ultimaMossa.getOldColonna());
+
+        } else {
+            Pezzo pezzoDaSpostare = scacchieraService.getPezzoByCodice(ultimaMossa.getCodPezzoMosso());
+            scacchieraService.aggiornaPosizionePezzo(pezzoDaSpostare, ultimaMossa.getOldRiga(), ultimaMossa.getOldColonna());
+
+            Pezzo pezzoMangiatoDaRipristinare = null;
+            for (Pezzo pezzoMangiatoG1 : g1.getPezziMangiati()) {
+                if (pezzoMangiatoG1.getCodice().equals(ultimaMossa.getCodPezzoMangiato())) {
+                    pezzoMangiatoDaRipristinare = pezzoMangiatoG1;
+                }
+            }
+            for (Pezzo pezzoMangiatoG2 : g2.getPezziMangiati()) {
+                if (pezzoMangiatoG2.getCodice().equals(ultimaMossa.getCodPezzoMangiato())) {
+                    pezzoMangiatoDaRipristinare = pezzoMangiatoG2;
+                }
+            }
+            if (pezzoMangiatoDaRipristinare != null) {
+                scacchieraService.aggiornaPosizionePezzo(pezzoMangiatoDaRipristinare, ultimaMossa.getNewRiga(), ultimaMossa.getNewColonna());
+            }
+
+        }
+        buttonUndo.setText("Undo disponibili " + (5 - numeroMosseUndo));
+        PartitaService.cambioTurno();
+        renderScacchiera();
+        scacchieraService.printScacchiera();
+
     }
 }

@@ -98,7 +98,7 @@
             </font>
         </Label>
         <Button fx:id="comeBack" layoutX="22.0" layoutY="61.0" mnemonicParsing="false" onAction="#getStart" text="Login Page" />
-        <Button layoutX="22.0" layoutY="626.0" mnemonicParsing="false" onAction="#undo" text="Undo" />
+        <Button layoutX="22.0" layoutY="626.0" mnemonicParsing="false" onAction="#undo" text="undo disponibili 5" fx:id="buttonUndo" />
 
         <Label layoutX="22.0" layoutY="158.0" prefHeight="32.0" prefWidth="230.0" textAlignment="CENTER">
             <font>
