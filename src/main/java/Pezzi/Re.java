@@ -9,8 +9,8 @@ import java.util.List;
 public class Re extends Pezzo{
 
     //metodo costruttore classe Re: crea una nuova istanza di Re
-    public Re(String nome, String codice, int valore, boolean colore, int riga, int colonna){
-        super(nome, codice, valore, colore, riga, colonna);
+    public Re(String nome, String codice, int valore, boolean colore, int riga, int colonna, int codicePezzo){
+        super(nome, codice, valore, colore, riga, colonna, codicePezzo);
         setImage();
     }
 

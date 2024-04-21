@@ -1,12 +1,11 @@
 package Engine.Data;
 
-import netscape.javascript.JSObject;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.FileWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
+
 
 public class Logger {
 
@@ -16,6 +15,9 @@ public class Logger {
 
     private static ArrayList<LogMossa> listaMosse = new ArrayList<>();
 
+    public static ArrayList<LogMossa> getListaMosse() {
+        return listaMosse;
+    }
     public static void addMossaLog(int oldRiga, int oldColonna, int newRiga, int newColonna, String codPezzoMosso, String codPezzoMangiato){
         LogMossa lm = new LogMossa(oldRiga, oldColonna, newRiga, newColonna, codPezzoMangiato, codPezzoMosso, numMossa++);
         listaMosse.add(lm);
