@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -97,6 +98,12 @@ public class CasellaScacchiera extends StackPane {
         setOnMouseDragged(e -> {
             if (pezzoDellaCasella != null)
                 pezzoDellaCasella.dragPezzo(e);
+        });
+
+        setOnMouseClicked(e->{
+            if (e.getButton() == MouseButton.SECONDARY) {
+                sc.toglieSelezione();
+            }
         });
 
     }

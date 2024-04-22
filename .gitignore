@@ -17,3 +17,8 @@ buildNumber.properties
 .classpath
 .idea
 /.idea
+log_mosse.json
+*.txt
+log_mosse.json
+.idea/misc.xml
+/.idea

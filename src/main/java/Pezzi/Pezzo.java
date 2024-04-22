@@ -20,16 +20,20 @@ public abstract class Pezzo extends ImageView {
     private boolean colore;
     private int riga, colonna;
 
+
+    private int codicePezzoUTF8;
+
     /** metodo costruttore: crea una nuova istanza Pezzo quando viene invocato
      */
 
-    public Pezzo(String nome, String codice, int valore, boolean colore, int riga, int colonna) {
+    public Pezzo(String nome, String codice, int valore, boolean colore, int riga, int colonna, int codicePezzo) {
         this.nome = nome;
         this.codice = codice;
         this.valore = valore;
         this.colore = colore;
         this.riga = riga;
         this.colonna = colonna;
+        this.codicePezzoUTF8 = codicePezzo;
         handleEventi();
     }
 
@@ -60,6 +64,15 @@ public abstract class Pezzo extends ImageView {
     public boolean getColore() {
         return colore;
     }
+
+    public int getCodicePezzoUTF8() {
+        return codicePezzoUTF8;
+    }
+
+    public void setCodicePezzoUTF8(int codicePezzoUTF8) {
+        this.codicePezzoUTF8 = codicePezzoUTF8;
+    }
+
 
     /**
      * motodo setPosizione(): utile per settere la posizione dei pezzi.
