@@ -44,6 +44,7 @@ public class CasellaScacchiera extends StackPane {
         this.riga = riga;
         this.colonna = colonna;
         this.sc = sc;
+        this.setMinSize(60, 60);
         handleEventi();
     }
 
@@ -59,11 +60,9 @@ public class CasellaScacchiera extends StackPane {
         this.siPuoMangiare = siPuoMangiare;
     }
 
-    public CasellaScacchiera(Pezzo pezzo, int oldX, int oldY){
+    public CasellaScacchiera(Pezzo pezzo, int oldX, int oldY) {
         oldX = pezzo.getRiga();
         oldY = pezzo.getColonna();
-
-        
     }
 
     public int getColonna() {
@@ -100,7 +99,7 @@ public class CasellaScacchiera extends StackPane {
                 pezzoDellaCasella.dragPezzo(e);
         });
 
-        setOnMouseClicked(e->{
+        setOnMouseClicked(e -> {
             if (e.getButton() == MouseButton.SECONDARY) {
                 sc.toglieSelezione();
             }

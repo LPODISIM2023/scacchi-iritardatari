@@ -234,13 +234,8 @@ public class ScacchieraController {
 
     /**
      * Metodo che permette all'utente di scegliere se uscire e salvare, uscire o annullare l'operazione,
-<<<<<<< HEAD
-     * gestione queste scelte tramite un "incapsulamente" di Alert e Dialog pane, ovvero classi anonime che vengono
-     * create all'interno del metodo visto che l'azione performata verrà eseguita poche volte.
-=======
      * gestione queste scelte tramite un "incapsulamento" di Alert e Dialog pane, ovvero classi anonime che vengono
      * create all'interno del metodo.
->>>>>>> 93f03dc6c13f921afd18706f0127333bca151c1b
      * Si preferiscono le classi anonime per scopi di questo tipo, dove l'azione viene eseguita un numero minore di volte.
      *
      * @param event listener del pulsante Salva e esci
@@ -515,18 +510,15 @@ public class ScacchieraController {
         numeroMosseUndo += 1;
 
         if (PartitaService.getIsBot()) {
-            System.out.println("ArrayTutteMosse");
-            System.out.println(arrayTutteLeMosse);
             eseguiUnaMossaUndo(arrayTutteLeMosse);
-            System.out.println("ArrayTutteMosse2");
-            System.out.println(arrayTutteLeMosse);
             eseguiUnaMossaUndo(arrayTutteLeMosse);
         } else {
             eseguiUnaMossaUndo(arrayTutteLeMosse);
+            PartitaService.cambioTurno();
         }
 
         buttonUndo.setText("Undo disponibili " + (5 - numeroMosseUndo));
-        PartitaService.cambioTurno();
+
         renderScacchiera();
         scacchieraService.printScacchiera();
 
