@@ -1,16 +1,13 @@
 package Pezzi;
 
+import Engine.Servizi.Mossa;
 import GUI.CasellaScacchiera;
 import GUI.ScacchieraController;
 import javafx.fxml.FXML;
-import javafx.geometry.Point2D;
-import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -173,8 +170,11 @@ public abstract class Pezzo extends ImageView {
     //Metodo che va rivisto sovrascritto in base al pezzo
     public ArrayList<CasellaScacchiera> getArrayMosse() {
         ArrayList<CasellaScacchiera> mosseDisponibili = new ArrayList<>();
-        mosseDisponibili.add(new CasellaScacchiera(riga + 1, colonna, false));
-        mosseDisponibili.add(new CasellaScacchiera(riga + 2, colonna, false));
         return mosseDisponibili;
+    }
+
+    public ArrayList<CasellaScacchiera> getArrayMosseNormali() {
+        ArrayList<CasellaScacchiera> mosseDisponibiliNormali = new ArrayList<>();
+        return mosseDisponibiliNormali;
     }
 }

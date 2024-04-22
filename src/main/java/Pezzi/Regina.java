@@ -1,5 +1,6 @@
 package Pezzi;
 
+import Engine.Servizi.Mossa;
 import Engine.Servizi.ScacchieraService;
 import GUI.CasellaScacchiera;
 
@@ -19,12 +20,16 @@ public class Regina extends Pezzo{
         return null;
     }
 
+    public ArrayList<CasellaScacchiera> getArrayMosse() {
 
+        return  getArrayMosseNormali();
+
+    }
     /**
      * Metodo che calcola tutte le possibili mosse legali che il Pezzo Regina può fare
      * @return
      */
-    public ArrayList<CasellaScacchiera> getArrayMosse() {
+    public ArrayList<CasellaScacchiera> getArrayMosseNormali() {
 
         ArrayList<CasellaScacchiera> mosseDisponibili = new ArrayList<>();
 

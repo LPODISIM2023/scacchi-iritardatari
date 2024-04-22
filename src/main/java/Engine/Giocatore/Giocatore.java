@@ -1,5 +1,6 @@
 package Engine.Giocatore;
 
+import GUI.CasellaScacchiera;
 import Pezzi.*;
 
 import java.util.ArrayList;
@@ -36,7 +37,6 @@ public abstract class Giocatore {
             pezziGiocatore.add(new Torre("Torre", "b_t1", 5, true, 1, 1 ));
             pezziGiocatore.add(new Torre("Torre", "b_t2", 5, true, 1, 8 ));
 
-            pezziGiocatore.add(new Torre("Torre", "b_t1", 5, true, 3,1 ));
             //Pezzo Cavallo Bianco
             pezziGiocatore.add(new Cavallo("Cavallo", "b_c1", 3, true, 1, 2 ));
             pezziGiocatore.add(new Cavallo("Cavallo", "b_c2", 3, true, 1, 7 ));
@@ -44,11 +44,12 @@ public abstract class Giocatore {
             pezziGiocatore.add(new Alfiere("Alfiere", "b_a1", 3, true, 1, 3 ));
             pezziGiocatore.add(new Alfiere("Alfiere", "b_a2", 3, true, 1, 6 ));
 
-            pezziGiocatore.add(new Alfiere("Alfiere", "b_a2", 3, true, 4, 7 ));
             //Pezzo Regina Bianco
             pezziGiocatore.add(new Regina("Regina", "b_q1", 3, true, 1, 4 ));
             //Pezzo Re Bianco
-            pezziGiocatore.add(new Re("Re", "b_k1", 3, true, 1, 5 ));
+            //pezziGiocatore.add(new Re("Re", "b_k1", 3, true, 1, 5 ));
+
+            pezziGiocatore.add(new Re("Re", "b_k2", 10, true, 4, 8));
 
         }
 
@@ -68,14 +69,16 @@ public abstract class Giocatore {
             //Pezzo Cavallo Nero
             pezziGiocatore.add(new Cavallo("Cavallo", "n_c1", 3, false, 8, 2 ));
             pezziGiocatore.add(new Cavallo("Cavallo", "n_c2", 3, false, 8, 7 ));
-            pezziGiocatore.add(new Cavallo("Cavallo", "n_c2", 3, false, 4, 4 )); //cavallo da rimuove
             //Pezzo Alfiere Nero
             pezziGiocatore.add(new Alfiere("Alfiere", "n_a1", 3, false, 8, 3 ));
             pezziGiocatore.add(new Alfiere("Alfiere", "n_a2", 3, false, 8, 6 ));
             //Pezzo Regina Nero
             pezziGiocatore.add(new Regina("Regina", "n_q1", 3, false, 8, 4 ));
             //Pezzo Re Nero
-            pezziGiocatore.add(new Re("Re", "n_k1", 3, false, 8, 5 ));
+            pezziGiocatore.add(new Re("Re", "n_k1", 10, false, 8, 5 ));
+
+            pezziGiocatore.add(new Regina("Regina", "n_k12", 3, false, 5, 5 ));
+
         }
 
     }
@@ -99,9 +102,20 @@ public abstract class Giocatore {
     /**
      * Medoto che aggiunge alla lista dei pezzi mangiati all'avversario un pezzo mangiato
      */
-    public void addPezzoMangiato (Pezzo pezzomangiato) {
-        pezziMangiati.add(pezzomangiato);
-        valoreTotaleGiocatore = valoreTotaleGiocatore + pezzomangiato.getValore();
+    public void addPezzoMangiato (CasellaScacchiera casellaPezzoMangiato) {
+        Pezzo pezzomangiato = null;
+        for(Pezzo pezzoGiocatore: pezziGiocatore){
+            if(pezzoGiocatore.getRiga() == casellaPezzoMangiato.getRiga() && pezzoGiocatore.getColonna() == casellaPezzoMangiato.getColonna()){
+                 pezzomangiato=pezzoGiocatore;
+            }
+        }
+
+        if(pezzomangiato != null){
+            pezziMangiati.add(pezzomangiato);
+            pezziGiocatore.remove(pezzomangiato);
+            valoreTotaleGiocatore = valoreTotaleGiocatore + pezzomangiato.getValore();
+        }
+
     }
 
 

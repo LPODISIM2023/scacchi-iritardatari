@@ -50,10 +50,10 @@ public class ScacchieraService {
      * @param codice
      * @return un Pezzo nella scacchiera
      */
-    public Pezzo getPezzoByCodice(String codice) {
+    public static Pezzo getPezzoByCodice(String codice) {
         Pezzo pezzo = null;
         for (Table.Cell<Integer, Integer, Pezzo> cell : scacchieraTable.cellSet()) {
-            if (cell.getValue().toString().equals(codice)) {
+            if (cell.getValue().getCodice().equals(codice)) {
                 pezzo = cell.getValue();
             }
         }
@@ -62,6 +62,7 @@ public class ScacchieraService {
 
 
     public void aggiornaPosizionePezzo(Pezzo pezzoDaMuovere, int riga, int colonna) {
+
         if (pezzoDaMuovere instanceof Pedone) ((Pedone) pezzoDaMuovere).setPrimaMossa(false);
         scacchieraTable.remove(pezzoDaMuovere.getRiga(), pezzoDaMuovere.getColonna());
         pezzoDaMuovere.setPosizione(riga, colonna);

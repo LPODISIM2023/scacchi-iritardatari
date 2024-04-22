@@ -182,7 +182,7 @@ public class ScacchieraController {
 
     /**
      * Metodo che permette all'utente di scegliere se uscire e salvare, uscire o annullare l'operazione,
-     * gestione queste scelte tramite  un "incapsulamente" di Alert e Dialog pane, ovvero classi anonime che vengono
+     * gestione queste scelte tramite un "incapsulamente" di Alert e Dialog pane, ovvero classi anonime che vengono
      * create all'interno del metodo visto che l'azione performata verrà eseguita poche volte.
      * Si preferiscono le classi anonime per scopi di questo tipo, dove l'azione viene eseguita un numero minore di volte.
      * @param event listener del pulsante Salva e esci
@@ -264,7 +264,7 @@ public class ScacchieraController {
 
 //        String userSavePath = System.getProperty("user.dir/salvataggi");
 //        if (userSavePath != null) {
-//            System.out.println("Percorso dei salvataggi: " + userSavePath);
+//            System.out.println("Percorso dei salvataggi:" + userSavePath);
 //        } else {
 //            System.out.println("La chiave 'user.home' non è stata impostata.");
 //        }

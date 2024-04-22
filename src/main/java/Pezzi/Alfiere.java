@@ -1,5 +1,6 @@
 package Pezzi;
 
+import Engine.Servizi.Mossa;
 import Engine.Servizi.ScacchieraService;
 import GUI.CasellaScacchiera;
 
