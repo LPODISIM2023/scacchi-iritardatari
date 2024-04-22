@@ -56,7 +56,7 @@ public abstract class Giocatore {
             pezziGiocatore.add(new Regina("Regina", "b_q1", 3, true, 1, 4, 0x2655));
             //Pezzo Re Bianco
 
-            pezziGiocatore.add(new Re("Re", "b_k1", 3, true, 1, 5, 0x2654));
+            pezziGiocatore.add(new Re("Re", "b_k1", 10, true, 1, 5, 0x2654));
 
 
         } else {
@@ -83,8 +83,7 @@ public abstract class Giocatore {
             //Pezzo Regina Nero
             pezziGiocatore.add(new Regina("Regina", "n_q1", 3, false, 8, 4, 0x265B));
             //Pezzo Re Nero
-
-            pezziGiocatore.add(new Re("Re", "n_k1", 3, false, 8, 5, 0x265A));
+            pezziGiocatore.add(new Re("Re", "n_k1", 10, false, 8, 5, 0x265A));
         }
 
     }

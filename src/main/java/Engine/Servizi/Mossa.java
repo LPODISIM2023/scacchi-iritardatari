@@ -34,7 +34,7 @@ public class Mossa {
         if(gNemico.getColore()){
          reAlleato = ScacchieraService.getPezzoByCodice("n_k1");
         }
-        else { reAlleato = ScacchieraService.getPezzoByCodice("b_k2"); }
+        else { reAlleato = ScacchieraService.getPezzoByCodice("b_k1"); }
 
         //vedo se la posizione del re è tra le mosse possibili del nemico
         for (CasellaScacchiera mossa : mosseGiocatoreNemico){

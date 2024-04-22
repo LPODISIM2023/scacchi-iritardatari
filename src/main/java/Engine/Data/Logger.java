@@ -21,7 +21,6 @@ public class Logger {
     public static void addMossaLog(int oldRiga, int oldColonna, int newRiga, int newColonna, String codPezzoMosso, String codPezzoMangiato){
         LogMossa lm = new LogMossa(oldRiga, oldColonna, newRiga, newColonna, codPezzoMangiato, codPezzoMosso, numMossa++);
         listaMosse.add(lm);
-        System.out.println(listaMosse);
         writeLog();
     }
 
@@ -37,6 +36,5 @@ public class Logger {
         catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(jsonMosse);
     }
 }

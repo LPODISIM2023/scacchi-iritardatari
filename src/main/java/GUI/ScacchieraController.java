@@ -444,6 +444,7 @@ public class ScacchieraController {
             g2.addPezzoMangiato(casella);
         }
 
+
         //Aggiorno il file del log e lo mostro a schermo
         datiLogMosse(pezzo, casella);
 
@@ -453,7 +454,7 @@ public class ScacchieraController {
         //Reimposto l undo delle mosse al ultima mossa eseguita
         numUndoEseguitiDiSeguito = 1;
 
-        //Cambio turno e rerenderdella Scacchiera
+        //Cambio turno e rerender della Scacchiera
         PartitaService.cambioTurno();
         renderScacchiera();
 
@@ -489,8 +490,7 @@ public class ScacchieraController {
         ArrayList<LogMossa> arrayDiMosse = Logger.getListaMosse();
         LogMossa ultimaMossa = arrayDiMosse.get(arrayDiMosse.size() - 1);
 
-        System.out.println("ASDDSADASDA");
-        return ultimaMossa.getNumeroMossa() + "° (" + ultimaMossa.getOldRiga() + "," + array[ultimaMossa.getOldColonna()] + ")" + "->" + "(" + pezzo.getRiga() + "," + array[pezzo.getColonna()] + ")" + new String(Character.toChars(pezzo.getCodicePezzoUTF8())) + "\n";
+        return ultimaMossa.getNumeroMossa() + "° (" + ultimaMossa.getOldRiga() + "," + array[ultimaMossa.getOldColonna()] + ")" + "->" + "(" + ultimaMossa.getNewRiga() + "," + array[ultimaMossa.getNewColonna()] + ")" + new String(Character.toChars(pezzo.getCodicePezzoUTF8())) + "\n";
     }
 
 
@@ -514,7 +514,25 @@ public class ScacchieraController {
         if (arrayTutteLeMosse.size() - numUndoEseguitiDiSeguito < 0) return;
         numeroMosseUndo += 1;
 
+        if (PartitaService.getIsBot()) {
+            System.out.println("ArrayTutteMosse");
+            System.out.println(arrayTutteLeMosse);
+            eseguiUnaMossaUndo(arrayTutteLeMosse);
+            System.out.println("ArrayTutteMosse2");
+            System.out.println(arrayTutteLeMosse);
+            eseguiUnaMossaUndo(arrayTutteLeMosse);
+        } else {
+            eseguiUnaMossaUndo(arrayTutteLeMosse);
+        }
 
+        buttonUndo.setText("Undo disponibili " + (5 - numeroMosseUndo));
+        PartitaService.cambioTurno();
+        renderScacchiera();
+        scacchieraService.printScacchiera();
+
+    }
+
+    public void eseguiUnaMossaUndo(ArrayList<LogMossa> arrayTutteLeMosse) {
         LogMossa ultimaMossa = arrayTutteLeMosse.get(arrayTutteLeMosse.size() - (numUndoEseguitiDiSeguito++));
         if (ultimaMossa.getCodPezzoMangiato().equals("-")) {
             Pezzo pezzoDaSpostare = scacchieraService.getPezzoByCodice(ultimaMossa.getCodPezzoMosso());
@@ -538,12 +556,6 @@ public class ScacchieraController {
             if (pezzoMangiatoDaRipristinare != null) {
                 scacchieraService.aggiornaPosizionePezzo(pezzoMangiatoDaRipristinare, ultimaMossa.getNewRiga(), ultimaMossa.getNewColonna());
             }
-
         }
-        buttonUndo.setText("Undo disponibili " + (5 - numeroMosseUndo));
-        PartitaService.cambioTurno();
-        renderScacchiera();
-        scacchieraService.printScacchiera();
-
     }
 }
