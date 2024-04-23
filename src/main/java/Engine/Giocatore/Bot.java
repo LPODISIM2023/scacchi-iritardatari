@@ -1,7 +1,6 @@
 package Engine.Giocatore;
 
 import Engine.Servizi.PartitaService;
-import Engine.Servizi.ScacchieraService;
 import GUI.CasellaScacchiera;
 import GUI.ScacchieraController;
 import Pezzi.Pezzo;
@@ -38,9 +37,7 @@ public class Bot extends Giocatore {
 
         //scelta in modo random della mossa del pezzorandom
         int numeroRandomMossa = randomM.nextInt(pezzorandom.getArrayMosse().size());
-        sc.testMossa2(pezzorandom, pezzorandom.getArrayMosse().get(numeroRandomMossa));
-
-
+        sc.eseguiMossa(pezzorandom, pezzorandom.getArrayMosse().get(numeroRandomMossa));
     }
 
 }

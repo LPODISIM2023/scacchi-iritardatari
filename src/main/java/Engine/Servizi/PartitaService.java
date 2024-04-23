@@ -4,8 +4,10 @@ import Engine.Giocatore.Bot;
 import Engine.Giocatore.Giocatore;
 import Engine.Giocatore.Umano;
 import GUI.ScacchieraController;
+import javafx.animation.PauseTransition;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.util.Duration;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -24,6 +26,7 @@ public class PartitaService implements Serializable {
     private static boolean partitaInCorso = false;
     private static boolean turnoGiocatore = true;
     private static boolean giocatoreSottoScacco = false;
+    static PauseTransition pauseTransition = new PauseTransition(Duration.seconds(1));
 
 
     /**
@@ -58,7 +61,11 @@ public class PartitaService implements Serializable {
         //Cambio turno del giocatore
         turnoGiocatore = !turnoGiocatore;
         if ((g2 instanceof Bot) && g2.getColore() == getColoreTurnoGiocatore()) {
-            ((Bot) g2).mossaRandom();
+            pauseTransition.setOnFinished(event->{
+                ((Bot) g2).mossaRandom();
+            });
+
+            pauseTransition.play();
         }
         if(Mossa.reSottoScacco() && Mossa.isScaccoMatto()){
             try {

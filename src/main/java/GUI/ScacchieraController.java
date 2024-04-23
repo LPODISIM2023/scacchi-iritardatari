@@ -205,14 +205,14 @@ public class ScacchieraController {
                     if (!(PartitaService.getColoreTurnoGiocatore())) {
                         PartitaService.cambioTurno();
                     }
-                    initGame(g1.getNome(), g2.getNome(), true);  //migliorare terzo parametro.
+                    initGame(g1.getNome(), g2.getNome(), PartitaService.getIsBot());  //migliorare terzo parametro.
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             } else //renderScacchiera();
                 if (scelta == no) {
                     try {
-                        initGame(g1.getNome(), g2.getNome(), false);  //migliorare terzo parametro.
+                        initGame(g1.getNome(), g2.getNome(), PartitaService.getIsBot());  //migliorare terzo parametro.
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -590,7 +590,7 @@ public class ScacchieraController {
         endGGame.showAndWait().ifPresent(scelta -> {
             if (scelta == nuovaPartita) {
                 try {
-                    initGame(g1.getNome(), g2.getNome(), true);
+                    initGame(g1.getNome(), g2.getNome(), PartitaService.getIsBot());
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
