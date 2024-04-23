@@ -31,6 +31,11 @@ public class ScacchieraController {
 
 
     JSONObject jsonMosse = new JSONObject();
+
+    public TextArea getTextAreaMosse() {
+        return textAreaMosse;
+    }
+
     @FXML
     TextArea textAreaMosse = new TextArea();
 
@@ -131,6 +136,7 @@ public class ScacchieraController {
      */
     @FXML
     public void initGame(String nome1, String nome2, boolean isBot) throws IOException {
+        textAreaMosse.clear();
         textAreaMosse.setEditable(false);
         scrollPaneMosse.setContent(textAreaMosse);
 
@@ -550,4 +556,38 @@ public class ScacchieraController {
             }
         }
     }
+
+    public void endGame() throws InterruptedException {  //@TODO implementare eccezione per i file da sovrascrivere.
+
+        Alert endGGame = new Alert(Alert.AlertType.NONE, "S");
+
+        if (!PartitaService.getColoreTurnoGiocatore())  {
+            endGGame.setContentText("Ha Vinto il Bianco");
+            endGGame.setTitle("Partita Conclusa: SCACCO MATTO");
+        }
+        else {
+            endGGame.setContentText("Ha Vinto il Nero");
+            endGGame.setTitle("Partita Conclusa: SCACCO MATTO");
+        }
+
+
+        ButtonType nuovaPartita = new ButtonType("Nuova Partita");
+        ButtonType esci = new ButtonType("Esci");
+
+        endGGame.getButtonTypes().setAll(nuovaPartita, esci);
+
+        endGGame.showAndWait().ifPresent(scelta -> {
+            if (scelta == nuovaPartita) {
+                try {
+                    initGame(g1.getNome(), g2.getNome(), true);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            } else if (scelta == esci) {
+                        System.exit(0);
+            }
+        });
+
+    }
+
 }

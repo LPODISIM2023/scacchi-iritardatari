@@ -4,8 +4,13 @@ import Engine.Giocatore.Bot;
 import Engine.Giocatore.Giocatore;
 import Engine.Giocatore.Umano;
 import GUI.ScacchieraController;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
+import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.EventListener;
 
 public class PartitaService implements Serializable {
 
@@ -55,16 +60,14 @@ public class PartitaService implements Serializable {
         if ((g2 instanceof Bot) && g2.getColore() == getColoreTurnoGiocatore()) {
             ((Bot) g2).mossaRandom();
         }
-
-        // a nero turnG è false
-        if(turnoGiocatore){
-            giocatoreSottoScacco = Mossa.reSottoScacco();
+        if(Mossa.reSottoScacco() && Mossa.isScaccoMatto()){
+            try {
+                scacchieraController.endGame();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("Partita Conclusa");
         }
-        //chiamo que
-        else giocatoreSottoScacco = Mossa.reSottoScacco(); //sul bianco per il nero
-
-
-
         //controllo se il giocatore è sotto scacco
 
             //Se si controllo se è scacco
@@ -130,4 +133,39 @@ public class PartitaService implements Serializable {
         PartitaService.isBot = isBot;
     }
 
+    /*
+    public void endGame() throws InterruptedException {  //@TODO implementare eccezione per i file da sovrascrivere.
+
+        Alert endGGame = new Alert(Alert.AlertType.NONE, "S");
+
+        if (!PartitaService.getColoreTurnoGiocatore())  {
+            endGGame.setContentText("Ha Vinto il Nero");
+            endGGame.setTitle("Partita Conclusa");
+        }
+        else {
+            endGGame.setContentText("Ha Vinto il Bianco");
+            endGGame.setTitle("Partita Conclusa");
+        }
+
+
+        ButtonType nuovaPartita = new ButtonType("Nuova Partita");
+        ButtonType esci = new ButtonType("Esci");
+
+        endGGame.getButtonTypes().setAll(nuovaPartita, esci);
+
+        endGGame.showAndWait().ifPresent(scelta -> {
+            if (scelta == nuovaPartita) {
+                try {
+                     scacchieraController.initGame(g1.getNome(), g2.getNome(), true);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+            } else if (scelta == esci) {
+                System.exit(0);
+            }
+        });
+
+    }
+     */
 }

@@ -101,4 +101,16 @@ public class Mossa {
         return mosseTotaliPerParareLoScacco;
 
     }
+
+    public static boolean isScaccoMatto() {
+
+        ArrayList<CasellaScacchiera> mosseParoScacco = new ArrayList<>();
+        mosseParoScacco =getMosseParaScacco();
+        if(mosseParoScacco.isEmpty()){
+            return true;
+        }
+
+        else return false;
+    }
+
 }
