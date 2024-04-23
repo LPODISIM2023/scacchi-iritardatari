@@ -169,12 +169,12 @@ public class CasellaScacchiera extends StackPane {
      */
     public void clickSuCasellaDisponibile() {
         //Si clicca sulla casella dove si vuole spostare il pezzo
-        sc.testMossa2(ScacchieraController.getPezzoSelezionato(), this);
+        sc.eseguiMossa(ScacchieraController.getPezzoSelezionato(), this);
     }
 
     public void clickSuCasellaDisponibile(CasellaScacchiera casellaDisp) {
         //Si clicca sulla casella dove si vuole spostare il pezzo
-        sc.testMossa2(ScacchieraController.getPezzoSelezionato(), casellaDisp);
+        sc.eseguiMossa(ScacchieraController.getPezzoSelezionato(), casellaDisp);
     }
 
     /**

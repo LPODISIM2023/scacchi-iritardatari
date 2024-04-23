@@ -42,6 +42,11 @@ public class ScacchieraController {
     @FXML
     ScrollPane scrollPaneMosse = new ScrollPane();
 
+    @FXML
+    Label pezziMangiatiGiocatoreBianco = new Label();
+
+    @FXML
+    Label pezziMangiatiGiocatoreNero = new Label();
     public String[] array = {"x", "A", "B", "C", "D", "E", "F", "G", "H"};
 
     static Giocatore g1;
@@ -436,13 +441,19 @@ public class ScacchieraController {
      * @param pezzo   , il pezzo che viene spostato
      * @param casella , la casella su cui finirà
      */
-    public void testMossa2(Pezzo pezzo, CasellaScacchiera casella) {
+    public void eseguiMossa(Pezzo pezzo, CasellaScacchiera casella) {
 
         //Vedo a quale giocatore è stato mangiato il pezzo
         if (!PartitaService.getColoreTurnoGiocatore()) {
             g1.addPezzoMangiato(casella);
+            if(casella.getPezzoDellaCasella() != null) {
+                visualizzaPezziMangiatiNeri(casella.getPezzoDellaCasella().getCodicePezzoUTF8());
+            }
         } else {
             g2.addPezzoMangiato(casella);
+            if(casella.getPezzoDellaCasella() != null) {
+                visualizzaPezziMangiatiBianchi(casella.getPezzoDellaCasella().getCodicePezzoUTF8());
+            }
         }
 
 
@@ -590,4 +601,25 @@ public class ScacchieraController {
 
     }
 
+    /**
+     * Il metodo assegna ad una label una stringa con i caratteri dei pezzi mangiati dal giocatore Bianco.
+     * @param codPezzoNero codice UTF8 dei vari pezzi neri
+     */
+    String pezziMangiatiDaBianco=" ";
+    public void visualizzaPezziMangiatiBianchi(int codPezzoNero){
+        pezziMangiatiDaBianco += Character.toString(codPezzoNero);
+        pezziMangiatiGiocatoreBianco.setText(pezziMangiatiDaBianco);
+    }
+
+
+
+    /**
+     * Il metodo assegna ad una label una stringa con i caratteri dei pezzi mangiati dal giocatore Nero.
+     * @param codPezzoBianco codice UTF8 dei vari pezzi bianchi
+     */
+    String pezziMangiatiDaNero = " ";
+    public void visualizzaPezziMangiatiNeri(int codPezzoBianco){
+        pezziMangiatiDaNero += Character.toString(codPezzoBianco);
+        pezziMangiatiGiocatoreNero.setText(pezziMangiatiDaNero);
+    }
 }
