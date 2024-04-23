@@ -35,22 +35,34 @@ public class Alfiere extends Pezzo {
         // Mosse assi Diagonali
         j=getColonna();
         for (i = getRiga() + 1; i <= 8; i++) {
-            if (!casellavuota(i, --j, mosseDisponibili)) break;
+            --j;
+            if (j >= 1) {
+                if (!casellavuota(i, j, mosseDisponibili)) break;
+            }
         }
 
         j=getColonna();
         for (i = getRiga() - 1; i >= 1; i--) {
-            if (!casellavuota(i, ++j, mosseDisponibili)) break;
+            ++j;
+            if (j <= 8) {
+                if (!casellavuota(i, j, mosseDisponibili)) break;
+            }
         }
 
         i=getRiga();
         for (j = getColonna() + 1; j <= 8; j++) {
-            if (!casellavuota(++i, j, mosseDisponibili)) break;
+            ++i;
+            if (i <= 8) {
+                if (!casellavuota(i, j, mosseDisponibili)) break;
+            }
         }
 
         i=getRiga();
         for (j = getColonna() - 1; j >= 1; j--) {
-            if (!casellavuota(--i, j, mosseDisponibili)) break;
+            --i;
+            if (i >= 1) {
+                if (!casellavuota(i, j, mosseDisponibili)) break;
+            }
         }
 
 

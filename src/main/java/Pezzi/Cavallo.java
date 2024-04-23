@@ -30,15 +30,30 @@ public class Cavallo extends Pezzo{
         ArrayList<CasellaScacchiera> mosseDisponibili = new ArrayList<>();
 
         // Mosse del cavallo in ordine da: In alto a sinistra in senso antiOrario
-        casellavuota(getRiga()+2, getColonna()-1, mosseDisponibili);
-        casellavuota(getRiga()+1, getColonna()-2, mosseDisponibili);
-        casellavuota(getRiga()-1, getColonna()-2, mosseDisponibili);
-        casellavuota(getRiga()-2, getColonna()-1, mosseDisponibili);
-        casellavuota(getRiga()-2, getColonna()+1, mosseDisponibili);
-        casellavuota(getRiga()-1, getColonna()+2, mosseDisponibili);
-        casellavuota(getRiga()+1, getColonna()+2, mosseDisponibili);
-        casellavuota(getRiga()+2, getColonna()+1, mosseDisponibili);
-
+        if (mossaLegaleCavallo(getRiga()+2, getColonna()-1)) {
+            casellavuota(getRiga() + 2, getColonna() - 1, mosseDisponibili);
+        }
+        if (mossaLegaleCavallo(getRiga()+1, getColonna()-2)) {
+            casellavuota(getRiga() + 1, getColonna() - 2, mosseDisponibili);
+        }
+        if (mossaLegaleCavallo(getRiga()-1, getColonna()-2)) {
+            casellavuota(getRiga() - 1, getColonna() - 2, mosseDisponibili);
+        }
+        if (mossaLegaleCavallo(getRiga()-2, getColonna()-1)) {
+            casellavuota(getRiga() - 2, getColonna() - 1, mosseDisponibili);
+        }
+        if (mossaLegaleCavallo(getRiga()-2, getColonna()+1)) {
+            casellavuota(getRiga() - 2, getColonna() + 1, mosseDisponibili);
+        }
+        if (mossaLegaleCavallo(getRiga()-1, getColonna()+2)) {
+            casellavuota(getRiga() - 1, getColonna() + 2, mosseDisponibili);
+        }
+        if (mossaLegaleCavallo(getRiga()+1, getColonna()+2)) {
+            casellavuota(getRiga() + 1, getColonna() + 2, mosseDisponibili);
+        }
+        if (mossaLegaleCavallo(getRiga()+2, getColonna()+1)) {
+            casellavuota(getRiga() + 2, getColonna() + 1, mosseDisponibili);
+        }
         return mosseDisponibili;
     }
 
@@ -60,5 +75,9 @@ public class Cavallo extends Pezzo{
             mosseDisponibili.add(new CasellaScacchiera(riga, colonna, false));
             return true;
         }
+    }
+
+    public boolean mossaLegaleCavallo (int riga, int colonna){
+        return riga <= 8 && riga >= 1 && colonna <= 8 && colonna >= 1;
     }
 }

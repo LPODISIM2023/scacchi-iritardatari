@@ -79,20 +79,40 @@ System.out.println("Ciaooooo sta andandp");
     public ArrayList<CasellaScacchiera> getArrayMosseNormali () {
         ArrayList<CasellaScacchiera> mosseDisponibili = new ArrayList<>();
 
-            // Controllo se può mangiare sulla sinistra(Bianco) / destra (Nero)
+
+        if (PartitaService.getColoreTurnoGiocatore()) {
+
+        // Controllo se può mangiare sulla sinistra(Bianco)
             if (ScacchieraService.getPezzo(getRiga() + 1, getColonna() - 1) != null) {
                 if (ScacchieraService.getPezzo(getRiga() + 1, getColonna() - 1).getColore() != getColore()) {
                     mosseDisponibili.add(new CasellaScacchiera(getRiga() + 1, getColonna() - 1, true));
                 }
             }
 
-            // Controllo se può mangiare sulla destra(Bianco) / sinistra (Nero)
+        // Controllo se può mangiare sulla destra(Bianco)
             if (ScacchieraService.getPezzo(getRiga() + 1, getColonna() + 1) != null) {
                 if (ScacchieraService.getPezzo(getRiga() + 1, getColonna() + 1).getColore() != getColore()) {
                     mosseDisponibili.add(new CasellaScacchiera(getRiga() + 1, getColonna() + 1, true));
                 }
             }
+        }
+        else {
+            // Controllo se può mangiare sulla sinistra(Nero)
+            if (ScacchieraService.getPezzo(getRiga() - 1, getColonna() - 1) != null) {
+                if (ScacchieraService.getPezzo(getRiga() - 1, getColonna() - 1).getColore() != getColore()) {
+                    mosseDisponibili.add(new CasellaScacchiera(getRiga() - 1, getColonna() - 1, true));
+                }
+            }
 
+            // Controllo se può mangiare sulla destra (Nero)
+            if (ScacchieraService.getPezzo(getRiga() - 1, getColonna() + 1) != null) {
+                if (ScacchieraService.getPezzo(getRiga() - 1, getColonna() + 1).getColore() != getColore()) {
+                    mosseDisponibili.add(new CasellaScacchiera(getRiga() - 1, getColonna() + 1, true));
+                }
+            }
+        }
+
+        if (PartitaService.getColoreTurnoGiocatore()) {
             // Controllo se può muoversi in avanti
             if (ScacchieraService.getPezzo(getRiga() + 1, getColonna()) == null) {
                 // Controllo se è la prima mossa
@@ -107,9 +127,25 @@ System.out.println("Ciaooooo sta andandp");
                     mosseDisponibili.add(new CasellaScacchiera(getRiga() + 1, getColonna(), false));
                 }
             }
+            }
+            else {
+            if (ScacchieraService.getPezzo(getRiga() - 1, getColonna()) == null) {
+                if (primaMossa) {
+                    if (ScacchieraService.getPezzo(getRiga() - 2, getColonna()) == null) {
+                        mosseDisponibili.add(new CasellaScacchiera(getRiga() - 1, getColonna(), false));
+                        mosseDisponibili.add(new CasellaScacchiera(getRiga() - 2, getColonna(), false));
+                    } else {
+                        mosseDisponibili.add(new CasellaScacchiera(getRiga() - 1, getColonna(), false));
+                    }
+                } else {
+                    mosseDisponibili.add(new CasellaScacchiera(getRiga() - 1, getColonna(), false));
+                }
+            }
+
+        }
 
             return mosseDisponibili;
-        }
+    }
 }
 
 

@@ -39,16 +39,32 @@ public class Re extends Pezzo{
         ArrayList<CasellaScacchiera> mosseDisponibiliLimitate = new ArrayList<>();
 
         // Mosse su assi Verticali e Orizzontali
-        casellavuota(getRiga()+1, getColonna(), mosseDisponibili);
-        casellavuota(getRiga()-1, getColonna(), mosseDisponibili);
-        casellavuota(getRiga(), getColonna()+1, mosseDisponibili);
-        casellavuota(getRiga(), getColonna()-1, mosseDisponibili);
+        if(mossaLegaleRe(getRiga() + 1,getColonna())) {
+            casellavuota(getRiga() + 1, getColonna(), mosseDisponibili);
+        }
+        if(mossaLegaleRe(getRiga() - 1,getColonna())) {
+            casellavuota(getRiga() - 1, getColonna(), mosseDisponibili);
+        }
+        if(mossaLegaleRe(getRiga(),getColonna() + 1)) {
+            casellavuota(getRiga(), getColonna() + 1, mosseDisponibili);
+        }
+        if(mossaLegaleRe(getRiga(),getColonna() - 1)) {
+            casellavuota(getRiga(), getColonna() - 1, mosseDisponibili);
+        }
 
         // Mosse su assi diagonali
-        casellavuota(getRiga()+1, getColonna()+1, mosseDisponibili);
-        casellavuota(getRiga()+1, getColonna()-1, mosseDisponibili);
-        casellavuota(getRiga()-1, getColonna()+1, mosseDisponibili);
-        casellavuota(getRiga()-1, getColonna()-1, mosseDisponibili);
+        if(mossaLegaleRe(getRiga() + 1 ,getColonna() + 1)) {
+        casellavuota(getRiga() + 1, getColonna() +1, mosseDisponibili);
+        }
+        if(mossaLegaleRe(getRiga() + 1,getColonna() - 1)) {
+            casellavuota(getRiga() + 1, getColonna() - 1, mosseDisponibili);
+        }
+        if(mossaLegaleRe(getRiga() - 1,getColonna() + 1)) {
+            casellavuota(getRiga() - 1, getColonna() + 1, mosseDisponibili);
+        }
+        if(mossaLegaleRe(getRiga() - 1,getColonna() - 1)) {
+            casellavuota(getRiga() - 1, getColonna() - 1, mosseDisponibili);
+        }
 
         if(PartitaService.getColoreTurnoGiocatore()) {
             pezziGiocatoreNemico = PartitaService.getGiocatore2().getPezziGiocatore();
@@ -101,6 +117,9 @@ public class Re extends Pezzo{
         }
     }
 
+    public boolean mossaLegaleRe (int riga, int colonna){
+        return riga <= 8 && riga >= 1 && colonna <= 8 && colonna >= 1;
+    }
 
 
 }
