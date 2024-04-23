@@ -27,7 +27,7 @@ public abstract class Giocatore {
 
         this.colore = colore;
 
-        if (colore == true) {
+        if (colore) {
             // Pezzo Pedone Bianco
             pezziGiocatore.add(new Pedone("Pedone", "b_p1", 1, true, 2, 1, 0x2659));
             pezziGiocatore.add(new Pedone("Pedone", "b_p2", 1, true, 2, 2, 0x2659));
@@ -40,23 +40,16 @@ public abstract class Giocatore {
             //Pezzo Torre Bianco
             pezziGiocatore.add(new Torre("Torre", "b_t1", 5, true, 1, 1, 0x2656));
             pezziGiocatore.add(new Torre("Torre", "b_t2", 5, true, 1, 8, 0x2656));
-
-            pezziGiocatore.add(new Torre("Torre", "b_t1", 5, true, 3, 1, 0x2656));
-
             //Pezzo Cavallo Bianco
             pezziGiocatore.add(new Cavallo("Cavallo", "b_c1", 3, true, 1, 2, 0x2658));
             pezziGiocatore.add(new Cavallo("Cavallo", "b_c2", 3, true, 1, 7, 0x2658));
             //Pezzo Alfiere Bianc
             pezziGiocatore.add(new Alfiere("Alfiere", "b_a1", 3, true, 1, 3, 0x2657));
             pezziGiocatore.add(new Alfiere("Alfiere", "b_a2", 3, true, 1, 6, 0x2657));
-
-            pezziGiocatore.add(new Alfiere("Alfiere", "b_a2", 3, true, 4, 7, 0x2657));
-
             //Pezzo Regina Bianco
             pezziGiocatore.add(new Regina("Regina", "b_q1", 3, true, 1, 4, 0x2655));
             //Pezzo Re Bianco
-
-            pezziGiocatore.add(new Re("Re", "b_k1", 10, true, 1, 5, 0x2654));
+            pezziGiocatore.add(new Re("Re", "b_k1", 10, true, 4, 1, 0x2654));
 
 
         } else {
@@ -75,13 +68,11 @@ public abstract class Giocatore {
             //Pezzo Cavallo Nero
             pezziGiocatore.add(new Cavallo("Cavallo", "n_c1", 3, false, 8, 2, 0x265E));
             pezziGiocatore.add(new Cavallo("Cavallo", "n_c2", 3, false, 8, 7, 0x265E));
-            pezziGiocatore.add(new Cavallo("Cavallo", "n_c2", 3, false, 4, 4, 0x265E)); //cavallo da rimuove
-
             //Pezzo Alfiere Nero
             pezziGiocatore.add(new Alfiere("Alfiere", "n_a1", 3, false, 8, 3, 0x265D));
             pezziGiocatore.add(new Alfiere("Alfiere", "n_a2", 3, false, 8, 6, 0x265D));
             //Pezzo Regina Nero
-            pezziGiocatore.add(new Regina("Regina", "n_q1", 3, false, 8, 4, 0x265B));
+            pezziGiocatore.add(new Regina("Regina", "n_q1", 3, false, 5, 3, 0x265B));
             //Pezzo Re Nero
             pezziGiocatore.add(new Re("Re", "n_k1", 10, false, 8, 5, 0x265A));
         }
@@ -123,7 +114,6 @@ public abstract class Giocatore {
     /**
      * Medoto che aggiunge alla lista dei pezzi mangiati all'avversario un pezzo mangiato
      */
-
     public void addPezzoMangiato (CasellaScacchiera casellaPezzoMangiato) {
         Pezzo pezzomangiato = null;
         for(Pezzo pezzoGiocatore: pezziGiocatore){

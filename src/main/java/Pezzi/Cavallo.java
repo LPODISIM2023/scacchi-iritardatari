@@ -1,6 +1,7 @@
 package Pezzi;
 
 import Engine.Servizi.Mossa;
+import Engine.Servizi.PartitaService;
 import Engine.Servizi.ScacchieraService;
 import GUI.CasellaScacchiera;
 
@@ -20,12 +21,11 @@ public class Cavallo extends Pezzo{
         return null;
     }
 
-
     /**
      * Metodo che calcola tutte le possibili mosse legali che il Pezzo Cavallo può fare
      * @return
      */
-    public ArrayList<CasellaScacchiera> getArrayMosse() {
+    public ArrayList<CasellaScacchiera> getArrayMosseNormali() {
 
         ArrayList<CasellaScacchiera> mosseDisponibili = new ArrayList<>();
 
@@ -57,25 +57,6 @@ public class Cavallo extends Pezzo{
         return mosseDisponibili;
     }
 
-    /**
-     * Metodo che controlla se una casella è occupata
-     * Se lo è: Permette al Pezzo di mangiare se è del colore opposto
-     * Se non lo è: Permette al Pezzo di muoversi liberamente
-     * @return
-     */
-    public boolean casellavuota(int riga, int colonna, ArrayList<CasellaScacchiera> mosseDisponibili) {
-        // Controllo casella occupata
-        if (ScacchieraService.getPezzo(riga, colonna) != null) {
-            if (ScacchieraService.getPezzo(riga, colonna).getColore() != getColore()) {
-                mosseDisponibili.add(new CasellaScacchiera(riga, colonna, true));
-                return false;
-            }
-            return false;
-        } else {
-            mosseDisponibili.add(new CasellaScacchiera(riga, colonna, false));
-            return true;
-        }
-    }
 
     public boolean mossaLegaleCavallo (int riga, int colonna){
         return riga <= 8 && riga >= 1 && colonna <= 8 && colonna >= 1;

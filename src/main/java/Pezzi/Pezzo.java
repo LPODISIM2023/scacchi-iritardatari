@@ -1,6 +1,8 @@
 package Pezzi;
 
 import Engine.Servizi.Mossa;
+import Engine.Servizi.PartitaService;
+import Engine.Servizi.ScacchieraService;
 import GUI.CasellaScacchiera;
 import GUI.ScacchieraController;
 import javafx.fxml.FXML;
@@ -25,7 +27,6 @@ public abstract class Pezzo extends ImageView {
 
     /** metodo costruttore: crea una nuova istanza Pezzo quando viene invocato
      */
-
     public Pezzo(String nome, String codice, int valore, boolean colore, int riga, int colonna, int codicePezzo) {
         this.nome = nome;
         this.codice = codice;
@@ -34,7 +35,6 @@ public abstract class Pezzo extends ImageView {
         this.riga = riga;
         this.colonna = colonna;
         this.codicePezzoUTF8 = codicePezzo;
-        handleEventi();
     }
 
     public void setNome(String nome) {
@@ -75,6 +75,27 @@ public abstract class Pezzo extends ImageView {
 
 
     /**
+     * Metodo usato per calcolare le mosse normali controlla se una casella è occupata
+     * Se lo è: Permette al Pezzo di mangiare se è del colore opposto
+     * Se non lo è: Permette al Pezzo di muoversi liberamente
+     * @return
+     */
+    public boolean casellavuota(int riga, int colonna, ArrayList<CasellaScacchiera> mosseDisponibili) {
+        // Controllo casella occupata
+        if (ScacchieraService.getPezzo(riga, colonna) != null) {
+            if (ScacchieraService.getPezzo(riga, colonna).getColore() != getColore()) {
+                mosseDisponibili.add(new CasellaScacchiera(riga, colonna, true));
+                return false;
+            }
+            return false;
+        } else {
+            mosseDisponibili.add(new CasellaScacchiera(riga, colonna, false));
+            return true;
+        }
+    }
+
+
+    /**
      * motodo setPosizione(): utile per settere la posizione dei pezzi.
      * Importante per modificare la posizione del pezzo dopo una mossa.
      */
@@ -91,11 +112,6 @@ public abstract class Pezzo extends ImageView {
         return colonna;
     }
 
-
-    //metodo printColore()
-    public String printColore() {
-        return (colore ? codice + 'b' : codice + 'n');
-    }
 
     /**
      * metodo toString(): stampa le informazioni principali del pezzo (nome, colore, posizione).
@@ -118,19 +134,6 @@ public abstract class Pezzo extends ImageView {
      */
     public void selezionaCaselleDisponibili() {
         ScacchieraController.selezionaPosizioniDisponibili(getArrayMosse(), this);
-    }
-
-    /**
-     * Metodo che invoca i vari listener sul oggetto pezzo
-     * Per ora Inutilizzato
-     */
-    public void handleEventi() {
-        //  setOnMousePressed(this::pressPezzo);
-
-        // setOnMouseReleased(this::releasePezzo);
-
-        // setOnMouseDragged(this::dragPezzo);
-
     }
 
     /**
@@ -180,14 +183,43 @@ public abstract class Pezzo extends ImageView {
         ((CasellaScacchiera) this.getParent()).controlloRilascioPezzo(e);
     }
 
-    //Metodo che va rivisto sovrascritto in base al pezzo
-    public ArrayList<CasellaScacchiera> getArrayMosse() {
-        ArrayList<CasellaScacchiera> mosseDisponibili = new ArrayList<>();
-        return mosseDisponibili;
-    }
-
+    /**
+     * Metodo che viene sovrascritto in ogni classe figlio
+     * Ritorna un array di posizione di caselle legali per una mossa
+     * @return
+     */
     public ArrayList<CasellaScacchiera> getArrayMosseNormali() {
         ArrayList<CasellaScacchiera> mosseDisponibiliNormali = new ArrayList<>();
         return mosseDisponibiliNormali;
     }
+
+    /**
+     * Metodo che calcola le mosse disponibili
+     * Ritorna un array di posizione di caselle legali per una mossa
+     * con la differenza che rispetto a getArrayMosseNormali controlla se si è sotto scacco
+     * e quindi limita le mosse in modo tale da bloccare lo scacco
+     * @return
+     */
+    public ArrayList<CasellaScacchiera> getArrayMosse() {
+
+        if (PartitaService.isGiocatoreSottoScacco()) {
+            ArrayList<CasellaScacchiera> mosseDisponibiliTotali =  Mossa.getMosseParaScacco();
+            ArrayList<CasellaScacchiera> mosseNormaliDelPezzo =  getArrayMosseNormali();
+            ArrayList<CasellaScacchiera> mosseObbligateDelPezzo = new ArrayList<>();
+
+            for (CasellaScacchiera mossa : mosseNormaliDelPezzo){
+                for (CasellaScacchiera mossaNemico : mosseDisponibiliTotali){
+                    if(mossa.getRiga() == mossaNemico.getRiga() && mossa.getColonna() == mossaNemico.getColonna()) {
+                        mosseObbligateDelPezzo.add(mossa);
+                        break;
+                    }
+                }
+            }
+            return mosseObbligateDelPezzo;
+        } else {
+            return getArrayMosseNormali();
+        }
+    }
+
+
 }

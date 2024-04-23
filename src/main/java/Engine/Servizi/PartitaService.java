@@ -58,10 +58,10 @@ public class PartitaService implements Serializable {
 
         // a nero turnG è false
         if(turnoGiocatore){
-            giocatoreSottoScacco = Mossa.reSottoScacco(g2,g1);
+            giocatoreSottoScacco = Mossa.reSottoScacco();
         }
         //chiamo que
-        else giocatoreSottoScacco = Mossa.reSottoScacco(g1,g2); //sul bianco per il nero
+        else giocatoreSottoScacco = Mossa.reSottoScacco(); //sul bianco per il nero
 
 
 

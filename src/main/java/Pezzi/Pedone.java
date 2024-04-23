@@ -35,68 +35,29 @@ public class Pedone extends Pezzo {
 
     /**
      * Metodo che calcola tutte le possibili mosse legali che il Pezzo Pedone può fare
+     *
      * @return
      */
-    public ArrayList<CasellaScacchiera> getArrayMosse() {
-
-        /*
-        ArrayList<CasellaScacchiera> mosseGiocatoreNemico = null;
-        ArrayList<CasellaScacchiera> mosseLegali = null;
-        ArrayList<CasellaScacchiera> mosseLegaliAusiliarie = null;
-System.out.println("Ciaooooo sta andandp");
-        if (PartitaService.isGiocatoreSottoScacco()) {
-
-            System.out.println("Sei dentro");
-            mosseGiocatoreNemico = Mossa.mosseNemico();
-            mosseLegali = getArrayMosseNormali();
-            mosseLegaliAusiliarie = getArrayMosseNormali();
-
-            for (CasellaScacchiera mossa : mosseLegaliAusiliarie){
-                for (CasellaScacchiera mossaNemico : mosseGiocatoreNemico){
-                    if(mossa.getRiga() == mossaNemico.getRiga() && mossa.getColonna() == mossaNemico.getColonna()) {
-                        mosseLegali.add(mossa);
-                    }
-                }
-            }
-
-            for (CasellaScacchiera mossa : mosseGiocatoreNemico){System.out.println( "mosse nemico " + mossa.getRiga() + " " + mossa.getColonna());}
-            for (CasellaScacchiera mossa : mosseLegaliAusiliarie){System.out.println( "mosse Aus " +  mossa.getRiga() + " " + mossa.getColonna());}
-
-            for (CasellaScacchiera mossa : mosseLegali){System.out.println( "mosse legali " + mossa.getRiga() + " " + mossa.getColonna());}
-
-            return mosseLegali;
-
-        } else {
-            return getArrayMosseNormali();
-        }
-
-         */
-
-        return getArrayMosseNormali();
-    }
-
-
-    public ArrayList<CasellaScacchiera> getArrayMosseNormali () {
+    public ArrayList<CasellaScacchiera> getArrayMosseNormali() {
         ArrayList<CasellaScacchiera> mosseDisponibili = new ArrayList<>();
 
 
         if (PartitaService.getColoreTurnoGiocatore()) {
 
-        // Controllo se può mangiare sulla sinistra(Bianco)
+            // Controllo se può mangiare sulla sinistra(Bianco)
             if (ScacchieraService.getPezzo(getRiga() + 1, getColonna() - 1) != null) {
                 if (ScacchieraService.getPezzo(getRiga() + 1, getColonna() - 1).getColore() != getColore()) {
                     mosseDisponibili.add(new CasellaScacchiera(getRiga() + 1, getColonna() - 1, true));
                 }
             }
 
-        // Controllo se può mangiare sulla destra(Bianco)
+            // Controllo se può mangiare sulla destra(Bianco)
             if (ScacchieraService.getPezzo(getRiga() + 1, getColonna() + 1) != null) {
                 if (ScacchieraService.getPezzo(getRiga() + 1, getColonna() + 1).getColore() != getColore()) {
                     mosseDisponibili.add(new CasellaScacchiera(getRiga() + 1, getColonna() + 1, true));
                 }
             }
-        }
-        else {
+        } else {
             // Controllo se può mangiare sulla sinistra(Nero)
             if (ScacchieraService.getPezzo(getRiga() - 1, getColonna() - 1) != null) {
                 if (ScacchieraService.getPezzo(getRiga() - 1, getColonna() - 1).getColore() != getColore()) {
@@ -127,8 +88,7 @@ System.out.println("Ciaooooo sta andandp");
                     mosseDisponibili.add(new CasellaScacchiera(getRiga() + 1, getColonna(), false));
                 }
             }
-            }
-            else {
+        } else {
             if (ScacchieraService.getPezzo(getRiga() - 1, getColonna()) == null) {
                 if (primaMossa) {
                     if (ScacchieraService.getPezzo(getRiga() - 2, getColonna()) == null) {
@@ -144,7 +104,7 @@ System.out.println("Ciaooooo sta andandp");
 
         }
 
-            return mosseDisponibili;
+        return mosseDisponibili;
     }
 }
 

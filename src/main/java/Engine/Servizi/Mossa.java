@@ -2,6 +2,7 @@ package Engine.Servizi;
 
 import Engine.Giocatore.Giocatore;
 import GUI.CasellaScacchiera;
+import Pezzi.Cavallo;
 import Pezzi.Pedone;
 import Pezzi.Pezzo;
 import Pezzi.Re;
@@ -15,56 +16,47 @@ public class Mossa {
 
     static ArrayList<CasellaScacchiera> mosseGiocatoreNemico = new ArrayList<>();
 
-    static ArrayList<CasellaScacchiera> mosseLimitateAusiliario = new ArrayList<>();
-
-    static ArrayList<CasellaScacchiera> mosseGiocatoreAlleato = new ArrayList<>();
-
-
-
-    public static boolean reSottoScacco (Giocatore gNemico, Giocatore gAlleato){ //Giocatore nemico
-
+    /**
+     * Metodo che controlla se il re è sotto scacco
+     * @return
+     */
+    public static boolean reSottoScacco() {
 
         //riempio mosse possibili del giocatore nemico
         mosseGiocatoreNemico.clear();
-        for (Pezzo singoloPezzo : gNemico.getPezziGiocatore()) {
-            mosseGiocatoreNemico.addAll(singoloPezzo.getArrayMosse());
-        }
+        mosseGiocatoreNemico = mosseNemico();
 
         Pezzo reAlleato = null;
-        if(gNemico.getColore()){
-         reAlleato = ScacchieraService.getPezzoByCodice("n_k1");
+        if (PartitaService.getColoreTurnoGiocatore()) {
+            reAlleato = ScacchieraService.getPezzoByCodice("b_k1");
+        } else {
+            reAlleato = ScacchieraService.getPezzoByCodice("n_k1");
         }
-        else { reAlleato = ScacchieraService.getPezzoByCodice("b_k1"); }
 
         //vedo se la posizione del re è tra le mosse possibili del nemico
-        for (CasellaScacchiera mossa : mosseGiocatoreNemico){
-            if(mossa.getColonna()==reAlleato.getColonna() && mossa.getRiga()==reAlleato.getRiga()){
-
-                System.out.println(reAlleato.getColore() + " ha il Re sotto scacco");
-                if (PartitaService.isGiocatoreSottoScacco()) {
-                    // mosseLimitate(gAlleato, gNemico);
-                }
+        for (CasellaScacchiera mossa : mosseGiocatoreNemico) {
+            if (mossa.getColonna() == reAlleato.getColonna() && mossa.getRiga() == reAlleato.getRiga()) {
                 return true;
             }
         }
-
-        // PartitaService.isGiocatoreSottoScacco() = false;
-        System.out.println(reAlleato.getColore() + " non sta sott scacco");
         return false;
-
     }
 
 
-    public static ArrayList<CasellaScacchiera> mosseNemico (){
+    /**
+     * Metodo che ritorna un array di tutte le possibili mosse disponibili del giocatore nemico
+     * @return
+     */
+    public static ArrayList<CasellaScacchiera> mosseNemico() {
 
         Giocatore gNemico = null;
 
-        if(PartitaService.getColoreTurnoGiocatore()) {
+        if (PartitaService.getColoreTurnoGiocatore()) {
             gNemico = PartitaService.getGiocatore2();
+        } else {
+            gNemico = PartitaService.getGiocatore1();
         }
-        else { gNemico = PartitaService.getGiocatore1(); }
-System.out.println("Pezzi Giocatore nemico "+gNemico.getColore());
-System.out.println(gNemico.getPezziGiocatore());
+
         mosseGiocatoreNemico.clear();
         for (Pezzo singoloPezzo : gNemico.getPezziGiocatore()) {
             mosseGiocatoreNemico.addAll(singoloPezzo.getArrayMosseNormali());
@@ -75,4 +67,38 @@ System.out.println(gNemico.getPezziGiocatore());
     }
 
 
+    /**
+     * Metodo che ritorna un array di tutte le mosse che bloccano uno scacco
+     * @return
+     */
+    public static ArrayList<CasellaScacchiera> getMosseParaScacco() {
+        ScacchieraService scacchieraService = PartitaService.getScacchieraService();
+        ArrayList<CasellaScacchiera> mosseTotaliGiocatoreAlleato = new ArrayList<>();
+        ArrayList<CasellaScacchiera> mosseTotaliPerParareLoScacco = new ArrayList<>();
+        Giocatore giocatoreAlleato = null;
+
+        //Recupero giocatore alleato
+        if (PartitaService.getColoreTurnoGiocatore()) {
+            giocatoreAlleato = PartitaService.getGiocatore1();
+        } else {
+            giocatoreAlleato = PartitaService.getGiocatore2();
+        }
+
+        //Recupero delle mosse possibili del giocatore alleato
+        for (Pezzo singoloPezzo : giocatoreAlleato.getPezziGiocatore()) {
+            mosseTotaliGiocatoreAlleato.addAll(singoloPezzo.getArrayMosseNormali());
+        }
+
+
+        //Ciclo e controllo se una possibile mossa possa parare lo scacco
+        for (CasellaScacchiera mossa : mosseTotaliGiocatoreAlleato) {
+            if (scacchieraService.simulaMossaPerBloccoScacco(mossa.getRiga(), mossa.getColonna())) {
+                //Se ritorna vero, significa che si ci si sposta dentro la casella mossa si blocca lo stacco
+                mosseTotaliPerParareLoScacco.add(mossa);
+            }
+        }
+
+        return mosseTotaliPerParareLoScacco;
+
+    }
 }

@@ -401,7 +401,7 @@ public class ScacchieraController {
                         selectImage2.setFitWidth(60);
                         selectImage2.setFitHeight(60);
 
-                        Pezzo pezzoVecchio = (Pezzo) casella.getChildren().get(0);
+                        Pezzo pezzoVecchio = casella.getPezzoDellaCasella();
                         casella.getChildren().clear();
                         casella.getChildren().addAll(selectImage, pezzoVecchio, selectImage2);
                     } else {

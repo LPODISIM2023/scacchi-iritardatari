@@ -1,5 +1,6 @@
 package Engine.Servizi;
 
+import Pezzi.Cavallo;
 import Pezzi.Pedone;
 import Pezzi.Pezzo;
 import com.google.common.collect.HashBasedTable;
@@ -10,18 +11,19 @@ import java.util.Map;
 
 public class ScacchieraService {
 
-    private final int numRighe=8;
-    private final int numColonne=8;
+    private final int numRighe = 8;
+    private final int numColonne = 8;
 
     private static Table<Integer, Integer, Pezzo> scacchieraTable;
 
 
     /**
      * Inizializza l oggetto scacchiera, dato due liste di pezzi dei rispettivi giocatori G1 e G2
+     *
      * @param pezziG1
      * @param pezziG2
      */
-    public ScacchieraService(List<Pezzo> pezziG1, List<Pezzo> pezziG2){
+    public ScacchieraService(List<Pezzo> pezziG1, List<Pezzo> pezziG2) {
 
         //Creazione della tabella
         scacchieraTable = HashBasedTable.create(numRighe, numColonne);
@@ -37,6 +39,7 @@ public class ScacchieraService {
 
     /**
      * Restituisce un Singolo Pezzo nella scacchiera data la posizione Riga, Colonna
+     *
      * @param riga
      * @param colonna
      * @return un Pezzo nella scacchiera
@@ -47,6 +50,7 @@ public class ScacchieraService {
 
     /**
      * Restituisce un Singolo Pezzo nella scacchiera dato il suo Codice
+     *
      * @param codice
      * @return un Pezzo nella scacchiera
      */
@@ -62,7 +66,6 @@ public class ScacchieraService {
 
 
     public void aggiornaPosizionePezzo(Pezzo pezzoDaMuovere, int riga, int colonna) {
-
         if (pezzoDaMuovere instanceof Pedone) ((Pedone) pezzoDaMuovere).setPrimaMossa(false);
         scacchieraTable.remove(pezzoDaMuovere.getRiga(), pezzoDaMuovere.getColonna());
         pezzoDaMuovere.setPosizione(riga, colonna);
@@ -76,7 +79,7 @@ public class ScacchieraService {
      * Metodo Usato per il Debug della scacchiera Service per capire le effettive posizioni dei pezzi
      * stampa la scacchiera su terminale
      */
-    public void printScacchiera(){
+    public void printScacchiera() {
         int v = 0;
         char[] let = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
         System.out.print("   ");
@@ -98,4 +101,55 @@ public class ScacchieraService {
         }
     }
 
+    /**
+     * Metodo che con le cordinate di una casella simula tale mossa e controlla se riesce a bloccare lo scacco o meno
+     * Ritorna vero se blocca lo scacco, falso altrimenti
+     *
+     * @param riga
+     * @param colonna
+     * @return
+     */
+    public boolean simulaMossaPerBloccoScacco(int riga, int colonna) { // Ritorna vero se blocca lo scacco
+        Pezzo pezzoTemp = new Cavallo("Cavallo", "temp", -1, PartitaService.getColoreTurnoGiocatore(), 1, 1, 0x265E);
+
+        //Salvo il pezzo nella posizione (riga colonna), puo essere anche null
+        Pezzo tempRimosso = getPezzo(riga, colonna);
+
+        //Simulo la mossa col pezzo temporaneo
+        if (tempRimosso == null) {
+            scacchieraTable.put(riga, colonna, pezzoTemp);
+        } else {
+            //Se gia è presente un pezzo in tale casella prima lo rimuovo
+            scacchieraTable.remove(riga, colonna);
+            scacchieraTable.put(riga, colonna, pezzoTemp);
+        }
+
+        //cambio la posizione del pezzo rimosso cosi da simulare il fatto che sia stato "Mangiato"
+        if (tempRimosso != null) {
+            tempRimosso.setPosizione(0, 0);
+        }
+
+        //Controllo se con tale mossa si è ancora sotto scacco
+        if (Mossa.reSottoScacco()) {
+            //Se si, rimetto tutto come prima è ritorno false
+            scacchieraTable.remove(riga, colonna); //rimuovo il pezzo temporaneo
+
+            if (tempRimosso != null) { //rimetto quello precedente rimosso
+                scacchieraTable.put(riga, colonna, tempRimosso);
+                tempRimosso.setPosizione(riga, colonna);
+            }
+
+            return false;
+
+        } else {
+            //Se no, rimetto tutto come prima è ritorno true
+            scacchieraTable.remove(riga, colonna); //rimuovo il pezzo temporaneo
+
+            if (tempRimosso != null) { //rimetto quello precedente rimosso
+                scacchieraTable.put(riga, colonna, tempRimosso);
+                tempRimosso.setPosizione(riga, colonna);
+            }
+            return true;
+        }
+    }
 }//class Scacchiera

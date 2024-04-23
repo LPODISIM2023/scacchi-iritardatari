@@ -158,6 +158,11 @@ public class CasellaScacchiera extends StackPane {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Casella ("+ riga+","+colonna+")";
+    }
+
     /**
      * Metodo invocato se si esegue click su una posizione disponibile
      * ANCODA DA DEFINIRE LA LOGICA
