@@ -60,6 +60,9 @@ public class PartitaService implements Serializable {
     public static void cambioTurno() {
         //Cambio turno del giocatore
         turnoGiocatore = !turnoGiocatore;
+
+        giocatoreSottoScacco = Mossa.reSottoScacco();
+
         if ((g2 instanceof Bot) && g2.getColore() == getColoreTurnoGiocatore()) {
             pauseTransition.setOnFinished(event->{
                 ((Bot) g2).mossaRandom();

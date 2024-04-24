@@ -21,11 +21,11 @@ public abstract class Pezzo extends ImageView {
     private final int valore;
     private boolean colore;
     private int riga, colonna;
-
-
     private int codicePezzoUTF8;
 
-    /** metodo costruttore: crea una nuova istanza Pezzo quando viene invocato
+
+    /**
+     * metodo costruttore: crea una nuova istanza Pezzo quando viene invocato
      */
     public Pezzo(String nome, String codice, int valore, boolean colore, int riga, int colonna, int codicePezzo) {
         this.nome = nome;
@@ -78,18 +78,19 @@ public abstract class Pezzo extends ImageView {
      * Metodo usato per calcolare le mosse normali controlla se una casella è occupata
      * Se lo è: Permette al Pezzo di mangiare se è del colore opposto
      * Se non lo è: Permette al Pezzo di muoversi liberamente
+     *
      * @return
      */
     public boolean casellavuota(int riga, int colonna, ArrayList<CasellaScacchiera> mosseDisponibili) {
         // Controllo casella occupata
         if (ScacchieraService.getPezzo(riga, colonna) != null) {
             if (ScacchieraService.getPezzo(riga, colonna).getColore() != getColore()) {
-                mosseDisponibili.add(new CasellaScacchiera(riga, colonna, true));
+                mosseDisponibili.add(new CasellaScacchiera(riga, colonna, true,this));
                 return false;
             }
             return false;
         } else {
-            mosseDisponibili.add(new CasellaScacchiera(riga, colonna, false));
+            mosseDisponibili.add(new CasellaScacchiera(riga, colonna, false,this));
             return true;
         }
     }
@@ -116,6 +117,7 @@ public abstract class Pezzo extends ImageView {
     /**
      * metodo toString(): stampa le informazioni principali del pezzo (nome, colore, posizione).
      * Ad esempio: Pedone bianco posRiga: A posColonna: 4
+     *
      * @return
      */
     public String toString() {
@@ -155,8 +157,8 @@ public abstract class Pezzo extends ImageView {
      * @param e
      */
     public void dragPezzo(MouseEvent e) {
-        double posCasellaX=0;
-        double posCasellaY=0;
+        double posCasellaX = 0;
+        double posCasellaY = 0;
         //Recupero la posizione della casella e del relativo pezzo in modo assoluto rispetto alla finestra
         if (this.getParent().getParent() != null) {
             posCasellaX = this.getParent().getParent().getLayoutX() + this.getParent().getLayoutX();
@@ -186,6 +188,7 @@ public abstract class Pezzo extends ImageView {
     /**
      * Metodo che viene sovrascritto in ogni classe figlio
      * Ritorna un array di posizione di caselle legali per una mossa
+     *
      * @return
      */
     public ArrayList<CasellaScacchiera> getArrayMosseNormali() {
@@ -198,18 +201,19 @@ public abstract class Pezzo extends ImageView {
      * Ritorna un array di posizione di caselle legali per una mossa
      * con la differenza che rispetto a getArrayMosseNormali controlla se si è sotto scacco
      * e quindi limita le mosse in modo tale da bloccare lo scacco
+     *
      * @return
      */
     public ArrayList<CasellaScacchiera> getArrayMosse() {
 
         if (PartitaService.isGiocatoreSottoScacco()) {
-            ArrayList<CasellaScacchiera> mosseDisponibiliTotali =  Mossa.getMosseParaScacco();
-            ArrayList<CasellaScacchiera> mosseNormaliDelPezzo =  getArrayMosseNormali();
+            ArrayList<CasellaScacchiera> mosseDisponibiliTotali = Mossa.getMosseParaScacco();
+            ArrayList<CasellaScacchiera> mosseNormaliDelPezzo = getArrayMosseNormali();
             ArrayList<CasellaScacchiera> mosseObbligateDelPezzo = new ArrayList<>();
 
-            for (CasellaScacchiera mossa : mosseNormaliDelPezzo){
-                for (CasellaScacchiera mossaNemico : mosseDisponibiliTotali){
-                    if(mossa.getRiga() == mossaNemico.getRiga() && mossa.getColonna() == mossaNemico.getColonna()) {
+            for (CasellaScacchiera mossa : mosseNormaliDelPezzo) {
+                for (CasellaScacchiera mossaNemico : mosseDisponibiliTotali) {
+                    if (mossa.getRiga() == mossaNemico.getRiga() && mossa.getColonna() == mossaNemico.getColonna()) {
                         mosseObbligateDelPezzo.add(mossa);
                         break;
                     }

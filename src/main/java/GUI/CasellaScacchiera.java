@@ -18,6 +18,7 @@ public class CasellaScacchiera extends StackPane {
     private final String colore_1 = "#b1e4b9";
     private final String colore_2 = "#70a2a3";
     private final String colore_evidenzia = "#F6BD60";
+    private Pezzo pezzoDaMuovere;
     private boolean coloreCasella;
     private int riga, colonna;
     private static ScacchieraController sc;
@@ -48,16 +49,21 @@ public class CasellaScacchiera extends StackPane {
         handleEventi();
     }
 
+    public Pezzo getPezzoDaMuovere() {
+        return pezzoDaMuovere;
+    }
+
     /**
      * Costruttore usato nella classe Pezzo per poter creare l'array di mosse disponibili
      *
      * @param riga
      * @param colonna
      */
-    public CasellaScacchiera(int riga, int colonna, boolean siPuoMangiare) {
+    public CasellaScacchiera(int riga, int colonna, boolean siPuoMangiare,Pezzo pezzoDaMuovere) {
         this.riga = riga;
         this.colonna = colonna;
         this.siPuoMangiare = siPuoMangiare;
+        this.pezzoDaMuovere = pezzoDaMuovere;
     }
 
     public CasellaScacchiera(Pezzo pezzo, int oldX, int oldY) {
