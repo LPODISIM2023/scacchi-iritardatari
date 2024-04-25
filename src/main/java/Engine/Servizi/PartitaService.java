@@ -64,27 +64,22 @@ public class PartitaService implements Serializable {
         giocatoreSottoScacco = Mossa.reSottoScacco();
 
         if ((g2 instanceof Bot) && g2.getColore() == getColoreTurnoGiocatore()) {
-            pauseTransition.setOnFinished(event->{
+            pauseTransition.setOnFinished(event -> {
                 ((Bot) g2).mossaRandom();
             });
-
             pauseTransition.play();
         }
-        if(Mossa.reSottoScacco() && Mossa.isScaccoMatto()){
+
+    }
+
+    public static void controlloScaccoMatto() {
+        if (Mossa.reSottoScacco() && Mossa.isScaccoMatto()) {
             try {
                 scacchieraController.endGame();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            System.out.println("Partita Conclusa");
         }
-        //controllo se il giocatore è sotto scacco
-
-            //Se si controllo se è scacco
-                //se non è scacco matto limito le mosse
-                //altrimenti finisce la partita
-        //se non può fare tutte le mosse
-
     }
 
     /**

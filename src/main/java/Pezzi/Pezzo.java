@@ -221,7 +221,16 @@ public abstract class Pezzo extends ImageView {
             }
             return mosseObbligateDelPezzo;
         } else {
-            return getArrayMosseNormali();
+            //Controllo se qualche mossa possa portare a uno scacco in caso lo limito
+            ArrayList<CasellaScacchiera> mosseNormaliDelPezzo = getArrayMosseNormali();
+            ArrayList<CasellaScacchiera> mosseObbligateDelPezzo = new ArrayList<>();
+
+            for (CasellaScacchiera mossa : mosseNormaliDelPezzo) {
+                if(PartitaService.getScacchieraService().simulaMossaPerUnPezzo(mossa.getRiga(), mossa.getColonna(),this.getCodice())){
+                    mosseObbligateDelPezzo.add(mossa);
+                }
+            }
+            return mosseObbligateDelPezzo;
         }
     }
 

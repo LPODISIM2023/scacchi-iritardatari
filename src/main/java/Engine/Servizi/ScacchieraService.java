@@ -1,8 +1,10 @@
 package Engine.Servizi;
 
+import GUI.CasellaScacchiera;
 import Pezzi.Cavallo;
 import Pezzi.Pedone;
 import Pezzi.Pezzo;
+import Pezzi.Re;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
@@ -79,7 +81,7 @@ public class ScacchieraService {
      * Metodo Usato per il Debug della scacchiera Service per capire le effettive posizioni dei pezzi
      * stampa la scacchiera su terminale
      */
-    public void printScacchiera() {
+    public static void printScacchiera() {
         int v = 0;
         char[] let = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
         System.out.print("   ");
@@ -110,10 +112,12 @@ public class ScacchieraService {
      * @return
      */
     public boolean simulaMossaPerBloccoScacco(int riga, int colonna) { // Ritorna vero se blocca lo scacco
-        Pezzo pezzoTemp = new Cavallo("Cavallo", "temp", -1, PartitaService.getColoreTurnoGiocatore(), 1, 1, 0x265E);
 
         //Salvo il pezzo nella posizione (riga colonna), puo essere anche null
         Pezzo tempRimosso = getPezzo(riga, colonna);
+        Pezzo pezzoTemp = null;
+
+        pezzoTemp = new Cavallo("Cavallo", "temp", -1, PartitaService.getColoreTurnoGiocatore(), 1, 1, 0x265E);
 
         //Simulo la mossa col pezzo temporaneo
         if (tempRimosso == null) {
@@ -152,4 +156,60 @@ public class ScacchieraService {
             return true;
         }
     }
+
+    public boolean simulaMossaPerUnPezzo(int riga, int colonna, String codPezzo) { // Ritorna vero se blocca lo scacco
+
+        //Salvo il pezzo nella posizione (riga colonna), puo essere anche null
+        Pezzo tempRimosso = getPezzo(riga, colonna);
+        Pezzo pezzoTemp = null;
+
+        if (codPezzo.equals("b_k1") || codPezzo.equals("n_k1")) {
+            pezzoTemp = new Re("Re", codPezzo, 10, PartitaService.getColoreTurnoGiocatore(), riga, colonna, 0x265E);
+        } else {
+            pezzoTemp = new Cavallo("Cavallo", "temp", -1, PartitaService.getColoreTurnoGiocatore(), 0, 0, 0x265E);
+        }
+
+        //Rimuovo temporaneamente il re dalla scacchiera
+        Pezzo pezzoCheEsegueLaMossa = ScacchieraService.getPezzoByCodice(codPezzo);
+        scacchieraTable.remove(pezzoCheEsegueLaMossa.getRiga(), pezzoCheEsegueLaMossa.getColonna());
+
+        //Simulo la mossa col pezzo temporaneo
+        if (tempRimosso == null) {
+            scacchieraTable.put(riga, colonna, pezzoTemp);
+        } else {
+            //Se gia è presente un pezzo in tale casella prima lo rimuovo
+            scacchieraTable.remove(riga, colonna);
+            scacchieraTable.put(riga, colonna, pezzoTemp);
+        }
+
+        //cambio la posizione del pezzo rimosso cosi da simulare il fatto che sia stato "Mangiato"
+        if (tempRimosso != null) {
+            tempRimosso.setPosizione(0, 0);
+        }
+
+        //Controllo se con tale mossa si è ancora sotto scacco
+        if (Mossa.reSottoScacco()) {
+            //Se si, rimetto tutto come prima è ritorno false
+            scacchieraTable.remove(riga, colonna); //rimuovo il pezzo temporaneo
+            scacchieraTable.put(pezzoCheEsegueLaMossa.getRiga(), pezzoCheEsegueLaMossa.getColonna(), pezzoCheEsegueLaMossa);
+            if (tempRimosso != null) { //rimetto quello precedente rimosso
+                scacchieraTable.put(riga, colonna, tempRimosso);
+                tempRimosso.setPosizione(riga, colonna);
+            }
+
+            return false;
+
+        } else {
+            //Se no, rimetto tutto come prima è ritorno true
+            scacchieraTable.remove(riga, colonna); //rimuovo il pezzo temporaneo
+            scacchieraTable.put(pezzoCheEsegueLaMossa.getRiga(), pezzoCheEsegueLaMossa.getColonna(), pezzoCheEsegueLaMossa);
+            if (tempRimosso != null) { //rimetto quello precedente rimosso
+                scacchieraTable.put(riga, colonna, tempRimosso);
+                tempRimosso.setPosizione(riga, colonna);
+            }
+            return true;
+        }
+    }
+
+
 }//class Scacchiera

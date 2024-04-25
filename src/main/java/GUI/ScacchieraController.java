@@ -469,7 +469,7 @@ public class ScacchieraController {
         //Cambio turno e rerender della Scacchiera
         PartitaService.cambioTurno();
         renderScacchiera();
-
+        PartitaService.controlloScaccoMatto();
     }
 
 
@@ -607,7 +607,7 @@ public class ScacchieraController {
      */
     String pezziMangiatiDaBianco=" ";
     public void visualizzaPezziMangiatiBianchi(int codPezzoNero){
-        pezziMangiatiDaBianco += Character.toString(codPezzoNero);
+    //    pezziMangiatiDaBianco += Character.toString(codPezzoNero);
         pezziMangiatiGiocatoreBianco.setText(pezziMangiatiDaBianco);
     }
 
@@ -619,7 +619,7 @@ public class ScacchieraController {
      */
     String pezziMangiatiDaNero = " ";
     public void visualizzaPezziMangiatiNeri(int codPezzoBianco){
-        pezziMangiatiDaNero += Character.toString(codPezzoBianco);
+  //      pezziMangiatiDaNero += Character.toString(codPezzoBianco);
         pezziMangiatiGiocatoreNero.setText(pezziMangiatiDaNero);
     }
 }

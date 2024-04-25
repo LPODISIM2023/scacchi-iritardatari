@@ -18,6 +18,7 @@ public class Mossa {
 
     /**
      * Metodo che controlla se il re è sotto scacco
+     *
      * @return
      */
     public static boolean reSottoScacco() {
@@ -33,7 +34,6 @@ public class Mossa {
             reAlleato = ScacchieraService.getPezzoByCodice("n_k1");
         }
 
-        //vedo se la posizione del re è tra le mosse possibili del nemico
         for (CasellaScacchiera mossa : mosseGiocatoreNemico) {
             if (mossa.getColonna() == reAlleato.getColonna() && mossa.getRiga() == reAlleato.getRiga()) {
                 return true;
@@ -45,6 +45,7 @@ public class Mossa {
 
     /**
      * Metodo che ritorna un array di tutte le possibili mosse disponibili del giocatore nemico
+     *
      * @return
      */
     public static ArrayList<CasellaScacchiera> mosseNemico() {
@@ -69,6 +70,7 @@ public class Mossa {
 
     /**
      * Metodo che ritorna un array di tutte le mosse che bloccano uno scacco
+     *
      * @return
      */
     public static ArrayList<CasellaScacchiera> getMosseParaScacco() {
@@ -76,16 +78,22 @@ public class Mossa {
         ArrayList<CasellaScacchiera> mosseTotaliGiocatoreAlleato = new ArrayList<>();
         ArrayList<CasellaScacchiera> mosseTotaliPerParareLoScacco = new ArrayList<>();
         Giocatore giocatoreAlleato = null;
+        Pezzo reDaNonValutare = null;
 
         //Recupero giocatore alleato
         if (PartitaService.getColoreTurnoGiocatore()) {
             giocatoreAlleato = PartitaService.getGiocatore1();
+            reDaNonValutare = ScacchieraService.getPezzoByCodice("b_k1");
         } else {
             giocatoreAlleato = PartitaService.getGiocatore2();
+            reDaNonValutare = ScacchieraService.getPezzoByCodice("n_k1");
         }
+        //Rimuovo il re, perche il re ha il suo metodo per il calcolo delle possibili mosse
+        List<Pezzo> pezziTemp = new ArrayList<>(giocatoreAlleato.getPezziGiocatore());
+        pezziTemp.remove(reDaNonValutare);
 
         //Recupero delle mosse possibili del giocatore alleato
-        for (Pezzo singoloPezzo : giocatoreAlleato.getPezziGiocatore()) {
+        for (Pezzo singoloPezzo : pezziTemp) {
             mosseTotaliGiocatoreAlleato.addAll(singoloPezzo.getArrayMosseNormali());
         }
 
@@ -103,14 +111,17 @@ public class Mossa {
     }
 
     public static boolean isScaccoMatto() {
-
-        ArrayList<CasellaScacchiera> mosseParoScacco = new ArrayList<>();
-        mosseParoScacco =getMosseParaScacco();
-        if(mosseParoScacco.isEmpty()){
-            return true;
+        ArrayList<CasellaScacchiera> mosseParoScacco = getMosseParaScacco();
+        ArrayList<CasellaScacchiera> mosseRe = new ArrayList<>();
+        if (PartitaService.getColoreTurnoGiocatore()) {
+            mosseRe.addAll(ScacchieraService.getPezzoByCodice("b_k1").getArrayMosse());
+        } else {
+            mosseRe.addAll(ScacchieraService.getPezzoByCodice("n_k1").getArrayMosse());
         }
-
-        else return false;
+        System.out.println("Matto");
+        System.out.println(mosseRe);
+        System.out.println(mosseParoScacco);
+        return mosseParoScacco.isEmpty() && mosseRe.isEmpty();
     }
 
 }
