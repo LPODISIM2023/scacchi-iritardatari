@@ -8,18 +8,26 @@ import Engine.Servizi.PartitaService;
 import Engine.Servizi.ScacchieraService;
 import Pezzi.Pezzo;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.json.JSONObject;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -622,4 +630,26 @@ public class ScacchieraController {
   //      pezziMangiatiDaNero += Character.toString(codPezzoBianco);
         pezziMangiatiGiocatoreNero.setText(pezziMangiatiDaNero);
     }
+
+    /**
+     * Il metodo permette al giocatore di abbandonare la partita nel momento in cui desidera.
+     * Tale metodo mostrerà una finestra dalla quale il giocatore sceglierà se abbadonare la partita.
+     * @param event
+     */
+    public void abbandona(ActionEvent event){
+        Alert abbandona = new Alert(Alert.AlertType.NONE, "Sicuro di voler abbandonae la partita?");
+        abbandona.setTitle("Abbandono della partita");
+
+        ButtonType si = new ButtonType("SI");
+        ButtonType no = new ButtonType("NO");
+
+        abbandona.getButtonTypes().setAll(si, no);
+
+        abbandona.showAndWait().ifPresent(scelta->{
+            if(scelta==si){
+                System.exit(0); // migliorare l'uscita dalla partita
+            }
+        });
+    }
+
 }

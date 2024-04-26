@@ -121,8 +121,8 @@
          <font>
             <Font size="20.0" />
          </font></Label>
-      <Button fx:id="Patta" layoutX="812.0" layoutY="680.0" mnemonicParsing="false" onAction="#undo" text="Richiedi Patta" />
-      <Button fx:id="Abbandona" layoutX="734.0" layoutY="680.0" mnemonicParsing="false" onAction="#undo" text="Abbandona" />
+      <Button fx:id="Patta" layoutX="812.0" layoutY="680.0" mnemonicParsing="false" onAction="#patta" text="Richiedi Patta" />
+      <Button fx:id="Abbandona" layoutX="734.0" layoutY="680.0" mnemonicParsing="false" onAction="#abbandona" text="Abbandona" />
       <effect>
          <Blend />
       </effect>
