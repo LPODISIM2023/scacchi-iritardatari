@@ -1,6 +1,7 @@
 package GUI;
 
 import Eccezioni.EmptyTextFieldException;
+import Engine.Data.Salvataggio;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,8 +12,10 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 
 
@@ -78,6 +81,10 @@ public class StartController {
     @FXML
     AnchorPane anchorPane;
 
+    @FXML
+    Button carica = new Button();
+
+
 
     /**
      * Setta tutti i parametri per giocare e switcha alla scacchiera
@@ -123,8 +130,23 @@ public class StartController {
 
        nomePlayer2.setDisable(((CheckBox) (event.getSource())).isSelected());
 
-
-
     }
 
+    /**
+     *
+     * @param event
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    @FXML
+    public void CaricaSalvataggio(ActionEvent event) throws IOException, ClassNotFoundException{
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Salvataggi");
+        fileChooser.getExtensionFilters().clear();
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.dir") + File.separator + "saved_games"));
+        File file = fileChooser.showOpenDialog(new Stage());
+        Salvataggio.caricaPartita(file,event);
+
+    }
 }

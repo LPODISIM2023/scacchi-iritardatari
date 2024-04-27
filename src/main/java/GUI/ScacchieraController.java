@@ -29,16 +29,20 @@ import org.json.JSONObject;
 
 import java.awt.*;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import java.io.Serializable;
 import java.util.*;
 
-import static Engine.Data.Partita.save;
-
-public class ScacchieraController {
 
 
-    JSONObject jsonMosse = new JSONObject();
+public class ScacchieraController implements Serializable {
+
+
+    String directoryPath = System.getProperty("user.dir") + File.separator + "saved_games";
+    File directory = new File(directoryPath);
+
 
     public TextArea getTextAreaMosse() {
         return textAreaMosse;
@@ -60,9 +64,7 @@ public class ScacchieraController {
     static Giocatore g1;
     static Giocatore g2;
 
-    ScacchieraService sc;
-
-    public File percorsoSalvataggi = new File("src/main/java/salvataggi");
+    private Salvataggio salvataggio = new Salvataggio();
 
     @FXML
     FileChooser filePartita = new FileChooser();
@@ -88,18 +90,22 @@ public class ScacchieraController {
     private static boolean isSelectCasella = false;
     private static boolean colorePezzoSelezionato = true; //false=nero true=bianco
     private static Pezzo pezzoSelezionato;
-    private static PartitaService partita;
+    private PartitaService partita;
 
-    private static ScacchieraService scacchieraService;
+    private ScacchieraService scacchieraService;
 
     public static ArrayList<CasellaScacchiera> caselle = new ArrayList<>();
 
-    public static PartitaService getPartita() {
+    public void setScacchieraService(ScacchieraService sS){
+        this.scacchieraService = sS;
+    }
+
+    public  PartitaService getPartita() {
         return partita;
     }
 
-    public static void setPartita(PartitaService partita) {
-        ScacchieraController.partita = partita;
+    public void setPartita(PartitaService partita) {
+        this.partita = partita;
     }
 
 
@@ -185,6 +191,32 @@ public class ScacchieraController {
         stage.show();
     }
 
+    public void initGameRecuperato(Salvataggio salvataggio){
+        textAreaMosse.clear();
+        textAreaMosse.setEditable(false);
+        scrollPaneMosse.setContent(textAreaMosse);
+
+        partita = new PartitaService(salvataggio, this);
+
+        g1 = PartitaService.getG1();
+        g2 = PartitaService.getG2();
+
+        //Creo scacchieraService
+
+        scacchieraService = PartitaService.getScacchieraService();
+
+        //RenderScacchiera
+
+        renderScacchiera();
+        ScacchieraService.printScacchiera();
+
+        //RenderNomi
+        labelNomePlayer1.setText(g1.getNome());
+        labelNomePlayer2.setText(g2.getNome());
+        textAreaMosse.toString();
+
+    }
+
     //metodi per i pulsanti nel menù
 
     /**
@@ -207,13 +239,18 @@ public class ScacchieraController {
         nuovaPartita.showAndWait().ifPresent(scelta -> {
             if (scelta == si) {
                 try {
-                    save(sc, g1, g2);
+                    File file = filePartita.showSaveDialog(new Stage());
+                    if(file != null) {
+                        salvataggio.salvaPartita(g1,g2,partita,file);
+                    }else{
+                        throw new FileNotFoundException();
+                    }
                     textAreaMosse.clear();
                     log = "";
                     if (!(PartitaService.getColoreTurnoGiocatore())) {
                         PartitaService.cambioTurno();
                     }
-                    initGame(g1.getNome(), g2.getNome(), PartitaService.getIsBot());  //migliorare terzo parametro.
+                    getStart(event);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -236,17 +273,20 @@ public class ScacchieraController {
      */
     @FXML
     public void saveButton(ActionEvent event) throws IOException {
+
+        if(!directory.exists()) directory.mkdirs();
+
         filePartita.setTitle("Salvataggi");
-        filePartita.setInitialDirectory(new File(System.getProperty("user.dir")));
-        FileChooser.ExtensionFilter jsonFilter = new FileChooser.ExtensionFilter("File chess", "*.chess");
-        filePartita.getExtensionFilters().addAll(jsonFilter);
+        filePartita.setInitialDirectory(new File(directoryPath));
+        FileChooser.ExtensionFilter cheesFilter = new FileChooser.ExtensionFilter("File chess","*.chess");
+        filePartita.getExtensionFilters().add(cheesFilter);
         File file = filePartita.showSaveDialog(new Stage());
 
-        if (file != null) {
-            Salvataggio.salvaPartita(partita);
-            System.out.println("Salvato");
-        } else {
-            //eccezione
+        if(file != null){
+            salvataggio.salvaPartita(g1,g2,partita,file);
+            System.out.println("Salvato!");
+        }else{
+            throw new FileNotFoundException();
         }
 
     }
@@ -274,8 +314,8 @@ public class ScacchieraController {
         salvaEEsci.showAndWait().ifPresent(scelta -> {
             if (scelta == ok) {
                 try {
-                    Salvataggio.salvaPartita(partita);
-                } catch (IOException e) {
+                   saveButton(event);
+                    } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
                 System.exit(0);
@@ -310,40 +350,6 @@ public class ScacchieraController {
 
 
     /**
-     * Metodo che permettere di scegliere la partita da giocare dall'explorer di sistema.
-     *
-     * @param event listener per il click del pulsante nel menù a tendina "scegli partita"
-     */
-    @FXML
-    public void carica(ActionEvent event) throws IOException {
-
-        filePartita.setTitle("Salvataggi");
-        filePartita.setInitialDirectory(new File(System.getProperty("user.dir")));
-        filePartita.getExtensionFilters().clear();
-        File file = filePartita.showOpenDialog(new Stage());
-
-
-//        if(percorsoSalvatggi.exists()){
-//
-//
-//        }else{
-//            Path path = Paths.get(percorsoSalvatggi.toURI());
-//            Files.createDirectories(path);
-//        }
-
-
-//        String userSavePath = System.getProperty("user.dir/salvataggi");
-//        if (userSavePath != null) {
-//            System.out.println("Percorso dei salvataggi:" + userSavePath);
-//        } else {
-//            System.out.println("La chiave 'user.home' non è stata impostata.");
-//        }
-
-
-    }
-
-
-    /**
      * Metodo che renderizza la scacchiera a schermo, prende scacchiera service e sulla base
      * della scacchiera logica, crea la scacchiera con i vari StackPane (CasellaScacchiera)
      */
@@ -352,7 +358,6 @@ public class ScacchieraController {
         //Pulisco la scacchiera precedente in caso di aggiornamento
         gridPaneX.getChildren().clear();
         caselle.clear();
-
         //Itero per ogni casella
         for (int riga = 8; riga >= 1; riga--) {
             for (int colonna = 1; colonna <= 8; colonna++) {
@@ -382,9 +387,10 @@ public class ScacchieraController {
     private static void aggiungiPezzi() {
         for (CasellaScacchiera casella : caselle) {
             //Recupero il pezzo dalla scacchiare logica
-            Pezzo pezzo = scacchieraService.getPezzo(casella.getRiga(), casella.getColonna());
+            Pezzo pezzo = ScacchieraService.getPezzo(casella.getRiga(), casella.getColonna());
             //Se la casella é piena renderizzo il pezzo nella rispettiva casella di render
             if (pezzo != null) {
+                pezzo.setImage();
                 casella.setPezzo(pezzo);
             }
         }
@@ -615,7 +621,7 @@ public class ScacchieraController {
      */
     String pezziMangiatiDaBianco=" ";
     public void visualizzaPezziMangiatiBianchi(int codPezzoNero){
-    //    pezziMangiatiDaBianco += Character.toString(codPezzoNero);
+        pezziMangiatiDaBianco += Character.toString(codPezzoNero);
         pezziMangiatiGiocatoreBianco.setText(pezziMangiatiDaBianco);
     }
 
@@ -627,17 +633,18 @@ public class ScacchieraController {
      */
     String pezziMangiatiDaNero = " ";
     public void visualizzaPezziMangiatiNeri(int codPezzoBianco){
-  //      pezziMangiatiDaNero += Character.toString(codPezzoBianco);
+        pezziMangiatiDaNero += Character.toString(codPezzoBianco);
         pezziMangiatiGiocatoreNero.setText(pezziMangiatiDaNero);
     }
 
+    @FXML
     /**
      * Il metodo permette al giocatore di abbandonare la partita nel momento in cui desidera.
      * Tale metodo mostrerà una finestra dalla quale il giocatore sceglierà se abbadonare la partita.
      * @param event
      */
     public void abbandona(ActionEvent event){
-        Alert abbandona = new Alert(Alert.AlertType.NONE, "Sicuro di voler abbandonae la partita?");
+        Alert abbandona = new Alert(Alert.AlertType.NONE, "Sicuro di voler abbandonare la partita?");
         abbandona.setTitle("Abbandono della partita");
 
         ButtonType si = new ButtonType("SI");

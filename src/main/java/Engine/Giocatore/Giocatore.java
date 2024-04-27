@@ -3,12 +3,13 @@ package Engine.Giocatore;
 import GUI.CasellaScacchiera;
 import Pezzi.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import static javax.swing.text.html.HTML.Tag.U;
 
-public abstract class Giocatore {
+public abstract class Giocatore implements Serializable {
 
     private String nome;
 

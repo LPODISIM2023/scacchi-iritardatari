@@ -1,18 +1,14 @@
 package Engine.Servizi;
 
+import Engine.Data.Salvataggio;
 import Engine.Giocatore.Bot;
 import Engine.Giocatore.Giocatore;
 import Engine.Giocatore.Umano;
 import GUI.ScacchieraController;
 import javafx.animation.PauseTransition;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.util.Duration;
 
-import java.awt.event.ActionEvent;
-import java.io.IOException;
 import java.io.Serializable;
-import java.util.EventListener;
 
 public class PartitaService implements Serializable {
 
@@ -21,12 +17,56 @@ public class PartitaService implements Serializable {
     private static Giocatore g2;
     private static boolean isBot;
 
+    public Giocatore g1NonStatico;
+    public Giocatore g2NonStatico;
+
+    public ScacchieraService scacchieraServiceNonStatica;
     private static ScacchieraController scacchieraController;
     private static ScacchieraService scacchieraService;
     private static boolean partitaInCorso = false;
     private static boolean turnoGiocatore = true;
     private static boolean giocatoreSottoScacco = false;
+    private static int numeroMosseTotali = 1;
     static PauseTransition pauseTransition = new PauseTransition(Duration.seconds(1));
+
+    public static Giocatore getG1() {
+        return g1;
+    }
+
+    public static void setG1(Giocatore g1) {
+        PartitaService.g1 = g1;
+    }
+
+    public static Giocatore getG2() {
+        return g2;
+    }
+
+    public static void setG2(Giocatore g2) {
+        PartitaService.g2 = g2;
+    }
+
+    public static int getNumeroMosseTotali() {
+        return numeroMosseTotali;
+    }
+
+    public static void setNumeroMosseTotali(int numeroMosseTotali) {
+        PartitaService.numeroMosseTotali = numeroMosseTotali;
+    }
+
+    public PartitaService(Salvataggio salvataggio, ScacchieraController scacchieraController){
+
+        PartitaService.isBot = salvataggio.isG2IsBot();
+
+        //inializza i giocatori
+        g1 = salvataggio.getG1();
+        g2 = salvataggio.getG2();
+
+        //crea scacchiera service
+
+        scacchieraService = new ScacchieraService(g1.getPezziGiocatore(),g2.getPezziGiocatore());
+        PartitaService.scacchieraController = scacchieraController;
+        partitaInCorso = true;
+    }
 
 
     /**
@@ -39,7 +79,7 @@ public class PartitaService implements Serializable {
      * @param scacchieraController
      */
     public PartitaService(String nome1, String nome2, boolean isBot, ScacchieraController scacchieraController) {
-        this.isBot = isBot;
+        PartitaService.isBot = isBot;
         //inizializzazione Giocatori
         g1 = new Umano(nome1, true);
         if (isBot) {
@@ -53,6 +93,10 @@ public class PartitaService implements Serializable {
         partitaInCorso = true;
     }
 
+    public PartitaService(Giocatore giocatore1, Giocatore giocatore2){
+        this.g1NonStatico = giocatore1;
+        this.g2NonStatico = giocatore2;
+    }
     /**
      * Il metodo cambioTurno() è utile per cambiare il turno da un giocatore all'altro una volta effettuata una mossa.
      * Controlla inoltre se il re è sotto scacco per stabile se continuare o no la partita
@@ -69,6 +113,7 @@ public class PartitaService implements Serializable {
             });
             pauseTransition.play();
         }
+        numeroMosseTotali++;
 
     }
 
@@ -173,4 +218,9 @@ public class PartitaService implements Serializable {
 
     }
      */
+
+    @Override
+    public String toString() {
+        return "PartitaService{}";
+    }
 }

@@ -8,10 +8,11 @@ import Pezzi.Re;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public class ScacchieraService {
+public class ScacchieraService implements Serializable {
 
     private final int numRighe = 8;
     private final int numColonne = 8;

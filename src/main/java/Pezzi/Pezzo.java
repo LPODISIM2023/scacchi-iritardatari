@@ -11,10 +11,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Pezzo extends ImageView {
+public abstract class Pezzo extends ImageView implements Serializable {
     @FXML
     Scene scene;
     private String nome, codice;

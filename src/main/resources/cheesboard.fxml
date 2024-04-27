@@ -18,15 +18,9 @@
           <Menu mnemonicParsing="false" text="File">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#newGame" text="Nuova partita" />
-                  <MenuItem fx:id="caricaPartita" mnemonicParsing="false" onAction="#carica" text="Carica partita" />
                   <MenuItem mnemonicParsing="false" onAction="#saveButton" text="Salva" />
                   <MenuItem mnemonicParsing="false" onAction="#saveAndExit" text="Salva e esci" />
                   <MenuItem mnemonicParsing="false" onAction="#exit" text="Esci" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
             </items>
           </Menu>
         </menus>
@@ -89,7 +83,6 @@
                 <Font size="15.0" />
             </font>
         </Label>
-        <Button fx:id="comeBack" layoutX="22.0" layoutY="61.0" mnemonicParsing="false" onAction="#getStart" text="Login Page" />
         <Button fx:id="buttonUndo" layoutX="22.0" layoutY="626.0" mnemonicParsing="false" onAction="#undo" text="undo disponibili 5" />
 
         <Label layoutX="14.0" layoutY="132.0" prefHeight="32.0" prefWidth="200.0" textAlignment="CENTER">
@@ -121,7 +114,7 @@
          <font>
             <Font size="20.0" />
          </font></Label>
-      <Button fx:id="Patta" layoutX="812.0" layoutY="680.0" mnemonicParsing="false" onAction="#patta" text="Richiedi Patta" />
+      <Button fx:id="Patta" layoutX="812.0" layoutY="680.0" mnemonicParsing="false" text="Richiedi Patta" />
       <Button fx:id="Abbandona" layoutX="734.0" layoutY="680.0" mnemonicParsing="false" onAction="#abbandona" text="Abbandona" />
       <effect>
          <Blend />
