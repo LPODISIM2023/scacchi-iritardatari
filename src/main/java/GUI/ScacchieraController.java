@@ -25,6 +25,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.checkerframework.checker.units.qual.A;
 import org.json.JSONObject;
 
 import java.awt.*;
@@ -653,8 +654,50 @@ public class ScacchieraController implements Serializable {
         abbandona.getButtonTypes().setAll(si, no);
 
         abbandona.showAndWait().ifPresent(scelta->{
-            if(scelta==si){
-                System.exit(0); // migliorare l'uscita dalla partita
+            if(scelta == si){
+                System.exit(0);
+            }
+            if(scelta == si && PartitaService.getIsBot()){
+                System.exit(0);
+            }
+
+        });
+    }
+
+    /**
+     * Il metodo gestisce la patta. Un giocatore umano può richiedere la patta al contrario del Giocatore Bot.
+     * @param event
+     */
+    public void patta(ActionEvent event) {
+        Alert patta;
+        if (PartitaService.getColoreTurnoGiocatore() && !PartitaService.getIsBot()) {
+            patta = new Alert(Alert.AlertType.NONE, "Vuoi richiedere la patta a " + PartitaService.getG2().getNome());
+            patta.setTitle("Richiesta patta");
+        }else{
+            patta = new Alert(Alert.AlertType.NONE, "Vuoi richiedere la patta a " + PartitaService.getG1().getNome());
+            patta.setTitle("Richiesta patta");
+        }
+        if(PartitaService.getIsBot()){
+            patta = new Alert(Alert.AlertType.NONE, "Vuoi richiedere la patta e terminare la partita?");
+            patta.setTitle("Richiesta patta");
+        }
+
+        ButtonType si = new ButtonType("SI");
+        ButtonType no = new ButtonType("NO");
+
+        patta.getButtonTypes().setAll(si, no);
+
+        patta.showAndWait().ifPresent(scelta->{
+            if(scelta == si && !PartitaService.getIsBot() && PartitaService.getColoreTurnoGiocatore()){
+                Alert messaggio = new Alert(Alert.AlertType.NONE, PartitaService.getG1() + " ha richiesto la patta. La partita è terminata.");
+                System.exit(0);
+            }
+            if(scelta == si &&!PartitaService.getIsBot() && !PartitaService.getColoreTurnoGiocatore()){
+                Alert messagio = new Alert(Alert.AlertType.NONE, PartitaService.getG2() + " ha richiesto la patta. La partita è terminata.");
+                System.exit(0);
+            }
+            if(scelta == si && PartitaService.getIsBot()){
+                System.exit(0);
             }
         });
     }
