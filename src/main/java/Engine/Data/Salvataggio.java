@@ -75,7 +75,7 @@ public class Salvataggio implements Serializable{
         salvataggio.setG2(g2);
         salvataggio.setNumeroMosse(PartitaService.getNumeroMosseTotali());
         salvataggio.g2IsBot = PartitaService.getIsBot();
-        try (FileOutputStream fos = new FileOutputStream(directoryPath + File.separator + file.getName() + timestamp);
+        try (FileOutputStream fos = new FileOutputStream(directoryPath + File.separator + timestamp + "_"+ file.getName());
              ObjectOutputStream oos = new ObjectOutputStream(fos)) {
             oos.writeObject(salvataggio);
         } catch (Exception e) {
@@ -94,7 +94,7 @@ public class Salvataggio implements Serializable{
 
     public static void caricaPartita(File file, ActionEvent event){
 
-        try(FileInputStream fis = new FileInputStream(file.getName());
+        try(FileInputStream fis = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fis)){
 
             Salvataggio salvataggioRecuperato = (Salvataggio) ois.readObject();

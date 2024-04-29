@@ -8,7 +8,6 @@ import Engine.Servizi.PartitaService;
 import Engine.Servizi.ScacchieraService;
 import Pezzi.Pezzo;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -25,10 +24,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.checkerframework.checker.units.qual.A;
-import org.json.JSONObject;
 
-import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
