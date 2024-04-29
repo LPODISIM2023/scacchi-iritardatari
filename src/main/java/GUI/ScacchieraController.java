@@ -673,11 +673,11 @@ public class ScacchieraController implements Serializable {
         if (PartitaService.getColoreTurnoGiocatore() && !PartitaService.getIsBot()) {
             patta = new Alert(Alert.AlertType.NONE, "Vuoi richiedere la patta a " + PartitaService.getG2().getNome());
             patta.setTitle("Richiesta patta");
-        }else{
+        } else {
             patta = new Alert(Alert.AlertType.NONE, "Vuoi richiedere la patta a " + PartitaService.getG1().getNome());
             patta.setTitle("Richiesta patta");
         }
-        if(PartitaService.getIsBot()){
+        if (PartitaService.getIsBot()) {
             patta = new Alert(Alert.AlertType.NONE, "Vuoi richiedere la patta e terminare la partita?");
             patta.setTitle("Richiesta patta");
         }
@@ -687,19 +687,40 @@ public class ScacchieraController implements Serializable {
 
         patta.getButtonTypes().setAll(si, no);
 
-        patta.showAndWait().ifPresent(scelta->{
-            if(scelta == si && !PartitaService.getIsBot() && PartitaService.getColoreTurnoGiocatore()){
-                Alert messaggio = new Alert(Alert.AlertType.NONE, PartitaService.getG1() + " ha richiesto la patta. La partita è terminata.");
-                System.exit(0);
-            }
-            if(scelta == si &&!PartitaService.getIsBot() && !PartitaService.getColoreTurnoGiocatore()){
-                Alert messagio = new Alert(Alert.AlertType.NONE, PartitaService.getG2() + " ha richiesto la patta. La partita è terminata.");
-                System.exit(0);
+        patta.showAndWait().ifPresent(scelta -> {
+            if (scelta == si && !PartitaService.getIsBot()) {
+                PartitaService.cambioTurno();
+                System.out.println(PartitaService.getColoreTurnoGiocatore());
+                accettoPatta();
             }
             if(scelta == si && PartitaService.getIsBot()){
                 System.exit(0);
             }
         });
     }
+        public void accettoPatta(){
+            Alert messaggio;
 
+            if(PartitaService.getColoreTurnoGiocatore()) {
+                messaggio = new Alert(Alert.AlertType.NONE, PartitaService.getG2().getNome() + " ha richiesto la patta. Accetti la patta?");
+            }
+            else{
+                messaggio = new Alert(Alert.AlertType.NONE, PartitaService.getG1().getNome() + " ha richiesto la patta.Accetti la patta?");
+            }
+
+            messaggio.setTitle("Conferma della patta");
+
+            ButtonType siPatta = new ButtonType("Accetto");
+            ButtonType noPatta = new ButtonType("Non Accetto");
+
+            messaggio.getButtonTypes().setAll(siPatta, noPatta);
+
+            messaggio.showAndWait().ifPresent(scelta->{
+                if(scelta == siPatta){
+                    System.exit(0);
+                }
+            });
+            PartitaService.cambioTurno();
+        }
 }
+
