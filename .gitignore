@@ -23,3 +23,5 @@ log_mosse.json
 log_mosse.json
 log_mosse.json
 /.idea
+*.chess
+/.idea
