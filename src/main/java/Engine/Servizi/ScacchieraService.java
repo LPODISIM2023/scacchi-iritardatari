@@ -69,7 +69,6 @@ public class ScacchieraService implements Serializable {
 
 
     public void aggiornaPosizionePezzo(Pezzo pezzoDaMuovere, int riga, int colonna) {
-        if (pezzoDaMuovere instanceof Pedone) ((Pedone) pezzoDaMuovere).setPrimaMossa(false);
         scacchieraTable.remove(pezzoDaMuovere.getRiga(), pezzoDaMuovere.getColonna());
         pezzoDaMuovere.setPosizione(riga, colonna);
         scacchieraTable.put(riga, colonna, pezzoDaMuovere);

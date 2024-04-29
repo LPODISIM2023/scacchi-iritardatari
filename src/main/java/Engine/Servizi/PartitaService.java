@@ -29,22 +29,6 @@ public class PartitaService implements Serializable {
     private static int numeroMosseTotali = 1;
     static PauseTransition pauseTransition = new PauseTransition(Duration.seconds(1));
 
-    public static Giocatore getG1() {
-        return g1;
-    }
-
-    public static void setG1(Giocatore g1) {
-        PartitaService.g1 = g1;
-    }
-
-    public static Giocatore getG2() {
-        return g2;
-    }
-
-    public static void setG2(Giocatore g2) {
-        PartitaService.g2 = g2;
-    }
-
     public static int getNumeroMosseTotali() {
         return numeroMosseTotali;
     }
@@ -183,41 +167,6 @@ public class PartitaService implements Serializable {
         PartitaService.isBot = isBot;
     }
 
-    /*
-    public void endGame() throws InterruptedException {  //@TODO implementare eccezione per i file da sovrascrivere.
-
-        Alert endGGame = new Alert(Alert.AlertType.NONE, "S");
-
-        if (!PartitaService.getColoreTurnoGiocatore())  {
-            endGGame.setContentText("Ha Vinto il Nero");
-            endGGame.setTitle("Partita Conclusa");
-        }
-        else {
-            endGGame.setContentText("Ha Vinto il Bianco");
-            endGGame.setTitle("Partita Conclusa");
-        }
-
-
-        ButtonType nuovaPartita = new ButtonType("Nuova Partita");
-        ButtonType esci = new ButtonType("Esci");
-
-        endGGame.getButtonTypes().setAll(nuovaPartita, esci);
-
-        endGGame.showAndWait().ifPresent(scelta -> {
-            if (scelta == nuovaPartita) {
-                try {
-                     scacchieraController.initGame(g1.getNome(), g2.getNome(), true);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-
-            } else if (scelta == esci) {
-                System.exit(0);
-            }
-        });
-
-    }
-     */
 
     @Override
     public String toString() {

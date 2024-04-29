@@ -6,6 +6,7 @@ import Engine.Data.Salvataggio;
 import Engine.Giocatore.Giocatore;
 import Engine.Servizi.PartitaService;
 import Engine.Servizi.ScacchieraService;
+import Pezzi.Pedone;
 import Pezzi.Pezzo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -195,8 +196,8 @@ public class ScacchieraController implements Serializable {
 
         partita = new PartitaService(salvataggio, this);
 
-        g1 = PartitaService.getG1();
-        g2 = PartitaService.getG2();
+        g1 = PartitaService.getGiocatore1();
+        g2 = PartitaService.getGiocatore2();
 
         //Creo scacchieraService
 
@@ -471,6 +472,9 @@ public class ScacchieraController implements Serializable {
         //Aggiorno il file del log e lo mostro a schermo
         datiLogMosse(pezzo, casella);
 
+        //Controllo se si muove un pedone per la prima volta
+        if (pezzo instanceof Pedone) ((Pedone) pezzo).setPrimaMossa(false);
+
         //Aggiorno la posizione nella scacchiera logica
         scacchieraService.aggiornaPosizionePezzo(pezzo, casella.getRiga(), casella.getColonna());
 
@@ -667,10 +671,10 @@ public class ScacchieraController implements Serializable {
     public void patta(ActionEvent event) {
         Alert patta;
         if (PartitaService.getColoreTurnoGiocatore() && !PartitaService.getIsBot()) {
-            patta = new Alert(Alert.AlertType.NONE, "Vuoi richiedere la patta a " + PartitaService.getG2().getNome());
+            patta = new Alert(Alert.AlertType.NONE, "Vuoi richiedere la patta a " + PartitaService.getGiocatore2().getNome());
             patta.setTitle("Richiesta patta");
         } else {
-            patta = new Alert(Alert.AlertType.NONE, "Vuoi richiedere la patta a " + PartitaService.getG1().getNome());
+            patta = new Alert(Alert.AlertType.NONE, "Vuoi richiedere la patta a " + PartitaService.getGiocatore1().getNome());
             patta.setTitle("Richiesta patta");
         }
         if (PartitaService.getIsBot()) {
@@ -698,10 +702,10 @@ public class ScacchieraController implements Serializable {
             Alert messaggio;
 
             if(PartitaService.getColoreTurnoGiocatore()) {
-                messaggio = new Alert(Alert.AlertType.NONE, PartitaService.getG2().getNome() + " ha richiesto la patta. Accetti la patta?");
+                messaggio = new Alert(Alert.AlertType.NONE, PartitaService.getGiocatore2().getNome() + " ha richiesto la patta. Accetti la patta?");
             }
             else{
-                messaggio = new Alert(Alert.AlertType.NONE, PartitaService.getG1().getNome() + " ha richiesto la patta.Accetti la patta?");
+                messaggio = new Alert(Alert.AlertType.NONE, PartitaService.getGiocatore1().getNome() + " ha richiesto la patta. Accetti la patta?");
             }
 
             messaggio.setTitle("Conferma della patta");
