@@ -27,6 +27,7 @@ public class PartitaService implements Serializable {
     private static boolean turnoGiocatore = true;
     private static boolean giocatoreSottoScacco = false;
     private static int numeroMosseTotali = 1;
+    private static int numeroMossePerPatta;
     static PauseTransition pauseTransition = new PauseTransition(Duration.seconds(1));
 
     public static int getNumeroMosseTotali() {
@@ -35,6 +36,14 @@ public class PartitaService implements Serializable {
 
     public static void setNumeroMosseTotali(int numeroMosseTotali) {
         PartitaService.numeroMosseTotali = numeroMosseTotali;
+    }
+
+    public static int getNumeroMossePerPatta() {
+        return numeroMossePerPatta;
+    }
+
+    public static void setNumeroMossePerPatta(int numeroMosseSenzaMangiare) {
+        PartitaService.numeroMossePerPatta = numeroMosseSenzaMangiare;
     }
 
     public PartitaService(Salvataggio salvataggio, ScacchieraController scacchieraController){
@@ -98,6 +107,9 @@ public class PartitaService implements Serializable {
             pauseTransition.play();
         }
         numeroMosseTotali++;
+
+        if(numeroMossePerPatta == 50) { ScacchieraController.patta50Mosse(); }
+            numeroMossePerPatta++;
 
     }
 
@@ -166,7 +178,6 @@ public class PartitaService implements Serializable {
     public static void setIsBot(boolean isBot) {
         PartitaService.isBot = isBot;
     }
-
 
     @Override
     public String toString() {

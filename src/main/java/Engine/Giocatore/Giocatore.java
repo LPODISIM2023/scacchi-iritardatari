@@ -1,5 +1,6 @@
 package Engine.Giocatore;
 
+import Engine.Servizi.PartitaService;
 import GUI.CasellaScacchiera;
 import Pezzi.*;
 
@@ -127,6 +128,7 @@ public abstract class Giocatore implements Serializable {
             pezziMangiati.add(pezzomangiato);
             pezziGiocatore.remove(pezzomangiato);
             valoreTotaleGiocatore = valoreTotaleGiocatore + pezzomangiato.getValore();
+            PartitaService.setNumeroMossePerPatta(0);
         }
 
     }

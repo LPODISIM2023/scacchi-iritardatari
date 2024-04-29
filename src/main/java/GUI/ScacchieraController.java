@@ -473,7 +473,10 @@ public class ScacchieraController implements Serializable {
         datiLogMosse(pezzo, casella);
 
         //Controllo se si muove un pedone per la prima volta
-        if (pezzo instanceof Pedone) ((Pedone) pezzo).setPrimaMossa(false);
+        if (pezzo instanceof Pedone) {
+            ((Pedone) pezzo).setPrimaMossa(false);
+            PartitaService.setNumeroMossePerPatta(0);
+        }
 
         //Aggiorno la posizione nella scacchiera logica
         scacchieraService.aggiornaPosizionePezzo(pezzo, casella.getRiga(), casella.getColonna());
@@ -722,5 +725,22 @@ public class ScacchieraController implements Serializable {
             });
             PartitaService.cambioTurno();
         }
+
+    public static void patta50Mosse() {
+        Alert pattaEndGame = new Alert(Alert.AlertType.NONE, "Nelle ultime cinquanta mosse consecutive, non vi è stata nessuna cattura e nessuna mossa di pedone.");
+
+        pattaEndGame.setTitle("Partita terminata");
+
+        ButtonType okPatta = new ButtonType("Chiudi");
+
+        pattaEndGame.getButtonTypes().setAll(okPatta);
+
+        pattaEndGame.showAndWait().ifPresent(scelta->{
+                    if(scelta == okPatta){
+                        System.exit(0);
+                    }
+        });
+    }
+
 }
 
