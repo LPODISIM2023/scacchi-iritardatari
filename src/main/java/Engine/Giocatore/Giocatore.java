@@ -23,6 +23,7 @@ public abstract class Giocatore implements Serializable {
     private int valoreTotaleGiocatore = 0;
 
 
+
     public Giocatore(String nome, boolean colore) {
 
         this.nome = nome;
@@ -113,6 +114,13 @@ public abstract class Giocatore implements Serializable {
         this.pezziMangiati = pezzimangiati;
     }
 
+    public int getValoreTotaleGiocatore() {
+        return valoreTotaleGiocatore;
+    }
+
+    public void setValoreTotaleGiocatore(int valoreTotaleGiocatore) {
+        this.valoreTotaleGiocatore = valoreTotaleGiocatore;
+    }
     /**
      * Medoto che aggiunge alla lista dei pezzi mangiati all'avversario un pezzo mangiato
      */
