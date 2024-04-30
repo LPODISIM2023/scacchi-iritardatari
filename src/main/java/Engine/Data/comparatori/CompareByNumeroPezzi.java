@@ -1,12 +1,10 @@
 package Engine.Data.comparatori;
 
 import Engine.Data.Salvataggio;
-import Pezzi.Pezzo;
 
 import java.util.Comparator;
-import java.util.List;
 
-public class CompaireByNumeroPezzi implements Comparator<Salvataggio> {
+public class CompareByNumeroPezzi implements Comparator<Salvataggio> {
     @Override
     public int compare(Salvataggio o1, Salvataggio o2) {
         int pezziO1G1 = o1.getG1().getPezziGiocatore().size();

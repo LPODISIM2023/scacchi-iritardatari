@@ -141,12 +141,23 @@ public class StartController {
     @FXML
     public void CaricaSalvataggio(ActionEvent event) throws IOException, ClassNotFoundException{
 
-        FileChooser fileChooser = new FileChooser();
+      /*  FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Salvataggi");
         fileChooser.getExtensionFilters().clear();
         fileChooser.setInitialDirectory(new File(System.getProperty("user.dir") + File.separator + "saved_games"));
         File file = fileChooser.showOpenDialog(new Stage());
-        Salvataggio.caricaPartita(file,event);
+        Salvataggio.caricaPartita(file,event);*/
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/listaPartitaSalvate.fxml"));
+        root = loader.load();
+        ListaPartitaSalvateController controller = loader.getController();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+
+        controller.init();
 
     }
 }

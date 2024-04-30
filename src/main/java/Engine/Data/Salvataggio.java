@@ -2,15 +2,13 @@ package Engine.Data;
 
 import Engine.Giocatore.Giocatore;
 import Engine.Servizi.PartitaService;
-import Engine.Servizi.ScacchieraService;
 import GUI.ScacchieraController;
-import Pezzi.*;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 
@@ -25,6 +23,15 @@ public class Salvataggio implements Serializable{
     private Giocatore g1,g2;
     private int numeroMosse = 0;
     private boolean g2IsBot;
+
+    private String nomeFile;
+
+    public void setNomeFile(String nomeFile) {
+        this.nomeFile = nomeFile;
+    }
+    public String getNomeFile() {
+        return nomeFile;
+    }
 
     public Giocatore getG1() {
         return g1;
@@ -75,7 +82,7 @@ public class Salvataggio implements Serializable{
         salvataggio.setG2(g2);
         salvataggio.setNumeroMosse(PartitaService.getNumeroMosseTotali());
         salvataggio.g2IsBot = PartitaService.getIsBot();
-        try (FileOutputStream fos = new FileOutputStream(directoryPath + File.separator + timestamp + "_"+ file.getName());
+        try (FileOutputStream fos = new FileOutputStream(directoryPath + File.separator + file.getName());
              ObjectOutputStream oos = new ObjectOutputStream(fos)) {
             oos.writeObject(salvataggio);
         } catch (Exception e) {
@@ -92,7 +99,7 @@ public class Salvataggio implements Serializable{
     private static Scene scene;
 
 
-    public static void caricaPartita(File file, ActionEvent event){
+    public static void caricaPartita(File file, MouseEvent event){
 
         try(FileInputStream fis = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fis)){

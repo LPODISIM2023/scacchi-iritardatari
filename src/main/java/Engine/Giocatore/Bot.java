@@ -32,6 +32,7 @@ public class Bot extends Giocatore {
             if (pezzo.getArrayMosse().isEmpty()) continue;
             tuttePezziDisponibili.add(pezzo);
         }
+        if(tuttePezziDisponibili.isEmpty()) return;
         int numeroRandomPezzo = randomP.nextInt(tuttePezziDisponibili.size());
         Pezzo pezzorandom = tuttePezziDisponibili.get(numeroRandomPezzo);//otteniamo il pezzo random
 

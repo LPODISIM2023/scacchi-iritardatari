@@ -142,4 +142,7 @@ public abstract class Giocatore implements Serializable {
     }
 
 
+    public void addPezzo(Pezzo pezzo) {
+        pezziGiocatore.add(pezzo);
+    }
 }

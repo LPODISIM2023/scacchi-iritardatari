@@ -582,6 +582,11 @@ public class ScacchieraController implements Serializable {
             }
             if (pezzoMangiatoDaRipristinare != null) {
                 scacchieraService.aggiornaPosizionePezzo(pezzoMangiatoDaRipristinare, ultimaMossa.getNewRiga(), ultimaMossa.getNewColonna());
+                if(pezzoMangiatoDaRipristinare.getColore()){
+                    g1.addPezzo(pezzoMangiatoDaRipristinare);
+                }else{
+                    g2.addPezzo(pezzoMangiatoDaRipristinare);
+                }
             }
         }
     }
