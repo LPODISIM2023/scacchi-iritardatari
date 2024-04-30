@@ -116,6 +116,8 @@
          </font></Label>
       <Button fx:id="Patta" layoutX="812.0" layoutY="680.0" mnemonicParsing="false" onAction="#patta" text="Richiedi Patta" />
       <Button fx:id="Abbandona" layoutX="734.0" layoutY="680.0" mnemonicParsing="false" onAction="#abbandona" text="Abbandona" />
+      <Label fx:id="labelPuntiG2" layoutX="170.0" layoutY="148.0" text="puntiG2" />
+      <Label fx:id="labelPuntiG1" layoutX="170.0" layoutY="308.0" text="puntiG1" />
       <effect>
          <Blend />
       </effect>

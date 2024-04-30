@@ -77,9 +77,14 @@ public class ScacchieraController implements Serializable {
     @FXML
     public Label labelNomePlayer2;
 
-
     @FXML
     private GridPane gridPaneX = new GridPane();
+
+    @FXML
+    public Label labelPuntiG2;
+
+    @FXML
+    public Label labelPuntiG1;
 
     private Stage stage;
     private Scene scene;
@@ -171,6 +176,10 @@ public class ScacchieraController implements Serializable {
         //Render Nomi
         labelNomePlayer1.setText("Player 1: " + g1.getNome());
         labelNomePlayer2.setText("Player 2: " + g2.getNome());
+
+        //Render Punti
+        labelPuntiG1.setText(" +" + g1.getValoreTotaleGiocatore());
+        labelPuntiG2.setText(" +" + g2.getValoreTotaleGiocatore());
 
     }
 
@@ -632,6 +641,7 @@ public class ScacchieraController implements Serializable {
     public void visualizzaPezziMangiatiBianchi(int codPezzoNero){
         pezziMangiatiDaBianco += Character.toString(codPezzoNero);
         pezziMangiatiGiocatoreBianco.setText(pezziMangiatiDaBianco);
+        labelPuntiG1.setText(" +" + g2.getValoreTotaleGiocatore());
     }
 
 
@@ -644,6 +654,7 @@ public class ScacchieraController implements Serializable {
     public void visualizzaPezziMangiatiNeri(int codPezzoBianco){
         pezziMangiatiDaNero += Character.toString(codPezzoBianco);
         pezziMangiatiGiocatoreNero.setText(pezziMangiatiDaNero);
+        labelPuntiG2.setText(" +" + g1.getValoreTotaleGiocatore());
     }
 
     @FXML
@@ -746,6 +757,5 @@ public class ScacchieraController implements Serializable {
                     }
         });
     }
-
 }
 
