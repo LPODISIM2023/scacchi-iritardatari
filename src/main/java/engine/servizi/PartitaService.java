@@ -1,10 +1,10 @@
-package Engine.Servizi;
+package engine.servizi;
 
-import Engine.Data.Salvataggio;
-import Engine.Giocatore.Bot;
-import Engine.Giocatore.Giocatore;
-import Engine.Giocatore.Umano;
-import GUI.ScacchieraController;
+import engine.data.Salvataggio;
+import engine.giocatore.Bot;
+import engine.giocatore.Giocatore;
+import engine.giocatore.Umano;
+import gui.ScacchieraController;
 import javafx.animation.PauseTransition;
 import javafx.util.Duration;
 

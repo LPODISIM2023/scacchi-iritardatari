@@ -1,13 +1,13 @@
-package GUI;
+package gui;
 
-import Engine.Data.LogMossa;
-import Engine.Data.Logger;
-import Engine.Data.Salvataggio;
-import Engine.Giocatore.Giocatore;
-import Engine.Servizi.PartitaService;
-import Engine.Servizi.ScacchieraService;
-import Pezzi.Pedone;
-import Pezzi.Pezzo;
+import engine.data.LogMossa;
+import engine.data.Logger;
+import engine.data.Salvataggio;
+import engine.giocatore.Giocatore;
+import engine.servizi.PartitaService;
+import engine.servizi.ScacchieraService;
+import pezzi.Pedone;
+import pezzi.Pezzo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -472,6 +472,10 @@ public class ScacchieraController implements Serializable {
             }
         } else {
             g2.addPezzoMangiato(casella);
+
+            System.out.println("Mangia il nero");
+            System.out.println(g2);
+            System.out.println(casella.getPezzoDellaCasella());
             if(casella.getPezzoDellaCasella() != null) {
                 visualizzaPezziMangiatiBianchi(casella.getPezzoDellaCasella().getCodicePezzoUTF8());
             }
@@ -654,6 +658,8 @@ public class ScacchieraController implements Serializable {
     public void visualizzaPezziMangiatiNeri(int codPezzoBianco){
         pezziMangiatiDaNero += Character.toString(codPezzoBianco);
         pezziMangiatiGiocatoreNero.setText(pezziMangiatiDaNero);
+        System.out.print("Coso del bot");
+        System.out.print(pezziMangiatiDaNero);
         labelPuntiG2.setText(" +" + g1.getValoreTotaleGiocatore());
     }
 

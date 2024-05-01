@@ -1,14 +1,12 @@
-package Engine.Giocatore;
+package engine.giocatore;
 
-import Engine.Servizi.PartitaService;
-import GUI.CasellaScacchiera;
-import Pezzi.*;
+import engine.servizi.PartitaService;
+import gui.CasellaScacchiera;
+import pezzi.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import static javax.swing.text.html.HTML.Tag.U;
 
 public abstract class Giocatore implements Serializable {
 
@@ -50,7 +48,7 @@ public abstract class Giocatore implements Serializable {
             pezziGiocatore.add(new Alfiere("Alfiere", "b_a1", 3, true, 1, 3, 0x2657));
             pezziGiocatore.add(new Alfiere("Alfiere", "b_a2", 3, true, 1, 6, 0x2657));
             //Pezzo Regina Bianco
-            pezziGiocatore.add(new Regina("Regina", "b_q1", 3, true, 1, 4, 0x2655));
+            pezziGiocatore.add(new Regina("Regina", "b_q1", 9, true, 1, 4, 0x2655));
             //Pezzo Re Bianco
             pezziGiocatore.add(new Re("Re", "b_k1", 10, true, 4, 1, 0x2654));
 
@@ -75,7 +73,7 @@ public abstract class Giocatore implements Serializable {
             pezziGiocatore.add(new Alfiere("Alfiere", "n_a1", 3, false, 8, 3, 0x265D));
             pezziGiocatore.add(new Alfiere("Alfiere", "n_a2", 3, false, 8, 6, 0x265D));
             //Pezzo Regina Nero
-            pezziGiocatore.add(new Regina("Regina", "n_q1", 3, false, 5, 3, 0x265B));
+            pezziGiocatore.add(new Regina("Regina", "n_q1", 9, false, 5, 3, 0x265B));
             //Pezzo Re Nero
             pezziGiocatore.add(new Re("Re", "n_k1", 10, false, 8, 5, 0x265A));
         }

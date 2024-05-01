@@ -1,7 +1,7 @@
-package GUI;
+package gui;
 
-import Engine.Servizi.PartitaService;
-import Pezzi.Pezzo;
+import engine.servizi.PartitaService;
+import pezzi.Pezzo;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -66,10 +66,6 @@ public class CasellaScacchiera extends StackPane {
         this.pezzoDaMuovere = pezzoDaMuovere;
     }
 
-    public CasellaScacchiera(Pezzo pezzo, int oldX, int oldY) {
-        oldX = pezzo.getRiga();
-        oldY = pezzo.getColonna();
-    }
 
     public int getColonna() {
         return colonna;
@@ -171,13 +167,15 @@ public class CasellaScacchiera extends StackPane {
 
     /**
      * Metodo invocato se si esegue click su una posizione disponibile
-     * ANCODA DA DEFINIRE LA LOGICA
      */
     public void clickSuCasellaDisponibile() {
         //Si clicca sulla casella dove si vuole spostare il pezzo
         sc.eseguiMossa(ScacchieraController.getPezzoSelezionato(), this);
     }
 
+    /**
+     * Metodo invocato se si rilascia il mouse su una casella disponibile
+     */
     public void clickSuCasellaDisponibile(CasellaScacchiera casellaDisp) {
         //Si clicca sulla casella dove si vuole spostare il pezzo
         sc.eseguiMossa(ScacchieraController.getPezzoSelezionato(), casellaDisp);

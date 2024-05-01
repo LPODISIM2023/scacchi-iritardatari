@@ -1,4 +1,4 @@
-package Engine.Giocatore;
+package engine.giocatore;
 
 public class Umano extends Giocatore{
 

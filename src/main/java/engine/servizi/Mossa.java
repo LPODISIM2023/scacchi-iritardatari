@@ -1,11 +1,8 @@
-package Engine.Servizi;
+package engine.servizi;
 
-import Engine.Giocatore.Giocatore;
-import GUI.CasellaScacchiera;
-import Pezzi.Cavallo;
-import Pezzi.Pedone;
-import Pezzi.Pezzo;
-import Pezzi.Re;
+import engine.giocatore.Giocatore;
+import gui.CasellaScacchiera;
+import pezzi.Pezzo;
 
 import java.util.ArrayList;
 import java.util.List;

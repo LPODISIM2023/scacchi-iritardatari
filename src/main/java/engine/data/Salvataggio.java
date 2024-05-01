@@ -1,8 +1,8 @@
-package Engine.Data;
+package engine.data;
 
-import Engine.Giocatore.Giocatore;
-import Engine.Servizi.PartitaService;
-import GUI.ScacchieraController;
+import engine.giocatore.Giocatore;
+import engine.servizi.PartitaService;
+import gui.ScacchieraController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;

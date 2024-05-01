@@ -1,10 +1,8 @@
-package Engine.Servizi;
+package engine.servizi;
 
-import GUI.CasellaScacchiera;
-import Pezzi.Cavallo;
-import Pezzi.Pedone;
-import Pezzi.Pezzo;
-import Pezzi.Re;
+import pezzi.Cavallo;
+import pezzi.Pezzo;
+import pezzi.Re;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 

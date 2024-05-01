@@ -1,10 +1,10 @@
-package Pezzi;
+package pezzi;
 
-import Engine.Servizi.Mossa;
-import Engine.Servizi.PartitaService;
-import Engine.Servizi.ScacchieraService;
-import GUI.CasellaScacchiera;
-import GUI.ScacchieraController;
+import engine.servizi.Mossa;
+import engine.servizi.PartitaService;
+import engine.servizi.ScacchieraService;
+import gui.CasellaScacchiera;
+import gui.ScacchieraController;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -128,7 +128,7 @@ public abstract class Pezzo extends ImageView implements Serializable {
     public abstract List<Mossa> getMosse();
 
     public void setImage() {
-        this.setImage(new Image("/Pezzi/" + (this.colore ? "Bianco" : "Nero") + "/" + this.nome + ".png"));
+        this.setImage(new Image("/pezzi/" + (this.colore ? "Bianco" : "Nero") + "/" + this.nome + ".png"));
     }
 
     /**

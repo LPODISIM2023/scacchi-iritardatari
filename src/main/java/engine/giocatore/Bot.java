@@ -1,9 +1,9 @@
-package Engine.Giocatore;
+package engine.giocatore;
 
-import Engine.Servizi.PartitaService;
-import GUI.CasellaScacchiera;
-import GUI.ScacchieraController;
-import Pezzi.Pezzo;
+import engine.servizi.PartitaService;
+import gui.CasellaScacchiera;
+import gui.ScacchieraController;
+import pezzi.Pezzo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,13 +32,23 @@ public class Bot extends Giocatore {
             if (pezzo.getArrayMosse().isEmpty()) continue;
             tuttePezziDisponibili.add(pezzo);
         }
-        if(tuttePezziDisponibili.isEmpty()) return;
+        if (tuttePezziDisponibili.isEmpty()) return;
         int numeroRandomPezzo = randomP.nextInt(tuttePezziDisponibili.size());
         Pezzo pezzorandom = tuttePezziDisponibili.get(numeroRandomPezzo);//otteniamo il pezzo random
 
         //scelta in modo random della mossa del pezzorandom
         int numeroRandomMossa = randomM.nextInt(pezzorandom.getArrayMosse().size());
-        sc.eseguiMossa(pezzorandom, pezzorandom.getArrayMosse().get(numeroRandomMossa));
+        System.out.println("Casella random");
+        System.out.println(pezzorandom.getArrayMosse().get(numeroRandomMossa));
+
+        CasellaScacchiera casellaDisponibile = pezzorandom.getArrayMosse().get(numeroRandomMossa);
+        CasellaScacchiera casellaPerEffetuareMossa = null;
+        for (CasellaScacchiera casellaConPezzi : ScacchieraController.getCaselleScacchiera()) {
+            if (casellaConPezzi.getRiga() == casellaDisponibile.getRiga() && casellaDisponibile.getColonna() == casellaConPezzi.getColonna())
+                casellaPerEffetuareMossa = casellaConPezzi;
+        }
+
+        sc.eseguiMossa(pezzorandom, casellaPerEffetuareMossa);
     }
 
 }

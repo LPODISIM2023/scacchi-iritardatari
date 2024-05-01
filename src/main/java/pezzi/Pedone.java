@@ -1,9 +1,8 @@
-package Pezzi;
+package pezzi;
 
-import Engine.Servizi.Mossa;
-import Engine.Servizi.PartitaService;
-import Engine.Servizi.ScacchieraService;
-import GUI.CasellaScacchiera;
+import engine.servizi.Mossa;
+import engine.servizi.ScacchieraService;
+import gui.CasellaScacchiera;
 
 import java.util.ArrayList;
 import java.util.List;
