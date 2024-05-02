@@ -1,6 +1,5 @@
 package gui;
 
-import Eccezioni.EmptyTextFieldException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -97,7 +96,7 @@ public class StartController {
             eccezione.setFont(new Font("Arial", 24));
             eccezione.setTextFill(Color.RED);
             eccezione.setText("Non hai inserito i nomi.");
-            throw new EmptyTextFieldException();
+            throw new EmptyTextFieldException("Non hai inserito i nomi");
 
         } else {
 
@@ -114,7 +113,7 @@ public class StartController {
             sc.initGame(nome1, nome2, disabilita.isSelected());
         }
     }catch(EmptyTextFieldException e){
-        System.out.println("Non hai inserito i nomi");
+            e.printStackTrace();
         }
     }
 
