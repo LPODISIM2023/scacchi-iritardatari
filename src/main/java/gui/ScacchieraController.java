@@ -71,9 +71,6 @@ public class ScacchieraController implements Serializable {
     public Button buttonUndo;
     @FXML
     public Label labelNomePlayer1;
-
-    @FXML
-    public MenuItem caricaPartita;
     @FXML
     public Label labelNomePlayer2;
 

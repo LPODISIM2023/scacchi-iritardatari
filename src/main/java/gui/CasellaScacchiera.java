@@ -297,10 +297,6 @@ public class CasellaScacchiera extends StackPane {
         pezzoDellaCasella = pezzo;
     }
 
-    public boolean isColoreCasella() {
-        return coloreCasella;
-    }
-
     public void setColoreCasella(boolean coloreCasella) {
         this.coloreCasella = coloreCasella;
         coloraCasella();

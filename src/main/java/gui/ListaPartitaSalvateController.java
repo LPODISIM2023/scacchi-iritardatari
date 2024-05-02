@@ -41,14 +41,22 @@ public class ListaPartitaSalvateController {
         renderListaPartitaSalvate();
     }
 
+    /**
+     * Tale metodo viene invocato nel momento in cui si desidera caricare una partita.
+     * Nel caso in cui non sono presenti file, il metodo gestisce anche l'eccezzione attraverso la classe NoSalvataggioException().
+     */
     public static void caricaPartiteFiltrate() {
         ArrayList<File> fileList = new ArrayList<>();
         File directory = new File(System.getProperty("user.dir") + File.separator + "saved_games");
 
-        if (directory.exists() && directory.isDirectory()) {
-            fileList.addAll(List.of(directory.listFiles()));
-        } else {
-            //eccezione
+        try {
+            if (directory.exists() && directory.isDirectory()) {
+                fileList.addAll(List.of(directory.listFiles()));
+            } else {
+                throw new NoSalvataggioException("Cartella insesistente", new ActionEvent());
+            }
+        } catch (Exception e) {
+
         }
 
         if (!fileList.isEmpty()) {
@@ -65,6 +73,9 @@ public class ListaPartitaSalvateController {
         }
     }
 
+    /**
+     * Il metodo renderListaPartitaSalvate() aggiorna la lista delle partite salvate quando il giocatore sceglie in che modo ordinare le partite salvate.
+     */
     public void renderListaPartitaSalvate() {
         ObservableList<String> elementi = FXCollections.observableArrayList();
         for (Salvataggio save : listSalvataggi) {
