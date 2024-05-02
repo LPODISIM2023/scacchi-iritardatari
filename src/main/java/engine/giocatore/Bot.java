@@ -4,7 +4,6 @@ import engine.servizi.PartitaService;
 import gui.CasellaScacchiera;
 import gui.ScacchieraController;
 import pezzi.Pezzo;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -12,7 +11,6 @@ import java.util.Random;
 public class Bot extends Giocatore {
 
     List<Pezzo> listaPezzi = this.getPezziGiocatore();
-    List<CasellaScacchiera> listaMosseAmmissibili = new ArrayList<>();
     Random randomP = new Random();
     Random randomM = new Random();
 

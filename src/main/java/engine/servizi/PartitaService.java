@@ -20,7 +20,6 @@ public class PartitaService implements Serializable {
     public Giocatore g1NonStatico;
     public Giocatore g2NonStatico;
 
-    public ScacchieraService scacchieraServiceNonStatica;
     private static ScacchieraController scacchieraController;
     private static ScacchieraService scacchieraService;
     private static boolean partitaInCorso = false;
@@ -86,6 +85,11 @@ public class PartitaService implements Serializable {
         partitaInCorso = true;
     }
 
+    /**
+     * Costruttore che serve per creare una partita dal salvaggio
+     * @param giocatore1
+     * @param giocatore2
+     */
     public PartitaService(Giocatore giocatore1, Giocatore giocatore2){
         this.g1NonStatico = giocatore1;
         this.g2NonStatico = giocatore2;
@@ -122,19 +126,6 @@ public class PartitaService implements Serializable {
             }
         }
     }
-
-    /**
-     * Metodo utile per salvare la partita, quindi la scacchiera e i due giocatori che identificano quella partita
-     *
-     * @param sc
-     * @param g1
-     * @param g2
-     * @return
-     */
-    public static PartitaService save(ScacchieraService sc, Giocatore g1, Giocatore g2) {
-        return null;
-    }
-
     public static Giocatore getGiocatore1() {
         return g1;
     }

@@ -8,8 +8,6 @@ import java.util.List;
 
 public class Torre extends Pezzo {
 
-    // ArrayList<CasellaScacchiera> mosseDisponibili = new ArrayList<>();
-
     //metodo costruttore classe Torre: crea una nuova istanza di Torre
     public Torre(String nome, String codice, int valore, boolean colore, int riga, int colonna, int codicePezzo) {
         super(nome, codice, valore, colore, riga, colonna, codicePezzo);

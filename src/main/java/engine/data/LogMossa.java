@@ -77,7 +77,6 @@ public class LogMossa {
         return numeroMossa;
     }
 
-
     @Override
     public String toString() {
         return
@@ -89,7 +88,6 @@ public class LogMossa {
                 ", codPezzoMangiato='" + codPezzoMangiato + '\'' +
                 ", numeroMossa=" + numeroMossa + "\n";
     }
-
     public JSONObject toJson(){
         JSONObject jsonObj = new JSONObject();
         jsonObj.put("oldRiga", oldRiga);
