@@ -115,9 +115,6 @@ public class Mossa {
         } else {
             mosseRe.addAll(ScacchieraService.getPezzoByCodice("n_k1").getArrayMosse());
         }
-        System.out.println("Matto");
-        System.out.println(mosseRe);
-        System.out.println(mosseParoScacco);
         return mosseParoScacco.isEmpty() && mosseRe.isEmpty();
     }
 
