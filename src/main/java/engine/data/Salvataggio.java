@@ -92,7 +92,7 @@ public class Salvataggio implements Serializable{
              ObjectOutputStream oos = new ObjectOutputStream(fos)) {
             oos.writeObject(salvataggio);
         } catch (Exception e) {
-            e.printStackTrace();
+            return;
         }
     }
 
@@ -122,7 +122,7 @@ public class Salvataggio implements Serializable{
             stage.show();
             sc.initGameRecuperato(salvataggioRecuperato);
         }catch(ClassNotFoundException | IOException e){
-            e.printStackTrace();
+            return;
         }
     }
 

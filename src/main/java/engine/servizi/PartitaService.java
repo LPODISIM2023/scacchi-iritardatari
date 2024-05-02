@@ -122,7 +122,7 @@ public class PartitaService implements Serializable {
             try {
                 scacchieraController.endGame();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                return;
             }
         }
     }

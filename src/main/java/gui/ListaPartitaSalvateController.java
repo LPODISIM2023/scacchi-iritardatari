@@ -60,7 +60,7 @@ public class ListaPartitaSalvateController {
                 throw new NoSalvataggioException("Cartella insesistente", new ActionEvent());
             }
         } catch (Exception e) {
-
+            return;
         }
 
         if (!fileList.isEmpty()) {
@@ -71,7 +71,7 @@ public class ListaPartitaSalvateController {
                     salvataggioRecuperato.setNomeFile(file.getName());
                     listSalvataggi.add(salvataggioRecuperato);
                 } catch (ClassNotFoundException | IOException e) {
-                    e.printStackTrace();
+                    return;
                 }
             }
         }

@@ -22,6 +22,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import java.io.Serializable;
@@ -227,7 +228,7 @@ public class ScacchieraController implements Serializable {
             salvataggio.salvaPartita(g1, g2, partita, file);
 
         } else {
-            throw new FileNotFoundException();
+            throw new FileNulloException("File nullo");
         }
 
     }
@@ -242,7 +243,8 @@ public class ScacchieraController implements Serializable {
      * @throws InterruptedException
      */
     @FXML
-    public void saveAndExit(ActionEvent event) throws InterruptedException {  //@TODO implementare eccezione per i file da sovrascrivere.
+    public void saveAndExit(ActionEvent event)
+    {
         Alert salvaEEsci = new Alert(Alert.AlertType.NONE, "Non hai salvato, vuoi salvare?");
         salvaEEsci.setTitle("Salva e esci");
 
@@ -259,7 +261,7 @@ public class ScacchieraController implements Serializable {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 } catch (FileNulloException e) {
-                    throw new RuntimeException(e);
+                    return;
                 }
                 System.exit(0);
             } else if (scelta == esciSenzaSalvare) {

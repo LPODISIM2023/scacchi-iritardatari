@@ -113,7 +113,7 @@ public class StartController {
             sc.initGame(nome1, nome2, disabilita.isSelected());
         }
     }catch(EmptyTextFieldException e){
-            e.printStackTrace();
+            return;
         }
     }
 

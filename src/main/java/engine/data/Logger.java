@@ -46,7 +46,7 @@ public class Logger {
             file.write(stringJson);
         }
         catch (Exception e) {
-            e.printStackTrace();
+            return;
         }
     }
 }
