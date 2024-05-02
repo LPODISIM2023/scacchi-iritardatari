@@ -6,21 +6,14 @@ import engine.data.Salvataggio;
 import engine.giocatore.Giocatore;
 import engine.servizi.PartitaService;
 import engine.servizi.ScacchieraService;
-import javafx.event.EventHandler;
-import javafx.stage.WindowEvent;
 import pezzi.Pedone;
 import pezzi.Pezzo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
@@ -29,7 +22,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import java.io.Serializable;
@@ -38,55 +30,49 @@ import java.util.*;
 
 public class ScacchieraController implements Serializable {
 
-
-    String directoryPath = System.getProperty("user.dir") + File.separator + "saved_games";
-    File directory = new File(directoryPath);
+    //ATTRIBUTI
 
 
-    public TextArea getTextAreaMosse() {
-        return textAreaMosse;
-    }
+    private final String directoryPath = System.getProperty("user.dir") + File.separator + "saved_games";
+    private final File directory = new File(directoryPath);
+
 
     @FXML
-    TextArea textAreaMosse = new TextArea();
+    private TextArea textAreaMosse = new TextArea();
 
     @FXML
-    ScrollPane scrollPaneMosse = new ScrollPane();
+    private ScrollPane scrollPaneMosse = new ScrollPane();
 
     @FXML
-    Label pezziMangiatiGiocatoreBianco = new Label();
+    private Label pezziMangiatiGiocatoreBianco = new Label();
 
     @FXML
-    Label pezziMangiatiGiocatoreNero = new Label();
-    public String[] array = {"x", "A", "B", "C", "D", "E", "F", "G", "H"};
+    private Label pezziMangiatiGiocatoreNero = new Label();
+    private final String[] arrayPerLeColonne = {"", "A", "B", "C", "D", "E", "F", "G", "H"};
 
-    static Giocatore g1;
-    static Giocatore g2;
+    private static Giocatore g1;
+    private static Giocatore g2;
 
-    private Salvataggio salvataggio = new Salvataggio();
-
-    @FXML
-    FileChooser filePartita = new FileChooser();
+    private final Salvataggio salvataggio = new Salvataggio();
 
     @FXML
-    public Button buttonUndo;
+    private FileChooser filePartita = new FileChooser();
+
     @FXML
-    public Label labelNomePlayer1;
+    private Button buttonUndo;
     @FXML
-    public Label labelNomePlayer2;
+    private Label labelNomePlayer1;
+    @FXML
+    private Label labelNomePlayer2;
 
     @FXML
     private GridPane gridPaneX = new GridPane();
 
     @FXML
-    public Label labelPuntiG2;
+    private Label labelPuntiG2;
 
     @FXML
-    public Label labelPuntiG1;
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
+    private Label labelPuntiG1;
 
     private static boolean isSelectCasella = false;
     private static boolean colorePezzoSelezionato = true; //false=nero true=bianco
@@ -95,7 +81,14 @@ public class ScacchieraController implements Serializable {
 
     private ScacchieraService scacchieraService;
 
-    public static ArrayList<CasellaScacchiera> caselle = new ArrayList<>();
+    private static ArrayList<CasellaScacchiera> caselle = new ArrayList<>();
+
+
+    //INIZIO METODI
+
+    public TextArea getTextAreaMosse() {
+        return textAreaMosse;
+    }
 
     public void setScacchieraService(ScacchieraService sS) {
         this.scacchieraService = sS;
@@ -181,7 +174,10 @@ public class ScacchieraController implements Serializable {
 
     }
 
-
+    /**
+     * Metodo che serve per ricaricare una partita da un salvataggio esistente
+     * @param salvataggio
+     */
     public void initGameRecuperato(Salvataggio salvataggio) {
         textAreaMosse.clear();
         textAreaMosse.setEditable(false);
@@ -392,9 +388,7 @@ public class ScacchieraController implements Serializable {
         renderScacchiera();
         setIsSelectCasella(false);
     }
-
-    String mossa;
-    String log = "";
+    private String log = "";
 
     /**
      * Metodo principale per spostare i pezzi sulla scacchiera
@@ -473,7 +467,7 @@ public class ScacchieraController implements Serializable {
         ArrayList<LogMossa> arrayDiMosse = Logger.getListaMosse();
         LogMossa ultimaMossa = arrayDiMosse.get(arrayDiMosse.size() - 1);
 
-        return ultimaMossa.getNumeroMossa() + "° (" + ultimaMossa.getOldRiga() + "," + array[ultimaMossa.getOldColonna()] + ")" + "->" + "(" + ultimaMossa.getNewRiga() + "," + array[ultimaMossa.getNewColonna()] + ")" + new String(Character.toChars(pezzo.getCodicePezzoUTF8())) + "\n";
+        return ultimaMossa.getNumeroMossa() + "° (" + ultimaMossa.getOldRiga() + "," + arrayPerLeColonne[ultimaMossa.getOldColonna()] + ")" + "->" + "(" + ultimaMossa.getNewRiga() + "," + arrayPerLeColonne[ultimaMossa.getNewColonna()] + ")" + new String(Character.toChars(pezzo.getCodicePezzoUTF8())) + "\n";
     }
 
 
@@ -512,6 +506,11 @@ public class ScacchieraController implements Serializable {
 
     }
 
+
+    /**
+     * Metodo che permette al giocatore di tornare indietro di massimo 5 mosse cliccando sul pulsante "undo"
+     * @param arrayTutteLeMosse
+     */
     public void eseguiUnaMossaUndo(ArrayList<LogMossa> arrayTutteLeMosse) {
         LogMossa ultimaMossa = arrayTutteLeMosse.get(arrayTutteLeMosse.size() - (numUndoEseguitiDiSeguito++));
         if (ultimaMossa.getCodPezzoMangiato().equals("-")) {
@@ -544,6 +543,11 @@ public class ScacchieraController implements Serializable {
         }
     }
 
+    /**
+     * Metodo che avvisa l'utente quando è eseguito lo scacco matto tramte un Alert,
+     * inoltre permette di chiudere l'applicazione
+     * @throws InterruptedException
+     */
     public void endGame() throws InterruptedException {  //@TODO implementare eccezione per i file da sovrascrivere.
 
         Alert endGGame = new Alert(Alert.AlertType.NONE, "S");
@@ -570,7 +574,7 @@ public class ScacchieraController implements Serializable {
     }
 
     /**
-     * Il metodo assegna ad una label una stringa con i caratteri dei pezzi mangiati dal giocatore Bianco.
+     * Il metodo assegna a una label una stringa con i caratteri dei pezzi mangiati dal giocatore Bianco.
      *
      * @param codPezzoNero codice UTF8 dei vari pezzi neri
      */
@@ -584,7 +588,7 @@ public class ScacchieraController implements Serializable {
 
 
     /**
-     * Il metodo assegna ad una label una stringa con i caratteri dei pezzi mangiati dal giocatore Nero.
+     * Il metodo assegna a una label una stringa con i caratteri dei pezzi mangiati dal giocatore Nero.
      *
      * @param codPezzoBianco codice UTF8 dei vari pezzi bianchi
      */
@@ -598,12 +602,12 @@ public class ScacchieraController implements Serializable {
         labelPuntiG2.setText(" +" + g1.getValoreTotaleGiocatore());
     }
 
-    @FXML
     /**
      * Il metodo permette al giocatore di abbandonare la partita nel momento in cui desidera.
-     * Tale metodo mostrerà una finestra dalla quale il giocatore sceglierà se abbadonare la partita.
+     * Tale metodo mostrerà una finestra dalla quale il giocatore sceglierà se abbandonare la partita.
      * @param event
      */
+    @FXML
     public void abbandona(ActionEvent event) {
         Alert abbandona = new Alert(Alert.AlertType.NONE, "Sicuro di voler abbandonare la partita?");
         abbandona.setTitle("Abbandono della partita");
@@ -660,6 +664,9 @@ public class ScacchieraController implements Serializable {
         });
     }
 
+    /**
+     * Il metodo viene invocato all'interno di richiesta patta e permette di accettare o rifiutare la patta all'altro giocatore
+     */
     public void accettoPatta() {
         Alert messaggio;
 
@@ -684,6 +691,10 @@ public class ScacchieraController implements Serializable {
         PartitaService.cambioTurno();
     }
 
+    /**
+     * Metodo che gestisce la patta delle 50 mosse, se non viene catturato nessun pezzo e non viene mosso nessun pedone in 50 mosse,
+     * viene generato un alert
+     */
     public static void patta50Mosse() {
         Alert pattaEndGame = new Alert(Alert.AlertType.NONE, "Nelle ultime cinquanta mosse consecutive, non vi è stata nessuna cattura e nessuna mossa di pedone.");
 
