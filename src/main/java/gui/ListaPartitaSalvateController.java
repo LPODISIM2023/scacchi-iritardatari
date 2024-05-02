@@ -1,6 +1,7 @@
 package gui;
 
 import engine.data.Salvataggio;
+import engine.data.comparatori.CompareByNumeroMosse;
 import engine.data.comparatori.CompareByNumeroPezzi;
 import engine.data.comparatori.CompareByValoreTotali;
 import javafx.collections.FXCollections;
@@ -107,7 +108,7 @@ public class ListaPartitaSalvateController {
      * @param actionEvent
      */
     public void OrdinaNumeroMosse(ActionEvent actionEvent) {
-        listSalvataggi.sort(new CompareByNumeroPezzi());
+        listSalvataggi.sort(new CompareByNumeroMosse());
         renderListaPartitaSalvate();
     }
 
