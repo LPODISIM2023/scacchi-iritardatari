@@ -67,10 +67,16 @@ public class Salvataggio implements Serializable{
 
     public static Salvataggio salvataggio = new Salvataggio();
 
+    /**
+     * Il metodo salvaPartita() salva una partita in un file presente nella directory. Se la directory non esiste allora la crea.
+     * Inoltre il metodo gestisce l'eccezzione di input/output.
+     * @param g1
+     * @param g2
+     * @param ps
+     * @param file
+     * @throws IOException
+     */
     public void salvaPartita(Giocatore g1, Giocatore g2, PartitaService ps, File file) throws IOException {
-        LocalDateTime ora = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd_MM_yyyy_HH_mm");
-        String timestamp = ora.format(formatter);
         String directoryPath = System.getProperty("user.dir") + File.separator + "saved_games";
         File directory = new File(directoryPath);
 
