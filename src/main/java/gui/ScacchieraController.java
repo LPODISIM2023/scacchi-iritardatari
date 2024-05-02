@@ -217,7 +217,7 @@ public class ScacchieraController implements Serializable {
      * @param event listener per l'evento del bottone Salva
      */
     @FXML
-    public void saveButton(ActionEvent event) throws IOException {
+    public void saveButton(ActionEvent event) throws IOException, FileNulloException {
 
         if (!directory.exists()) directory.mkdirs();
 
@@ -229,6 +229,7 @@ public class ScacchieraController implements Serializable {
 
         if (file != null) {
             salvataggio.salvaPartita(g1, g2, partita, file);
+
         } else {
             throw new FileNotFoundException();
         }
@@ -260,6 +261,8 @@ public class ScacchieraController implements Serializable {
                 try {
                     saveButton(event);
                 } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (FileNulloException e) {
                     throw new RuntimeException(e);
                 }
                 System.exit(0);
