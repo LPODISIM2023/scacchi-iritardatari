@@ -129,20 +129,13 @@ public class StartController {
     }
 
     /**
-     *
+     * Il metodo che invoca la finestra che visualizza la lista delle partite salvate
      * @param event
      * @throws IOException
      * @throws ClassNotFoundException
      */
     @FXML
     public void CaricaSalvataggio(ActionEvent event) throws IOException, ClassNotFoundException{
-
-      /*  FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Salvataggi");
-        fileChooser.getExtensionFilters().clear();
-        fileChooser.setInitialDirectory(new File(System.getProperty("user.dir") + File.separator + "saved_games"));
-        File file = fileChooser.showOpenDialog(new Stage());
-        Salvataggio.caricaPartita(file,event);*/
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/listaPartitaSalvate.fxml"));
         root = loader.load();
@@ -151,7 +144,6 @@ public class StartController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-
 
         controller.init();
 

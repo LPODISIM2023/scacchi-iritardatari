@@ -127,6 +127,9 @@ public abstract class Pezzo extends ImageView implements Serializable {
 
     public abstract List<Mossa> getMosse();
 
+    /**
+     * Metodo che setta l'immagine su un pezzo
+     */
     public void setImage() {
         this.setImage(new Image("/pezzi/" + (this.colore ? "Bianco" : "Nero") + "/" + this.nome + ".png"));
     }

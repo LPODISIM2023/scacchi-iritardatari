@@ -121,6 +121,9 @@ public abstract class Giocatore implements Serializable {
     }
     /**
      * Medoto che aggiunge alla lista dei pezzi mangiati all'avversario un pezzo mangiato
+     * li rimuove dalla lista del giocatore
+     * Calcola il valore totale del giocatore
+     *
      */
     public void addPezzoMangiato (CasellaScacchiera casellaPezzoMangiato) {
         Pezzo pezzomangiato = null;
@@ -139,7 +142,10 @@ public abstract class Giocatore implements Serializable {
 
     }
 
-
+    /**
+     * Metodo che aggiunge un pezzo ai pezzi del giocatore
+     * @param pezzo
+     */
     public void addPezzo(Pezzo pezzo) {
         pezziGiocatore.add(pezzo);
     }

@@ -9,10 +9,6 @@ import java.util.List;
 
 public class Re extends Pezzo {
 
-
-    static ArrayList<CasellaScacchiera> mosseReLimitate = new ArrayList<>();
-    static ArrayList<CasellaScacchiera> mosseReLimitateAusiliario = new ArrayList<>();
-
     //metodo costruttore classe Re: crea una nuova istanza di Re
     public Re(String nome, String codice, int valore, boolean colore, int riga, int colonna, int codicePezzo) {
         super(nome, codice, valore, colore, riga, colonna, codicePezzo);
@@ -34,6 +30,10 @@ public class Re extends Pezzo {
         return riga <= 8 && riga >= 1 && colonna <= 8 && colonna >= 1;
     }
 
+    /**
+     * Metodo che restituisce le mosse disponibili che puoi fare legali
+     * @return
+     */
     public ArrayList<CasellaScacchiera> getArrayMosse() {
         ArrayList<CasellaScacchiera> mosseObbligate = new ArrayList<>();
         ArrayList<CasellaScacchiera> mosseNormaliDelPezzo = getArrayMosseNormali();
@@ -43,9 +43,13 @@ public class Re extends Pezzo {
                 mosseObbligate.add(mossa);
             }
         }
-
         return mosseObbligate;
     }
+
+    /**
+     * Metodo che restituisce la lista di tutte le mosse in generale che il Re può fare
+     * @return
+     */
 
     public ArrayList<CasellaScacchiera> getArrayMosseNormali() {
         ArrayList<CasellaScacchiera> mosseDisponibili = new ArrayList<>();

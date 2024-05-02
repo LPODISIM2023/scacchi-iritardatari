@@ -65,15 +65,18 @@ public class ScacchieraService implements Serializable {
         return pezzo;
     }
 
+    /**
+     * Metodo che serve per aggiornare la posizione di un pezzo
+     * @param pezzoDaMuovere
+     * @param riga
+     * @param colonna
+     */
 
     public void aggiornaPosizionePezzo(Pezzo pezzoDaMuovere, int riga, int colonna) {
         scacchieraTable.remove(pezzoDaMuovere.getRiga(), pezzoDaMuovere.getColonna());
         pezzoDaMuovere.setPosizione(riga, colonna);
         scacchieraTable.put(riga, colonna, pezzoDaMuovere);
     }
-
-
-    //DEBUG
 
     /**
      * Metodo Usato per il Debug della scacchiera Service per capire le effettive posizioni dei pezzi
@@ -210,4 +213,4 @@ public class ScacchieraService implements Serializable {
     }
 
 
-}//class Scacchiera
+}

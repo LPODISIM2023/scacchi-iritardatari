@@ -4,8 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
-
-
 public class NoSalvataggioException extends Exception{
 
     /**
