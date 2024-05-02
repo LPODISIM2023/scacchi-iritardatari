@@ -680,10 +680,10 @@ public class ScacchieraController implements Serializable {
 
         abbandona.showAndWait().ifPresent(scelta->{
             if(scelta == si){
-                System.exit(0);
+                exit(event);
             }
             if(scelta == si && PartitaService.getIsBot()){
-                System.exit(0);
+                exit(event);
             }
 
         });
@@ -719,7 +719,7 @@ public class ScacchieraController implements Serializable {
                 accettoPatta();
             }
             if(scelta == si && PartitaService.getIsBot()){
-                System.exit(0);
+                exit(event);
             }
         });
     }
