@@ -6,6 +6,8 @@ import engine.data.Salvataggio;
 import engine.giocatore.Giocatore;
 import engine.servizi.PartitaService;
 import engine.servizi.ScacchieraService;
+import javafx.event.EventHandler;
+import javafx.stage.WindowEvent;
 import pezzi.Pedone;
 import pezzi.Pezzo;
 import javafx.event.ActionEvent;
@@ -32,7 +34,6 @@ import java.io.IOException;
 
 import java.io.Serializable;
 import java.util.*;
-
 
 
 public class ScacchieraController implements Serializable {
@@ -99,11 +100,11 @@ public class ScacchieraController implements Serializable {
 
     public static ArrayList<CasellaScacchiera> caselle = new ArrayList<>();
 
-    public void setScacchieraService(ScacchieraService sS){
+    public void setScacchieraService(ScacchieraService sS) {
         this.scacchieraService = sS;
     }
 
-    public  PartitaService getPartita() {
+    public PartitaService getPartita() {
         return partita;
     }
 
@@ -183,22 +184,8 @@ public class ScacchieraController implements Serializable {
 
     }
 
-    /**
-     * Ritorna alla schermata di start del gioco
-     *
-     * @param event listener per la pressione del bottone PLAY
-     * @throws IOException
-     */
-    @FXML
-    public void getStart(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/start.fxml")));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
 
-    public void initGameRecuperato(Salvataggio salvataggio){
+    public void initGameRecuperato(Salvataggio salvataggio) {
         textAreaMosse.clear();
         textAreaMosse.setEditable(false);
         scrollPaneMosse.setContent(textAreaMosse);
@@ -226,52 +213,6 @@ public class ScacchieraController implements Serializable {
 
     //metodi per i pulsanti nel menù
 
-    /**
-     * Metodo collegato al menu button "Nuova Partita", inizializza una nuova partita chiedendo prima se si voglia salvare o meno
-     *
-     * @param event listener degli eventi
-     * @throws IOException
-     */
-    @FXML
-    public void newGame(ActionEvent event) throws IOException {
-
-        Alert nuovaPartita = new Alert(Alert.AlertType.NONE, "Sei sicuro di voler iniziare una nuova partita? I dati precedenti andranno persi");
-        nuovaPartita.setTitle("Vuoi salvare?");
-
-        ButtonType si = new ButtonType("Si");
-        ButtonType no = new ButtonType("No");
-        nuovaPartita.getButtonTypes().add(si);
-        nuovaPartita.getButtonTypes().add(no);
-
-        nuovaPartita.showAndWait().ifPresent(scelta -> {
-            if (scelta == si) {
-                try {
-                    File file = filePartita.showSaveDialog(new Stage());
-                    if(file != null) {
-                        salvataggio.salvaPartita(g1,g2,partita,file);
-                    }else{
-                        throw new FileNotFoundException();
-                    }
-                    textAreaMosse.clear();
-                    log = "";
-                    if (!(PartitaService.getColoreTurnoGiocatore())) {
-                        PartitaService.cambioTurno();
-                    }
-                    getStart(event);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            } else //renderScacchiera();
-                if (scelta == no) {
-                    try {
-                        initGame(g1.getNome(), g2.getNome(), PartitaService.getIsBot());  //migliorare terzo parametro.
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-        });
-    }
-
 
     /**
      * Metodo che salva una partita dopo aver cliccato sul bottone del menu "Salva"
@@ -281,18 +222,18 @@ public class ScacchieraController implements Serializable {
     @FXML
     public void saveButton(ActionEvent event) throws IOException {
 
-        if(!directory.exists()) directory.mkdirs();
+        if (!directory.exists()) directory.mkdirs();
 
         filePartita.setTitle("Salvataggi");
         filePartita.setInitialDirectory(new File(directoryPath));
-        FileChooser.ExtensionFilter cheesFilter = new FileChooser.ExtensionFilter("File chess","*.chess");
+        FileChooser.ExtensionFilter cheesFilter = new FileChooser.ExtensionFilter("File chess", "*.chess");
         filePartita.getExtensionFilters().add(cheesFilter);
         File file = filePartita.showSaveDialog(new Stage());
 
-        if(file != null){
-            salvataggio.salvaPartita(g1,g2,partita,file);
+        if (file != null) {
+            salvataggio.salvaPartita(g1, g2, partita, file);
             System.out.println("Salvato!");
-        }else{
+        } else {
             throw new FileNotFoundException();
         }
 
@@ -321,8 +262,8 @@ public class ScacchieraController implements Serializable {
         salvaEEsci.showAndWait().ifPresent(scelta -> {
             if (scelta == ok) {
                 try {
-                   saveButton(event);
-                    } catch (IOException e) {
+                    saveButton(event);
+                } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
                 System.exit(0);
@@ -467,7 +408,7 @@ public class ScacchieraController implements Serializable {
         //Vedo a quale giocatore è stato mangiato il pezzo
         if (!PartitaService.getColoreTurnoGiocatore()) {
             g1.addPezzoMangiato(casella);
-            if(casella.getPezzoDellaCasella() != null) {
+            if (casella.getPezzoDellaCasella() != null) {
                 visualizzaPezziMangiatiNeri(casella.getPezzoDellaCasella().getCodicePezzoUTF8());
             }
         } else {
@@ -476,7 +417,7 @@ public class ScacchieraController implements Serializable {
             System.out.println("Mangia il nero");
             System.out.println(g2);
             System.out.println(casella.getPezzoDellaCasella());
-            if(casella.getPezzoDellaCasella() != null) {
+            if (casella.getPezzoDellaCasella() != null) {
                 visualizzaPezziMangiatiBianchi(casella.getPezzoDellaCasella().getCodicePezzoUTF8());
             }
         }
@@ -595,9 +536,9 @@ public class ScacchieraController implements Serializable {
             }
             if (pezzoMangiatoDaRipristinare != null) {
                 scacchieraService.aggiornaPosizionePezzo(pezzoMangiatoDaRipristinare, ultimaMossa.getNewRiga(), ultimaMossa.getNewColonna());
-                if(pezzoMangiatoDaRipristinare.getColore()){
+                if (pezzoMangiatoDaRipristinare.getColore()) {
                     g1.addPezzo(pezzoMangiatoDaRipristinare);
-                }else{
+                } else {
                     g2.addPezzo(pezzoMangiatoDaRipristinare);
                 }
             }
@@ -608,30 +549,22 @@ public class ScacchieraController implements Serializable {
 
         Alert endGGame = new Alert(Alert.AlertType.NONE, "S");
 
-        if (!PartitaService.getColoreTurnoGiocatore())  {
+        if (!PartitaService.getColoreTurnoGiocatore()) {
             endGGame.setContentText("Ha Vinto il Bianco");
             endGGame.setTitle("Partita Conclusa: SCACCO MATTO");
-        }
-        else {
+        } else {
             endGGame.setContentText("Ha Vinto il Nero");
             endGGame.setTitle("Partita Conclusa: SCACCO MATTO");
         }
 
 
-        ButtonType nuovaPartita = new ButtonType("Nuova Partita");
         ButtonType esci = new ButtonType("Esci");
 
-        endGGame.getButtonTypes().setAll(nuovaPartita, esci);
+        endGGame.getButtonTypes().setAll(esci);
 
         endGGame.showAndWait().ifPresent(scelta -> {
-            if (scelta == nuovaPartita) {
-                try {
-                    initGame(g1.getNome(), g2.getNome(), PartitaService.getIsBot());
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            } else if (scelta == esci) {
-                        System.exit(0);
+            if (scelta == esci) {
+                System.exit(0);
             }
         });
 
@@ -639,23 +572,26 @@ public class ScacchieraController implements Serializable {
 
     /**
      * Il metodo assegna ad una label una stringa con i caratteri dei pezzi mangiati dal giocatore Bianco.
+     *
      * @param codPezzoNero codice UTF8 dei vari pezzi neri
      */
-    String pezziMangiatiDaBianco=" ";
-    public void visualizzaPezziMangiatiBianchi(int codPezzoNero){
+    String pezziMangiatiDaBianco = " ";
+
+    public void visualizzaPezziMangiatiBianchi(int codPezzoNero) {
         pezziMangiatiDaBianco += Character.toString(codPezzoNero);
         pezziMangiatiGiocatoreBianco.setText(pezziMangiatiDaBianco);
         labelPuntiG1.setText(" +" + g2.getValoreTotaleGiocatore());
     }
 
 
-
     /**
      * Il metodo assegna ad una label una stringa con i caratteri dei pezzi mangiati dal giocatore Nero.
+     *
      * @param codPezzoBianco codice UTF8 dei vari pezzi bianchi
      */
     String pezziMangiatiDaNero = " ";
-    public void visualizzaPezziMangiatiNeri(int codPezzoBianco){
+
+    public void visualizzaPezziMangiatiNeri(int codPezzoBianco) {
         pezziMangiatiDaNero += Character.toString(codPezzoBianco);
         pezziMangiatiGiocatoreNero.setText(pezziMangiatiDaNero);
         System.out.print("Coso del bot");
@@ -669,7 +605,7 @@ public class ScacchieraController implements Serializable {
      * Tale metodo mostrerà una finestra dalla quale il giocatore sceglierà se abbadonare la partita.
      * @param event
      */
-    public void abbandona(ActionEvent event){
+    public void abbandona(ActionEvent event) {
         Alert abbandona = new Alert(Alert.AlertType.NONE, "Sicuro di voler abbandonare la partita?");
         abbandona.setTitle("Abbandono della partita");
 
@@ -678,11 +614,11 @@ public class ScacchieraController implements Serializable {
 
         abbandona.getButtonTypes().setAll(si, no);
 
-        abbandona.showAndWait().ifPresent(scelta->{
-            if(scelta == si){
+        abbandona.showAndWait().ifPresent(scelta -> {
+            if (scelta == si) {
                 exit(event);
             }
-            if(scelta == si && PartitaService.getIsBot()){
+            if (scelta == si && PartitaService.getIsBot()) {
                 exit(event);
             }
 
@@ -691,6 +627,7 @@ public class ScacchieraController implements Serializable {
 
     /**
      * Il metodo gestisce la patta. Un giocatore umano può richiedere la patta al contrario del Giocatore Bot.
+     *
      * @param event
      */
     public void patta(ActionEvent event) {
@@ -718,35 +655,35 @@ public class ScacchieraController implements Serializable {
                 System.out.println(PartitaService.getColoreTurnoGiocatore());
                 accettoPatta();
             }
-            if(scelta == si && PartitaService.getIsBot()){
+            if (scelta == si && PartitaService.getIsBot()) {
                 exit(event);
             }
         });
     }
-        public void accettoPatta(){
-            Alert messaggio;
 
-            if(PartitaService.getColoreTurnoGiocatore()) {
-                messaggio = new Alert(Alert.AlertType.NONE, PartitaService.getGiocatore2().getNome() + " ha richiesto la patta. Accetti la patta?");
-            }
-            else{
-                messaggio = new Alert(Alert.AlertType.NONE, PartitaService.getGiocatore1().getNome() + " ha richiesto la patta. Accetti la patta?");
-            }
+    public void accettoPatta() {
+        Alert messaggio;
 
-            messaggio.setTitle("Conferma della patta");
-
-            ButtonType siPatta = new ButtonType("Accetto");
-            ButtonType noPatta = new ButtonType("Non Accetto");
-
-            messaggio.getButtonTypes().setAll(siPatta, noPatta);
-
-            messaggio.showAndWait().ifPresent(scelta->{
-                if(scelta == siPatta){
-                    System.exit(0);
-                }
-            });
-            PartitaService.cambioTurno();
+        if (PartitaService.getColoreTurnoGiocatore()) {
+            messaggio = new Alert(Alert.AlertType.NONE, PartitaService.getGiocatore2().getNome() + " ha richiesto la patta. Accetti la patta?");
+        } else {
+            messaggio = new Alert(Alert.AlertType.NONE, PartitaService.getGiocatore1().getNome() + " ha richiesto la patta. Accetti la patta?");
         }
+
+        messaggio.setTitle("Conferma della patta");
+
+        ButtonType siPatta = new ButtonType("Accetto");
+        ButtonType noPatta = new ButtonType("Non Accetto");
+
+        messaggio.getButtonTypes().setAll(siPatta, noPatta);
+
+        messaggio.showAndWait().ifPresent(scelta -> {
+            if (scelta == siPatta) {
+                System.exit(0);
+            }
+        });
+        PartitaService.cambioTurno();
+    }
 
     public static void patta50Mosse() {
         Alert pattaEndGame = new Alert(Alert.AlertType.NONE, "Nelle ultime cinquanta mosse consecutive, non vi è stata nessuna cattura e nessuna mossa di pedone.");
@@ -757,10 +694,10 @@ public class ScacchieraController implements Serializable {
 
         pattaEndGame.getButtonTypes().setAll(okPatta);
 
-        pattaEndGame.showAndWait().ifPresent(scelta->{
-                    if(scelta == okPatta){
-                        System.exit(0);
-                    }
+        pattaEndGame.showAndWait().ifPresent(scelta -> {
+            if (scelta == okPatta) {
+                System.exit(0);
+            }
         });
     }
 }

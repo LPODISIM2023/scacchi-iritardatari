@@ -36,11 +36,17 @@ public class ListaPartitaSalvateController {
 
     static ArrayList<Salvataggio> listSalvataggi = new ArrayList<>();
 
+    /**
+     * Metodo che viene invocato quando si carica la finestra
+     */
     public void init() {
         caricaPartiteFiltrate();
         renderListaPartitaSalvate();
     }
 
+    /**
+     * Metodo che si occupa di caricare, leggere e deserializzare le partite dal file
+     */
     public static void caricaPartiteFiltrate() {
         ArrayList<File> fileList = new ArrayList<>();
         File directory = new File(System.getProperty("user.dir") + File.separator + "saved_games");
@@ -65,6 +71,9 @@ public class ListaPartitaSalvateController {
         }
     }
 
+    /**
+     * Metodo che renderizza la lista dei salvataggi, invocato ogni volta che si riordina
+     */
     public void renderListaPartitaSalvate() {
         ObservableList<String> elementi = FXCollections.observableArrayList();
         for (Salvataggio save : listSalvataggi) {
@@ -112,6 +121,11 @@ public class ListaPartitaSalvateController {
         renderListaPartitaSalvate();
     }
 
+    /** Metodo invocato per tornare alla pagina di start
+     *
+     * @param actionEvent
+     * @throws IOException
+     */
     public void returnStart(ActionEvent actionEvent) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/start.fxml")));
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

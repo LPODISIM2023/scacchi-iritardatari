@@ -201,6 +201,9 @@ public class CasellaScacchiera extends StackPane {
         this.setBackground(new Background(new BackgroundFill(Color.web(colore_rosso), CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
+    /**
+     * Metodo che viene invocato per colorare la casella
+     */
     public void coloraCasella() {
         if (coloreCasella) {
             this.setBackground(new Background(new BackgroundFill(Color.web(colore_1), CornerRadii.EMPTY, Insets.EMPTY)));
@@ -209,6 +212,10 @@ public class CasellaScacchiera extends StackPane {
         }
     }
 
+    /**
+     * Metodo che viene invocato quando si fa drag di un pezzo sulla scacchiera
+     * e colora le caselle sottostanti
+     */
     public void evidenziaCasella() {
         this.setBackground(new Background(new BackgroundFill(Color.web(colore_evidenzia), CornerRadii.EMPTY, Insets.EMPTY)));
     }
@@ -260,6 +267,11 @@ public class CasellaScacchiera extends StackPane {
 
     }
 
+    /**
+     * Metodo che viene invocato mentre si fa drag col mouse per calcolare la posizione della
+     * casella e colorarla
+     * @param e
+     */
     public void coloraCasellaAlPassaggioDelMouse(MouseEvent e) {
         //Calcolo posizione della scacchiera
         double mouseX = e.getSceneX() - 290; // valore della scacchiera nella finestra, usato per creare le cordinare 0,0 nella scacchiera
@@ -289,7 +301,6 @@ public class CasellaScacchiera extends StackPane {
 
     /**
      * Metodo che setta il Pezzo della casella
-     *
      * @param pezzo
      */
     public void setPezzo(Pezzo pezzo) {
@@ -301,6 +312,10 @@ public class CasellaScacchiera extends StackPane {
         return coloreCasella;
     }
 
+    /**
+     * Imposta il colore della casella
+     * @param coloreCasella
+     */
     public void setColoreCasella(boolean coloreCasella) {
         this.coloreCasella = coloreCasella;
         coloraCasella();

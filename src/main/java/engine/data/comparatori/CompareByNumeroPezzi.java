@@ -15,7 +15,7 @@ public class CompareByNumeroPezzi implements Comparator<Salvataggio> {
         int pezziO2G2 = o2.getG2().getPezziGiocatore().size();
         int o2pezzi = pezziO2G1 + pezziO2G2;
 
-        return o1pezzi - o2pezzi;
+        return o2pezzi - o1pezzi;
 
     }
 }

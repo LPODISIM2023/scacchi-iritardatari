@@ -10,6 +10,11 @@ import javafx.stage.Stage;
 import java.util.Objects;
 
 public class Runner extends Application {
+    /**
+     * Metodo che viene invocato da launch(args) nel main
+     * crea la finestra e la inizializza
+     * @param stage
+     */
     @Override
     public void start(Stage stage) {
         try {
