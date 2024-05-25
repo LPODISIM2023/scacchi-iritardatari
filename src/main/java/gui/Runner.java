@@ -9,6 +9,9 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 
+/**
+ * @Author Francesco Vampa, Giovanni Altieri, Giammarco Ubaldi e Miriam De Vincentiis
+ */
 public class Runner extends Application {
 
 

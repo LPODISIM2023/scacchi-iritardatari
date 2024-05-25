@@ -40,6 +40,7 @@ public class ListaPartitaSalvateController {
      * Metodo che viene invocato quando si carica la finestra
      */
     public void init() {
+        listSalvataggi.clear();
         caricaPartiteFiltrate();
         renderListaPartitaSalvate();
     }

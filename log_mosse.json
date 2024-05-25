@@ -1,1 +1,731 @@
-[{"numeroMossa":1,"codPezzoMosso":"b_p3","oldColonna":3,"newColonna":3,"codPezzoMangiato":"-","newRiga":4,"oldRiga":2},{"numeroMossa":2,"codPezzoMosso":"n_p4","oldColonna":4,"newColonna":4,"codPezzoMangiato":"-","newRiga":5,"oldRiga":7},{"numeroMossa":3,"codPezzoMosso":"b_p3","oldColonna":3,"newColonna":4,"codPezzoMangiato":"n_p4","newRiga":5,"oldRiga":4},{"numeroMossa":4,"codPezzoMosso":"n_p5","oldColonna":5,"newColonna":5,"codPezzoMangiato":"-","newRiga":6,"oldRiga":7},{"numeroMossa":5,"codPezzoMosso":"b_p3","oldColonna":4,"newColonna":5,"codPezzoMangiato":"n_p5","newRiga":6,"oldRiga":5},{"numeroMossa":6,"codPezzoMosso":"n_a2","oldColonna":6,"newColonna":4,"codPezzoMangiato":"-","newRiga":6,"oldRiga":8},{"numeroMossa":7,"codPezzoMosso":"b_p3","oldColonna":5,"newColonna":6,"codPezzoMangiato":"n_p6","newRiga":7,"oldRiga":6},{"numeroMossa":8,"codPezzoMosso":"n_k1","oldColonna":5,"newColonna":6,"codPezzoMangiato":"b_p3","newRiga":7,"oldRiga":8}]
+[
+  {
+    "numeroMossa": 1,
+    "codPezzoMosso": "b_c1",
+    "oldColonna": 2,
+    "newColonna": 3,
+    "codPezzoMangiato": "-",
+    "newRiga": 3,
+    "oldRiga": 1
+  },
+  {
+    "numeroMossa": 2,
+    "codPezzoMosso": "n_c1",
+    "oldColonna": 2,
+    "newColonna": 1,
+    "codPezzoMangiato": "-",
+    "newRiga": 6,
+    "oldRiga": 8
+  },
+  {
+    "numeroMossa": 3,
+    "codPezzoMosso": "b_c1",
+    "oldColonna": 3,
+    "newColonna": 4,
+    "codPezzoMangiato": "-",
+    "newRiga": 5,
+    "oldRiga": 3
+  },
+  {
+    "numeroMossa": 4,
+    "codPezzoMosso": "n_p3",
+    "oldColonna": 3,
+    "newColonna": 3,
+    "codPezzoMangiato": "-",
+    "newRiga": 5,
+    "oldRiga": 7
+  },
+  {
+    "numeroMossa": 5,
+    "codPezzoMosso": "b_c2",
+    "oldColonna": 7,
+    "newColonna": 6,
+    "codPezzoMangiato": "-",
+    "newRiga": 3,
+    "oldRiga": 1
+  },
+  {
+    "numeroMossa": 6,
+    "codPezzoMosso": "n_p7",
+    "oldColonna": 7,
+    "newColonna": 7,
+    "codPezzoMangiato": "-",
+    "newRiga": 5,
+    "oldRiga": 7
+  },
+  {
+    "numeroMossa": 7,
+    "codPezzoMosso": "b_c2",
+    "oldColonna": 6,
+    "newColonna": 7,
+    "codPezzoMangiato": "n_p7",
+    "newRiga": 5,
+    "oldRiga": 3
+  },
+  {
+    "numeroMossa": 8,
+    "codPezzoMosso": "n_p3",
+    "oldColonna": 3,
+    "newColonna": 3,
+    "codPezzoMangiato": "-",
+    "newRiga": 4,
+    "oldRiga": 5
+  },
+  {
+    "numeroMossa": 9,
+    "codPezzoMosso": "b_c2",
+    "oldColonna": 7,
+    "newColonna": 5,
+    "codPezzoMangiato": "-",
+    "newRiga": 6,
+    "oldRiga": 5
+  },
+  {
+    "numeroMossa": 10,
+    "codPezzoMosso": "n_p4",
+    "oldColonna": 4,
+    "newColonna": 5,
+    "codPezzoMangiato": "b_c2",
+    "newRiga": 6,
+    "oldRiga": 7
+  },
+  {
+    "numeroMossa": 11,
+    "codPezzoMosso": "b_c1",
+    "oldColonna": 4,
+    "newColonna": 3,
+    "codPezzoMangiato": "-",
+    "newRiga": 7,
+    "oldRiga": 5
+  },
+  {
+    "numeroMossa": 12,
+    "codPezzoMosso": "n_c1",
+    "oldColonna": 1,
+    "newColonna": 3,
+    "codPezzoMangiato": "b_c1",
+    "newRiga": 7,
+    "oldRiga": 6
+  },
+  {
+    "numeroMossa": 13,
+    "codPezzoMosso": "b_p5",
+    "oldColonna": 5,
+    "newColonna": 5,
+    "codPezzoMangiato": "-",
+    "newRiga": 4,
+    "oldRiga": 2
+  },
+  {
+    "numeroMossa": 14,
+    "codPezzoMosso": "n_p3",
+    "oldColonna": 3,
+    "newColonna": 3,
+    "codPezzoMangiato": "-",
+    "newRiga": 3,
+    "oldRiga": 4
+  },
+  {
+    "numeroMossa": 15,
+    "codPezzoMosso": "b_a2",
+    "oldColonna": 6,
+    "newColonna": 2,
+    "codPezzoMangiato": "-",
+    "newRiga": 5,
+    "oldRiga": 1
+  },
+  {
+    "numeroMossa": 16,
+    "codPezzoMosso": "n_q1",
+    "oldColonna": 4,
+    "newColonna": 4,
+    "codPezzoMangiato": "-",
+    "newRiga": 7,
+    "oldRiga": 8
+  },
+  {
+    "numeroMossa": 17,
+    "codPezzoMosso": "b_a2",
+    "oldColonna": 2,
+    "newColonna": 4,
+    "codPezzoMangiato": "n_q1",
+    "newRiga": 7,
+    "oldRiga": 5
+  },
+  {
+    "numeroMossa": 18,
+    "codPezzoMosso": "n_k1",
+    "oldColonna": 5,
+    "newColonna": 4,
+    "codPezzoMangiato": "b_a2",
+    "newRiga": 7,
+    "oldRiga": 8
+  },
+  {
+    "numeroMossa": 19,
+    "codPezzoMosso": "b_q1",
+    "oldColonna": 4,
+    "newColonna": 6,
+    "codPezzoMangiato": "-",
+    "newRiga": 3,
+    "oldRiga": 1
+  },
+  {
+    "numeroMossa": 20,
+    "codPezzoMosso": "n_p2",
+    "oldColonna": 2,
+    "newColonna": 2,
+    "codPezzoMangiato": "-",
+    "newRiga": 5,
+    "oldRiga": 7
+  },
+  {
+    "numeroMossa": 21,
+    "codPezzoMosso": "b_q1",
+    "oldColonna": 6,
+    "newColonna": 6,
+    "codPezzoMangiato": "n_p6",
+    "newRiga": 7,
+    "oldRiga": 3
+  },
+  {
+    "numeroMossa": 22,
+    "codPezzoMosso": "n_a2",
+    "oldColonna": 6,
+    "newColonna": 7,
+    "codPezzoMangiato": "-",
+    "newRiga": 7,
+    "oldRiga": 8
+  },
+  {
+    "numeroMossa": 23,
+    "codPezzoMosso": "b_q1",
+    "oldColonna": 6,
+    "newColonna": 7,
+    "codPezzoMangiato": "n_a2",
+    "newRiga": 7,
+    "oldRiga": 7
+  },
+  {
+    "numeroMossa": 24,
+    "codPezzoMosso": "n_p2",
+    "oldColonna": 2,
+    "newColonna": 2,
+    "codPezzoMangiato": "-",
+    "newRiga": 4,
+    "oldRiga": 5
+  },
+  {
+    "numeroMossa": 25,
+    "codPezzoMosso": "b_q1",
+    "oldColonna": 7,
+    "newColonna": 8,
+    "codPezzoMangiato": "n_t2",
+    "newRiga": 8,
+    "oldRiga": 7
+  },
+  {
+    "numeroMossa": 26,
+    "codPezzoMosso": "n_k1",
+    "oldColonna": 4,
+    "newColonna": 3,
+    "codPezzoMangiato": "-",
+    "newRiga": 6,
+    "oldRiga": 7
+  },
+  {
+    "numeroMossa": 27,
+    "codPezzoMosso": "b_q1",
+    "oldColonna": 8,
+    "newColonna": 3,
+    "codPezzoMangiato": "n_p3",
+    "newRiga": 3,
+    "oldRiga": 8
+  },
+  {
+    "numeroMossa": 28,
+    "codPezzoMosso": "n_k1",
+    "oldColonna": 3,
+    "newColonna": 2,
+    "codPezzoMangiato": "-",
+    "newRiga": 5,
+    "oldRiga": 6
+  },
+  {
+    "numeroMossa": 29,
+    "codPezzoMosso": "b_q1",
+    "oldColonna": 3,
+    "newColonna": 3,
+    "codPezzoMangiato": "n_c1",
+    "newRiga": 7,
+    "oldRiga": 3
+  },
+  {
+    "numeroMossa": 30,
+    "codPezzoMosso": "n_p4",
+    "oldColonna": 5,
+    "newColonna": 5,
+    "codPezzoMangiato": "-",
+    "newRiga": 5,
+    "oldRiga": 6
+  },
+  {
+    "numeroMossa": 31,
+    "codPezzoMosso": "b_q1",
+    "oldColonna": 3,
+    "newColonna": 3,
+    "codPezzoMangiato": "n_a1",
+    "newRiga": 8,
+    "oldRiga": 7
+  },
+  {
+    "numeroMossa": 32,
+    "codPezzoMosso": "n_p2",
+    "oldColonna": 2,
+    "newColonna": 2,
+    "codPezzoMangiato": "-",
+    "newRiga": 3,
+    "oldRiga": 4
+  },
+  {
+    "numeroMossa": 33,
+    "codPezzoMosso": "b_q1",
+    "oldColonna": 3,
+    "newColonna": 1,
+    "codPezzoMangiato": "n_t1",
+    "newRiga": 8,
+    "oldRiga": 8
+  },
+  {
+    "numeroMossa": 34,
+    "codPezzoMosso": "n_k1",
+    "oldColonna": 2,
+    "newColonna": 1,
+    "codPezzoMangiato": "-",
+    "newRiga": 5,
+    "oldRiga": 5
+  },
+  {
+    "numeroMossa": 35,
+    "codPezzoMosso": "b_q1",
+    "oldColonna": 1,
+    "newColonna": 7,
+    "codPezzoMangiato": "n_c2",
+    "newRiga": 8,
+    "oldRiga": 8
+  },
+  {
+    "numeroMossa": 36,
+    "codPezzoMosso": "n_p2",
+    "oldColonna": 2,
+    "newColonna": 1,
+    "codPezzoMangiato": "b_p1",
+    "newRiga": 2,
+    "oldRiga": 3
+  },
+  {
+    "numeroMossa": 37,
+    "codPezzoMosso": "b_q1",
+    "oldColonna": 7,
+    "newColonna": 1,
+    "codPezzoMangiato": "n_p2",
+    "newRiga": 2,
+    "oldRiga": 8
+  },
+  {
+    "numeroMossa": 38,
+    "codPezzoMosso": "n_k1",
+    "oldColonna": 1,
+    "newColonna": 2,
+    "codPezzoMangiato": "-",
+    "newRiga": 4,
+    "oldRiga": 5
+  },
+  {
+    "numeroMossa": 39,
+    "codPezzoMosso": "b_q1",
+    "oldColonna": 1,
+    "newColonna": 1,
+    "codPezzoMangiato": "n_p1",
+    "newRiga": 7,
+    "oldRiga": 2
+  },
+  {
+    "numeroMossa": 40,
+    "codPezzoMosso": "n_p8",
+    "oldColonna": 8,
+    "newColonna": 8,
+    "codPezzoMangiato": "-",
+    "newRiga": 6,
+    "oldRiga": 7
+  },
+  {
+    "numeroMossa": 41,
+    "codPezzoMosso": "b_q1",
+    "oldColonna": 1,
+    "newColonna": 5,
+    "codPezzoMangiato": "n_p5",
+    "newRiga": 7,
+    "oldRiga": 7
+  },
+  {
+    "numeroMossa": 42,
+    "codPezzoMosso": "n_k1",
+    "oldColonna": 2,
+    "newColonna": 2,
+    "codPezzoMangiato": "-",
+    "newRiga": 5,
+    "oldRiga": 4
+  },
+  {
+    "numeroMossa": 43,
+    "codPezzoMosso": "b_q1",
+    "oldColonna": 5,
+    "newColonna": 5,
+    "codPezzoMangiato": "n_p4",
+    "newRiga": 5,
+    "oldRiga": 7
+  },
+  {
+    "numeroMossa": 44,
+    "codPezzoMosso": "n_k1",
+    "oldColonna": 2,
+    "newColonna": 2,
+    "codPezzoMangiato": "-",
+    "newRiga": 6,
+    "oldRiga": 5
+  },
+  {
+    "numeroMossa": 45,
+    "codPezzoMosso": "b_q1",
+    "oldColonna": 5,
+    "newColonna": 8,
+    "codPezzoMangiato": "-",
+    "newRiga": 5,
+    "oldRiga": 5
+  },
+  {
+    "numeroMossa": 46,
+    "codPezzoMosso": "n_k1",
+    "oldColonna": 2,
+    "newColonna": 3,
+    "codPezzoMangiato": "-",
+    "newRiga": 6,
+    "oldRiga": 6
+  },
+  {
+    "numeroMossa": 47,
+    "codPezzoMosso": "b_q1",
+    "oldColonna": 8,
+    "newColonna": 8,
+    "codPezzoMangiato": "n_p8",
+    "newRiga": 6,
+    "oldRiga": 5
+  },
+  {
+    "numeroMossa": 48,
+    "codPezzoMosso": "n_k1",
+    "oldColonna": 3,
+    "newColonna": 3,
+    "codPezzoMangiato": "-",
+    "newRiga": 7,
+    "oldRiga": 6
+  },
+  {
+    "numeroMossa": 49,
+    "codPezzoMosso": "b_p4",
+    "oldColonna": 4,
+    "newColonna": 4,
+    "codPezzoMangiato": "-",
+    "newRiga": 4,
+    "oldRiga": 2
+  },
+  {
+    "numeroMossa": 50,
+    "codPezzoMosso": "n_k1",
+    "oldColonna": 3,
+    "newColonna": 4,
+    "codPezzoMangiato": "-",
+    "newRiga": 7,
+    "oldRiga": 7
+  },
+  {
+    "numeroMossa": 51,
+    "codPezzoMosso": "b_a1",
+    "oldColonna": 3,
+    "newColonna": 6,
+    "codPezzoMangiato": "-",
+    "newRiga": 4,
+    "oldRiga": 1
+  },
+  {
+    "numeroMossa": 52,
+    "codPezzoMosso": "n_k1",
+    "oldColonna": 4,
+    "newColonna": 5,
+    "codPezzoMangiato": "-",
+    "newRiga": 8,
+    "oldRiga": 7
+  },
+  {
+    "numeroMossa": 53,
+    "codPezzoMosso": "b_q1",
+    "oldColonna": 8,
+    "newColonna": 7,
+    "codPezzoMangiato": "-",
+    "newRiga": 6,
+    "oldRiga": 6
+  },
+  {
+    "numeroMossa": 54,
+    "codPezzoMosso": "n_k1",
+    "oldColonna": 5,
+    "newColonna": 6,
+    "codPezzoMangiato": "-",
+    "newRiga": 8,
+    "oldRiga": 8
+  },
+  {
+    "numeroMossa": 55,
+    "codPezzoMosso": "b_t1",
+    "oldColonna": 1,
+    "newColonna": 1,
+    "codPezzoMangiato": "-",
+    "newRiga": 8,
+    "oldRiga": 1
+  },
+  {
+    "numeroMossa": 56,
+    "codPezzoMosso": "n_k1",
+    "oldColonna": 6,
+    "newColonna": 5,
+    "codPezzoMangiato": "-",
+    "newRiga": 7,
+    "oldRiga": 8
+  },
+  {
+    "numeroMossa": 57,
+    "codPezzoMosso": "b_q1",
+    "oldColonna": 7,
+    "newColonna": 8,
+    "codPezzoMangiato": "-",
+    "newRiga": 7,
+    "oldRiga": 6
+  },
+  {
+    "numeroMossa": 58,
+    "codPezzoMosso": "n_k1",
+    "oldColonna": 5,
+    "newColonna": 6,
+    "codPezzoMangiato": "-",
+    "newRiga": 6,
+    "oldRiga": 7
+  },
+  {
+    "numeroMossa": 59,
+    "codPezzoMosso": "b_a1",
+    "oldColonna": 6,
+    "newColonna": 7,
+    "codPezzoMangiato": "-",
+    "newRiga": 5,
+    "oldRiga": 4
+  },
+  {
+    "numeroMossa": 60,
+    "codPezzoMosso": "n_k1",
+    "oldColonna": 6,
+    "newColonna": 7,
+    "codPezzoMangiato": "b_a1",
+    "newRiga": 5,
+    "oldRiga": 6
+  },
+  {
+    "numeroMossa": 61,
+    "codPezzoMosso": "b_p7",
+    "oldColonna": 7,
+    "newColonna": 7,
+    "codPezzoMangiato": "-",
+    "newRiga": 4,
+    "oldRiga": 2
+  },
+  {
+    "numeroMossa": 62,
+    "codPezzoMosso": "n_k1",
+    "oldColonna": 7,
+    "newColonna": 6,
+    "codPezzoMangiato": "-",
+    "newRiga": 4,
+    "oldRiga": 5
+  },
+  {
+    "numeroMossa": 63,
+    "codPezzoMosso": "b_p6",
+    "oldColonna": 6,
+    "newColonna": 6,
+    "codPezzoMangiato": "-",
+    "newRiga": 3,
+    "oldRiga": 2
+  },
+  {
+    "numeroMossa": 64,
+    "codPezzoMosso": "n_k1",
+    "oldColonna": 6,
+    "newColonna": 5,
+    "codPezzoMangiato": "-",
+    "newRiga": 3,
+    "oldRiga": 4
+  },
+  {
+    "numeroMossa": 65,
+    "codPezzoMosso": "b_t2",
+    "oldColonna": 8,
+    "newColonna": 6,
+    "codPezzoMangiato": "-",
+    "newRiga": 1,
+    "oldRiga": 1
+  },
+  {
+    "numeroMossa": 66,
+    "codPezzoMosso": "n_k1",
+    "oldColonna": 5,
+    "newColonna": 6,
+    "codPezzoMangiato": "-",
+    "newRiga": 4,
+    "oldRiga": 3
+  },
+  {
+    "numeroMossa": 67,
+    "codPezzoMosso": "b_t2",
+    "oldColonna": 6,
+    "newColonna": 6,
+    "codPezzoMangiato": "-",
+    "newRiga": 2,
+    "oldRiga": 1
+  },
+  {
+    "numeroMossa": 68,
+    "codPezzoMosso": "n_k1",
+    "oldColonna": 6,
+    "newColonna": 5,
+    "codPezzoMangiato": "-",
+    "newRiga": 3,
+    "oldRiga": 4
+  },
+  {
+    "numeroMossa": 69,
+    "codPezzoMosso": "b_t2",
+    "oldColonna": 6,
+    "newColonna": 5,
+    "codPezzoMangiato": "-",
+    "newRiga": 2,
+    "oldRiga": 2
+  },
+  {
+    "numeroMossa": 70,
+    "codPezzoMosso": "n_k1",
+    "oldColonna": 5,
+    "newColonna": 4,
+    "codPezzoMangiato": "b_p4",
+    "newRiga": 4,
+    "oldRiga": 3
+  },
+  {
+    "numeroMossa": 71,
+    "codPezzoMosso": "b_t1",
+    "oldColonna": 1,
+    "newColonna": 3,
+    "codPezzoMangiato": "-",
+    "newRiga": 8,
+    "oldRiga": 8
+  },
+  {
+    "numeroMossa": 72,
+    "codPezzoMosso": "n_k1",
+    "oldColonna": 4,
+    "newColonna": 5,
+    "codPezzoMangiato": "-",
+    "newRiga": 5,
+    "oldRiga": 4
+  },
+  {
+    "numeroMossa": 73,
+    "codPezzoMosso": "b_t1",
+    "oldColonna": 3,
+    "newColonna": 5,
+    "codPezzoMangiato": "-",
+    "newRiga": 8,
+    "oldRiga": 8
+  },
+  {
+    "numeroMossa": 74,
+    "codPezzoMosso": "n_k1",
+    "oldColonna": 5,
+    "newColonna": 6,
+    "codPezzoMangiato": "-",
+    "newRiga": 6,
+    "oldRiga": 5
+  },
+  {
+    "numeroMossa": 75,
+    "codPezzoMosso": "b_t2",
+    "oldColonna": 5,
+    "newColonna": 4,
+    "codPezzoMangiato": "-",
+    "newRiga": 2,
+    "oldRiga": 2
+  },
+  {
+    "numeroMossa": 76,
+    "codPezzoMosso": "n_k1",
+    "oldColonna": 6,
+    "newColonna": 7,
+    "codPezzoMangiato": "-",
+    "newRiga": 5,
+    "oldRiga": 6
+  },
+  {
+    "numeroMossa": 77,
+    "codPezzoMosso": "b_t2",
+    "oldColonna": 4,
+    "newColonna": 4,
+    "codPezzoMangiato": "-",
+    "newRiga": 5,
+    "oldRiga": 2
+  },
+  {
+    "numeroMossa": 78,
+    "codPezzoMosso": "n_k1",
+    "oldColonna": 7,
+    "newColonna": 6,
+    "codPezzoMangiato": "-",
+    "newRiga": 4,
+    "oldRiga": 5
+  },
+  {
+    "numeroMossa": 79,
+    "codPezzoMosso": "b_t1",
+    "oldColonna": 5,
+    "newColonna": 6,
+    "codPezzoMangiato": "-",
+    "newRiga": 8,
+    "oldRiga": 8
+  },
+  {
+    "numeroMossa": 80,
+    "codPezzoMosso": "n_k1",
+    "oldColonna": 6,
+    "newColonna": 5,
+    "codPezzoMangiato": "-",
+    "newRiga": 3,
+    "oldRiga": 4
+  },
+  {
+    "numeroMossa": 81,
+    "codPezzoMosso": "b_q1",
+    "oldColonna": 8,
+    "newColonna": 8,
+    "codPezzoMangiato": "-",
+    "newRiga": 6,
+    "oldRiga": 7
+  }
+]
